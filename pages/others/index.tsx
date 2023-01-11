@@ -3,7 +3,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import styles from "shared/styles/personal.module.css";
+import styles from "shared/styles/Personal.module.css";
 import Template from "components/Template";
 
 export default function Personal() {
