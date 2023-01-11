@@ -1,0 +1,53 @@
+.section-container {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+}
+
+.section-group {
+  width: 100%;
+}
+
+.section-header {
+  background-image: url('/header.jpg');
+  background-size: cover;
+  background-position-y: 80%;
+  font-size: 1.2rem;
+  font-weight: 500;
+  height: 12rem;
+  text-align: right;
+  text-shadow: 1px 1px 1px #ffffff;
+}
+
+.section-button {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: darkslategray;
+  font-size: 1.2rem;
+  font-weight: 400;
+  height: 10rem;
+  justify-content: left;
+  opacity: 0.55;
+  text-shadow: 1px 1px 5px #eeeeee;
+}
+
+.section-button:hover {
+  opacity: 0.8;
+}
+
+.section-button-urban-taxi {
+  background-image: url('/new-taxi-urban.jpg');
+}
+
+.section-button-nt-taxi {
+  background-image: url('/new-taxi-nt.jpg');
+}
+
+.section-button-lantau-taxi {
+  background-image: url('/new-taxi-lantau.jpg');
+}
+
+.section-footer {
+  font-size: 0.85rem;
+}
