@@ -1,0 +1,16 @@
+.template-container {
+  margin-top: 2rem;
+}
+
+.template-content {
+  background-color: white;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+}
+
+.template-footer {
+  background-color: white;
+  font-size: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 0.35rem;
+}
