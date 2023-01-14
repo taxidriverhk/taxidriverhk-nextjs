@@ -15,7 +15,7 @@ export default function Template({ activeItemIndex, children }: PropType) {
         <Header activeItemIndex={activeItemIndex} />
         <Container className={styles["template-content"]}>{children}</Container>
         <div className={styles["template-footer"]}>
-          Created by Alex Leung &copy; 2021
+          Created by Alex Leung &copy; 2023
         </div>
       </div>
     </Container>

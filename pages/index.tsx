@@ -26,7 +26,7 @@ export default function Home() {
               styles["section-button"],
               styles["section-button-urban-taxi"]
             )}
-            href="/csmaps"
+            href="csmaps"
           >
             Counter Strike Maps
           </ListGroup.Item>
@@ -36,7 +36,7 @@ export default function Home() {
               styles["section-button"],
               styles["section-button-nt-taxi"]
             )}
-            href="/omsi"
+            href="omsi"
           >
             OMSI / Bus Driving Simulator
           </ListGroup.Item>
@@ -46,7 +46,7 @@ export default function Home() {
               styles["section-button"],
               styles["section-button-lantau-taxi"]
             )}
-            href="/others"
+            href="others"
           >
             Personal Website
           </ListGroup.Item>
