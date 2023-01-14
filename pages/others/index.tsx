@@ -11,10 +11,14 @@ import {
   faCamera,
   faSolarPanel,
 } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
+
 import Section from "components/Section";
 import Template from "components/Template";
 
 export default function Personal() {
+  const router = useRouter();
+  const currentPath = router.asPath;
   return (
     <Template activeItemIndex={2}>
       <Section
@@ -51,7 +55,7 @@ export default function Personal() {
           {
             description:
               "A simple React page for looking up vehicle inventory of various brands within the U.S.",
-            href: "vehicle-inventory-lookup",
+            href: `${currentPath}/vehicle-inventory-lookup`,
             icon: faReact,
             title: "Vehicle Inventory Lookup",
           },
@@ -83,13 +87,13 @@ export default function Personal() {
         items={[
           {
             description: "A collection of other pages.",
-            href: "pages",
+            href: `${currentPath}/pages`,
             icon: faSolarPanel,
             title: "Other Pages",
           },
           {
             description: "Books that I have read or am reading.",
-            href: "books",
+            href: `${currentPath}/books`,
             icon: faBook,
             title: "Books",
           },
