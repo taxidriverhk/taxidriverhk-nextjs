@@ -3,7 +3,6 @@ import classNames from "classnames";
 import Head from "next/head";
 import Link from "next/link";
 import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
 import ListGroup from "react-bootstrap/ListGroup";
 
 import styles from "shared/styles/Home.module.css";
@@ -16,13 +15,6 @@ export default function Home() {
       </Head>
       <div className={styles["section-container"]}>
         <ListGroup className={styles["section-group"]}>
-          <Alert variant="warning">
-            This is an experimental version of website written in{" "}
-            <strong>NextJS</strong>.
-            <br />
-            As this website is still under development, no contents are served
-            at this time.
-          </Alert>
           {/* Header */}
           <ListGroup.Item className={styles["section-header"]} disabled>
             Hong Kong Taxi Driver Workshop
