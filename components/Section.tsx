@@ -28,6 +28,7 @@ export default function Section({ headerTitle, items }: PropType) {
               action
               className={styles["section-block"]}
               href={href}
+              key={title}
             >
               <FontAwesomeIcon className={styles["section-icon"]} icon={icon} />
               {title}
