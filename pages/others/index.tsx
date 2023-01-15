@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
-import Section from "components/Section";
+import PersonalSection from "components/PersonalSection";
 import Template from "components/Template";
 
 export default function Personal() {
@@ -21,7 +21,7 @@ export default function Personal() {
   const currentPath = router.asPath;
   return (
     <Template activeItemIndex={2}>
-      <Section
+      <PersonalSection
         headerTitle="Portfolio"
         items={[
           {
@@ -42,7 +42,7 @@ export default function Personal() {
           },
         ]}
       />
-      <Section
+      <PersonalSection
         headerTitle="Projects"
         items={[
           {
@@ -82,7 +82,7 @@ export default function Personal() {
           },
         ]}
       />
-      <Section
+      <PersonalSection
         headerTitle="Others"
         items={[
           {

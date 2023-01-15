@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import styles from "components/styles/Section.module.css";
+import styles from "components/styles/PersonalSection.module.css";
 
-type SectionItem = {
+type PersonalSectionItem = {
   description?: string;
   href: string;
   icon: IconProp;
@@ -14,10 +14,10 @@ type SectionItem = {
 
 type PropType = {
   headerTitle: string;
-  items: Array<SectionItem>;
+  items: Array<PersonalSectionItem>;
 };
 
-export default function Section({ headerTitle, items }: PropType) {
+export default function PersonalSection({ headerTitle, items }: PropType) {
   return (
     <Card bg="light" border="dark" className={styles["section-container"]}>
       <Card.Header>{headerTitle}</Card.Header>
