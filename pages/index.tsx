@@ -1,6 +1,5 @@
 import classNames from "classnames";
 
-import Head from "next/head";
 import Link from "next/link";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -10,9 +9,6 @@ import styles from "shared/styles/Home.module.css";
 export default function Home() {
   return (
     <Container>
-      <Head>
-        <title>Hong Kong Taxi Driver Workshop</title>
-      </Head>
       <div className={styles["section-container"]}>
         <ListGroup className={styles["section-group"]}>
           {/* Header */}
