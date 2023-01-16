@@ -24,7 +24,7 @@ export type MapItem = {
   id: number;
   images?: Array<{
     url: string;
-    caption: string;
+    caption?: string;
   }>;
   maxPlayers: number;
   name: string;

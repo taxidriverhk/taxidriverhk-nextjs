@@ -1,5 +1,6 @@
 import type { GetStaticPropsResult } from "next";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import MapSection from "components/MapSection";
 import Template from "components/Template";
@@ -15,7 +16,14 @@ type PropType = {
 
 export default function CsMaps({ categories, maps }: PropType) {
   const router = useRouter();
-  const currentPath = router.asPath;
+  const { pathname: currentPath, query } = router;
+
+  useEffect(() => {
+    const id = query.id;
+    if (id != null) {
+      router.push(`${currentPath}/maps/${id}`);
+    }
+  });
 
   return (
     <Template activeItemIndex={0}>
