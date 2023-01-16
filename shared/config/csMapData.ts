@@ -4,6 +4,11 @@ export enum ReleaseStatus {
   Unavailable,
 }
 
+export const releaseStatusDisplayText = {
+  [ReleaseStatus.InProgress]: "In Progress",
+  [ReleaseStatus.Unavailable]: "Unavailable",
+};
+
 export type MapCategory = {
   abbr: string;
   id: number;
@@ -71,7 +76,7 @@ export const mapItems: Array<MapItem> = [
     version: "0.8 (Beta Version)",
     releaseDate: "2007-09-28",
     status: ReleaseStatus.Unavailable,
-    icon: "img/icon1.jpg",
+    icon: "/csmaps/icon1.jpg",
     maxPlayers: 10,
     floorPlanImage: "",
     images: [],
@@ -85,7 +90,7 @@ export const mapItems: Array<MapItem> = [
     version: "1.0 (Final Version)",
     releaseDate: "2008-05-29",
     status: ReleaseStatus.Released,
-    icon: "img/icon2.jpg",
+    icon: "/csmaps/icon2.jpg",
     maxPlayers: 16,
     floorPlanImage: "map1_1.jpg",
     images: [
@@ -112,7 +117,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2010-12-25",
     status: ReleaseStatus.Released,
     maxPlayers: 24,
-    icon: "img/icon11.jpg",
+    icon: "/csmaps/icon11.jpg",
     floorPlanImage: "map2_1.jpg",
     images: [
       {
@@ -138,7 +143,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2019-05-04",
     status: ReleaseStatus.Released,
     maxPlayers: 24,
-    icon: "img/icon24.jpg",
+    icon: "/csmaps/icon24.jpg",
     floorPlanImage: "map24.jpg",
     images: [
       {
@@ -183,7 +188,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2007-11-05",
     status: ReleaseStatus.Unavailable,
     maxPlayers: 26,
-    icon: "img/icon5.jpg",
+    icon: "/csmaps/icon5.jpg",
     floorPlanImage: "",
     images: [],
     downloadLinks: [],
@@ -197,7 +202,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2008-03-22",
     status: ReleaseStatus.Released,
     maxPlayers: 16,
-    icon: "img/icon3.jpg",
+    icon: "/csmaps/icon3.jpg",
     floorPlanImage: "map3_1.jpg",
     images: [
       {
@@ -223,7 +228,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2009-08-12",
     status: ReleaseStatus.Released,
     maxPlayers: 32,
-    icon: "img/icon4.jpg",
+    icon: "/csmaps/icon4.jpg",
     floorPlanImage: "map4_1.jpg",
     images: [
       {
@@ -249,7 +254,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2010-02-11",
     status: ReleaseStatus.Released,
     maxPlayers: 32,
-    icon: "img/icon13.jpg",
+    icon: "/csmaps/icon13.jpg",
     floorPlanImage: "map11_1.jpg",
     images: [
       {
@@ -275,7 +280,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2011-04-30",
     status: ReleaseStatus.Released,
     maxPlayers: 30,
-    icon: "img/icon15.jpg",
+    icon: "/csmaps/icon15.jpg",
     floorPlanImage: "map13_1.jpg",
     images: [
       {
@@ -301,7 +306,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2019-03-29",
     status: ReleaseStatus.Released,
     maxPlayers: 30,
-    icon: "img/icon18.jpg",
+    icon: "/csmaps/icon18.jpg",
     floorPlanImage: "map16_1-01(1).jpg",
     images: [
       {
@@ -339,7 +344,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2012-02-14",
     status: ReleaseStatus.Released,
     maxPlayers: 32,
-    icon: "img/icon22.jpg",
+    icon: "/csmaps/icon22.jpg",
     floorPlanImage: "map20_1.jpg",
     images: [
       {
@@ -391,7 +396,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2008-05-13",
     status: ReleaseStatus.Released,
     maxPlayers: 16,
-    icon: "img/icon6.jpg",
+    icon: "/csmaps/icon6.jpg",
     floorPlanImage: "map5_1.jpg",
     images: [
       {
@@ -417,7 +422,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2009-05-25",
     status: ReleaseStatus.Released,
     maxPlayers: 20,
-    icon: "img/icon7.jpg",
+    icon: "/csmaps/icon7.jpg",
     floorPlanImage: "map6_1.jpg",
     images: [
       {
@@ -443,7 +448,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2009-07-07",
     status: ReleaseStatus.Released,
     maxPlayers: 24,
-    icon: "img/icon8.jpg",
+    icon: "/csmaps/icon8.jpg",
     floorPlanImage: "map7_1.jpg",
     images: [
       {
@@ -469,7 +474,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2009-08-01",
     status: ReleaseStatus.Released,
     maxPlayers: 30,
-    icon: "img/icon9.jpg",
+    icon: "/csmaps/icon9.jpg",
     floorPlanImage: "map8_1.jpg",
     images: [
       {
@@ -495,7 +500,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2010-05-16",
     status: ReleaseStatus.Released,
     maxPlayers: 24,
-    icon: "img/icon12.jpg",
+    icon: "/csmaps/icon12.jpg",
     floorPlanImage: "map9_1.jpg",
     images: [
       {
@@ -521,7 +526,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2011-04-11",
     status: ReleaseStatus.Released,
     maxPlayers: 30,
-    icon: "img/icon14.jpg",
+    icon: "/csmaps/icon14.jpg",
     floorPlanImage: "map12_1.jpg",
     images: [
       {
@@ -547,7 +552,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2011-06-08",
     status: ReleaseStatus.InProgress,
     maxPlayers: 30,
-    icon: "img/icon17.jpg",
+    icon: "/csmaps/icon17.jpg",
     floorPlanImage: "map15_1-01.jpg",
     images: [
       {
@@ -591,7 +596,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2011-09-01",
     status: ReleaseStatus.Released,
     maxPlayers: 32,
-    icon: "img/icon19.jpg",
+    icon: "/csmaps/icon19.jpg",
     floorPlanImage: "map17_1.jpg",
     images: [
       {
@@ -625,7 +630,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2012-02-02",
     status: ReleaseStatus.Released,
     maxPlayers: 30,
-    icon: "img/icon21.jpg",
+    icon: "/csmaps/icon21.jpg",
     floorPlanImage: "map19_1.jpg",
     images: [
       {
@@ -681,7 +686,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2012-01-06",
     status: ReleaseStatus.Released,
     maxPlayers: 10,
-    icon: "img/icon20.jpg",
+    icon: "/csmaps/icon20.jpg",
     floorPlanImage: "map18_1.jpg",
     images: [
       {
@@ -715,7 +720,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2019-05-20",
     status: ReleaseStatus.Released,
     maxPlayers: 10,
-    icon: "img/icon25.jpg",
+    icon: "/csmaps/icon25.jpg",
     floorPlanImage: "map25.jpg",
     images: [
       {
@@ -756,7 +761,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2011-05-14",
     status: ReleaseStatus.Released,
     maxPlayers: 32,
-    icon: "img/icon16.jpg",
+    icon: "/csmaps/icon16.jpg",
     floorPlanImage: "map14_1.jpg",
     images: [
       {
@@ -782,7 +787,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2019-03-15",
     status: ReleaseStatus.Released,
     maxPlayers: 32,
-    icon: "img/icon23.jpg",
+    icon: "/csmaps/icon23.jpg",
     floorPlanImage: "map23.jpg",
     progressPercentage: 95,
     images: [
@@ -832,7 +837,7 @@ export const mapItems: Array<MapItem> = [
     releaseDate: "2009-06-19",
     status: ReleaseStatus.Released,
     maxPlayers: 20,
-    icon: "img/icon10.jpg",
+    icon: "/csmaps/icon10.jpg",
     floorPlanImage: "map10_1.jpg",
     images: [
       {

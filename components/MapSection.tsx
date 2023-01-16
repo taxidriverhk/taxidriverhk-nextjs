@@ -1,28 +1,28 @@
 import Card from "react-bootstrap/Card";
-import Figure from "react-bootstrap/Figure";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import type { MapCategory, MapItem } from "shared/config/csMapData";
+import MapItem from "components/MapItem";
+import type {
+  MapCategory,
+  MapItem as MapItemType,
+} from "shared/config/csMapData";
+
+import styles from "components/styles/MapSection.module.css";
 
 type PropType = {
   basePath: string;
   category: MapCategory;
-  maps: Array<MapItem>;
+  maps: Array<MapItemType>;
 };
 
 export default function MapSection({ basePath, category, maps }: PropType) {
   const { abbr: categoryAbbr, fullName: categoryName } = category;
   return (
-    <Card bg="light" border="dark">
+    <Card bg="light" border="dark" className={styles["section-container"]}>
       <Card.Header>{`${categoryAbbr} (${categoryName})`}</Card.Header>
       <ListGroup>
-        {maps.map(({ id, icon, name, status }) => (
-          <ListGroup.Item action href={`${basePath}/maps/${id}`} key={id}>
-            <Figure>
-              <Figure.Image src={icon} />
-              <Figure.Caption>{`${name} [${status}]`}</Figure.Caption>
-            </Figure>
-          </ListGroup.Item>
+        {maps.map((map) => (
+          <MapItem key={map.id} basePath={basePath} map={map} />
         ))}
       </ListGroup>
     </Card>

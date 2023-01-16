@@ -1,0 +1,14 @@
+.section-block {
+  display: flex;
+  justify-content: flex-start;
+  margin-block-end: 0px;
+}
+
+.section-container {
+  margin-bottom: 1rem;
+}
+
+.section-text {
+  line-height: 50px;
+  margin-left: 1rem;
+}
