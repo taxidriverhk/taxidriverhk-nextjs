@@ -1,11 +1,12 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import Button from "react-bootstrap/Button";
+import ProgressBar from "react-bootstrap/ProgressBar";
 import Table from "react-bootstrap/Table";
 
 import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
 import type { MapItem } from "shared/config/csMapData";
-import { mapItems } from "shared/config/csMapData";
+import { mapItems, ReleaseStatus } from "shared/config/csMapData";
 
 type PropType = {
   map: MapItem;
@@ -18,7 +19,9 @@ export default function CsMapDetails({
     images,
     maxPlayers,
     name,
+    progressPercentage,
     releaseDate,
+    status,
     version,
   },
 }: PropType) {
@@ -51,6 +54,15 @@ export default function CsMapDetails({
           <tr>
             <td>Download</td>
             <td>
+              {status === ReleaseStatus.InProgress && (
+                <>
+                  Coming Soon
+                  <ProgressBar
+                    now={progressPercentage}
+                    label={`${progressPercentage}%`}
+                  />
+                </>
+              )}
               {downloadLinks?.map((downloadLink, index) => (
                 <>
                   <Button href={downloadLink}>{`Download (Mirror ${

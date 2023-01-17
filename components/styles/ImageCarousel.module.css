@@ -1,0 +1,17 @@
+.carousel-caption {
+  text-shadow: 2px 2px 1px #000000;
+}
+
+.carousel-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.carousel-container a {
+  filter: brightness(0.75);
+}
+
+.carousel-container img {
+  max-height: 600px;
+  width: 100%;
+}

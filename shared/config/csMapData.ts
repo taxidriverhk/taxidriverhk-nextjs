@@ -18,7 +18,6 @@ export type MapCategory = {
 export type MapItem = {
   categoryId: number;
   downloadLinks?: Array<string>;
-  floorPlanImage?: string;
   fullName: string;
   icon: string;
   id: number;
@@ -78,7 +77,6 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Unavailable,
     icon: "/csmaps/icon1.jpg",
     maxPlayers: 10,
-    floorPlanImage: "",
     images: [],
     downloadLinks: [],
   },
@@ -92,14 +90,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     icon: "/csmaps/icon2.jpg",
     maxPlayers: 16,
-    floorPlanImage: "map1_1.jpg",
     images: [
       {
-        url: "map1_2.jpg",
+        url: "/csmaps/map1_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map1_2.jpg",
         caption: "Star Ferry",
       },
       {
-        url: "map1_3.jpg",
+        url: "/csmaps/map1_3.jpg",
         caption: "VIP Escape Point",
       },
     ],
@@ -118,14 +119,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 24,
     icon: "/csmaps/icon11.jpg",
-    floorPlanImage: "map2_1.jpg",
     images: [
       {
-        url: "map2_2.jpg",
+        url: "/csmaps/map2_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map2_2.jpg",
         caption: "Star Ferry",
       },
       {
-        url: "map2_3.jpg",
+        url: "/csmaps/map2_3.jpg",
         caption: "VIP Escape Point",
       },
     ],
@@ -144,34 +148,37 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 24,
     icon: "/csmaps/icon24.jpg",
-    floorPlanImage: "map24.jpg",
     images: [
       {
-        url: "map24_1.jpg",
+        url: "/csmaps/map24.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map24_1.jpg",
         caption: "Entrance (VIP Escape Point)",
       },
       {
-        url: "map24_2.jpg",
+        url: "/csmaps/map24_2.jpg",
         caption: "Hotel Room",
       },
       {
-        url: "map24_3.jpg",
+        url: "/csmaps/map24_3.jpg",
         caption: "Hotel Room",
       },
       {
-        url: "map24_4.jpg",
+        url: "/csmaps/map24_4.jpg",
         caption: "Hallway",
       },
       {
-        url: "map24_5.jpg",
+        url: "/csmaps/map24_5.jpg",
         caption: "Restaurant",
       },
       {
-        url: "map24_6.jpg",
+        url: "/csmaps/map24_6.jpg",
         caption: "Restaurant",
       },
       {
-        url: "map24_7.jpg",
+        url: "/csmaps/map24_7.jpg",
         caption: "Bar",
       },
     ],
@@ -189,7 +196,6 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Unavailable,
     maxPlayers: 26,
     icon: "/csmaps/icon5.jpg",
-    floorPlanImage: "",
     images: [],
     downloadLinks: [],
   },
@@ -203,14 +209,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 16,
     icon: "/csmaps/icon3.jpg",
-    floorPlanImage: "map3_1.jpg",
     images: [
       {
-        url: "map3_2.jpg",
+        url: "/csmaps/map3_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map3_2.jpg",
         caption: "Covered Playground",
       },
       {
-        url: "map3_3.jpg",
+        url: "/csmaps/map3_3.jpg",
         caption: "Campus",
       },
     ],
@@ -229,14 +238,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon4.jpg",
-    floorPlanImage: "map4_1.jpg",
     images: [
       {
-        url: "map4_2.jpg",
+        url: "/csmaps/map4_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map4_2.jpg",
         caption: "Covered Playground",
       },
       {
-        url: "map4_3.jpg",
+        url: "/csmaps/map4_3.jpg",
         caption: "Campus",
       },
     ],
@@ -255,14 +267,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon13.jpg",
-    floorPlanImage: "map11_1.jpg",
     images: [
       {
-        url: "map11_2.jpg",
+        url: "/csmaps/map11_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map11_2.jpg",
         caption: "Country Park Entrance (Hostage Rescue Point)",
       },
       {
-        url: "map11_2.jpg",
+        url: "/csmaps/map11_2.jpg",
         caption: "Camp (Location of the Hostages)",
       },
     ],
@@ -281,14 +296,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon15.jpg",
-    floorPlanImage: "map13_1.jpg",
     images: [
       {
-        url: "map13_2.jpg",
+        url: "/csmaps/map13_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map13_2.jpg",
         caption: "Beach",
       },
       {
-        url: "map13_3.jpg",
+        url: "/csmaps/map13_3.jpg",
         caption: "Alley",
       },
     ],
@@ -307,26 +325,29 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon18.jpg",
-    floorPlanImage: "map16_1-01(1).jpg",
     images: [
       {
-        url: "map16_2.jpg",
+        url: "/csmaps/map16_1-01(1).jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map16_2.jpg",
         caption: "Campus",
       },
       {
-        url: "map16_3.jpg",
+        url: "/csmaps/map16_3.jpg",
         caption: "Campus 2",
       },
       {
-        url: "map16_4.jpg",
+        url: "/csmaps/map16_4.jpg",
         caption: "Hall",
       },
       {
-        url: "map16_5.jpg",
+        url: "/csmaps/map16_5.jpg",
         caption: "Reception",
       },
       {
-        url: "map16_6.jpg",
+        url: "/csmaps/map16_6.jpg",
         caption: "Covered Playground",
       },
     ],
@@ -345,38 +366,41 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon22.jpg",
-    floorPlanImage: "map20_1.jpg",
     images: [
       {
-        url: "map20_2.jpg",
+        url: "/csmaps/map20_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map20_2.jpg",
         caption: "Light Rail Station (Hostage Rescue Point)",
       },
       {
-        url: "map20_3.jpg",
+        url: "/csmaps/map20_3.jpg",
         caption: "Public Housing Building",
       },
       {
-        url: "map20_4.jpg",
+        url: "/csmaps/map20_4.jpg",
         caption: "Bus Terminus",
       },
       {
-        url: "map20_5.jpg",
+        url: "/csmaps/map20_5.jpg",
         caption: "Shopping Centre",
       },
       {
-        url: "map20_6.jpg",
+        url: "/csmaps/map20_6.jpg",
         caption: "Market",
       },
       {
-        url: "map20_7.jpg",
+        url: "/csmaps/map20_7.jpg",
         caption: "Cooked Food Stall (Location of Hostages)",
       },
       {
-        url: "map20_9.jpg",
+        url: "/csmaps/map20_9.jpg",
         caption: "Seafood Restaurant",
       },
       {
-        url: "map20_10.jpg",
+        url: "/csmaps/map20_10.jpg",
         caption: "Garbage Collection",
       },
     ],
@@ -397,14 +421,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 16,
     icon: "/csmaps/icon6.jpg",
-    floorPlanImage: "map5_1.jpg",
     images: [
       {
-        url: "map5_2.jpg",
+        url: "/csmaps/map5_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map5_2.jpg",
         caption: "Main Park",
       },
       {
-        url: "map5_3.jpg",
+        url: "/csmaps/map5_3.jpg",
         caption: "Castle (Bomb Planting Site)",
       },
     ],
@@ -423,14 +450,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 20,
     icon: "/csmaps/icon7.jpg",
-    floorPlanImage: "map6_1.jpg",
     images: [
       {
-        url: "map6_2.jpg",
+        url: "/csmaps/map6_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map6_2.jpg",
         caption: "Station Concourse",
       },
       {
-        url: "map6_3.jpg",
+        url: "/csmaps/map6_3.jpg",
         caption: "Station Platform (Bomb Planting Site B)",
       },
     ],
@@ -449,14 +479,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 24,
     icon: "/csmaps/icon8.jpg",
-    floorPlanImage: "map7_1.jpg",
     images: [
       {
-        url: "map7_2.jpg",
+        url: "/csmaps/map7_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map7_2.jpg",
         caption: "Outside of Lucky Plaza",
       },
       {
-        url: "map7_3.jpg",
+        url: "/csmaps/map7_3.jpg",
         caption: "Supermarket (Bomb Planting Site A)",
       },
     ],
@@ -475,14 +508,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon9.jpg",
-    floorPlanImage: "map8_1.jpg",
     images: [
       {
-        url: "map8_2.jpg",
+        url: "/csmaps/map8_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map8_2.jpg",
         caption: "Public Housing Buildings",
       },
       {
-        url: "map8_3.jpg",
+        url: "/csmaps/map8_3.jpg",
         caption: "Bus Terminus (Bomb Planting Site A)",
       },
     ],
@@ -501,14 +537,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 24,
     icon: "/csmaps/icon12.jpg",
-    floorPlanImage: "map9_1.jpg",
     images: [
       {
-        url: "map9_2.jpg",
+        url: "/csmaps/map9_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map9_2.jpg",
         caption: "Station Concourse (Bomb Plating Site A)",
       },
       {
-        url: "map9_3.jpg",
+        url: "/csmaps/map9_3.jpg",
         caption: "Station Platform (Bomb Plating Site B)",
       },
     ],
@@ -527,14 +566,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon14.jpg",
-    floorPlanImage: "map12_1.jpg",
     images: [
       {
-        url: "map12_2.jpg",
+        url: "/csmaps/map12_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map12_2.jpg",
         caption: "Park n' Shop Supermarket",
       },
       {
-        url: "map12_3.jpg",
+        url: "/csmaps/map12_3.jpg",
         caption: "Wellcome Supermarket",
       },
     ],
@@ -553,34 +595,37 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.InProgress,
     maxPlayers: 30,
     icon: "/csmaps/icon17.jpg",
-    floorPlanImage: "map15_1-01.jpg",
     images: [
       {
-        url: "map15_2.jpg",
+        url: "/csmaps/map15_1-01.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map15_2.jpg",
         caption: "Mei Foo Station (Tsuen Wan Line)",
       },
       {
-        url: "map15_3.jpg",
+        url: "/csmaps/map15_3.jpg",
         caption: "Mei Foo Station (West Rail Line)",
       },
       {
-        url: "map15_4.jpg",
+        url: "/csmaps/map15_4.jpg",
         caption: "Platform (West Rail Line)",
       },
       {
-        url: "map15_5.jpg",
+        url: "/csmaps/map15_5.jpg",
         caption: "Concourse (West Rail Line)",
       },
       {
-        url: "map15_6.jpg",
+        url: "/csmaps/map15_6.jpg",
         caption: "Lai Chi Kok Park",
       },
       {
-        url: "map15_7.jpg",
+        url: "/csmaps/map15_7.jpg",
         caption: "Concourse (Tsuen Wan Line)",
       },
       {
-        url: "map15_8.jpg",
+        url: "/csmaps/map15_8.jpg",
         caption: "Platform (Tsuen Wan Line)",
       },
     ],
@@ -597,22 +642,25 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon19.jpg",
-    floorPlanImage: "map17_1.jpg",
     images: [
       {
-        url: "map17_2.jpg",
+        url: "/csmaps/map17_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map17_2.jpg",
         caption: "Shopping Mall Entrance",
       },
       {
-        url: "map17_3.jpg",
+        url: "/csmaps/map17_3.jpg",
         caption: "Elevator to Second Floor",
       },
       {
-        url: "map17_4.jpg",
+        url: "/csmaps/map17_4.jpg",
         caption: "Second Floor of Shopping Mall",
       },
       {
-        url: "map17_5.jpg",
+        url: "/csmaps/map17_5.jpg",
         caption: "Bomb Plating Site B",
       },
     ],
@@ -631,42 +679,45 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon21.jpg",
-    floorPlanImage: "map19_1.jpg",
     images: [
       {
-        url: "map19_2.jpg",
+        url: "/csmaps/map19_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map19_2.jpg",
         caption: "Salon",
       },
       {
-        url: "map19_3.jpg",
+        url: "/csmaps/map19_3.jpg",
         caption: "Hallway",
       },
       {
-        url: "map19_4.jpg",
+        url: "/csmaps/map19_4.jpg",
         caption: "Restaurant",
       },
       {
-        url: "map19_5.jpg",
+        url: "/csmaps/map19_5.jpg",
         caption: "Bomb Planting Site A",
       },
       {
-        url: "map19_6.jpg",
+        url: "/csmaps/map19_6.jpg",
         caption: "Clinic",
       },
       {
-        url: "map19_7.jpg",
+        url: "/csmaps/map19_7.jpg",
         caption: "Bomb Planting Site B",
       },
       {
-        url: "map19_8.jpg",
+        url: "/csmaps/map19_8.jpg",
         caption: "Clinic",
       },
       {
-        url: "map19_9.jpg",
+        url: "/csmaps/map19_9.jpg",
         caption: "Grocery Store",
       },
       {
-        url: "map19_10.jpg",
+        url: "/csmaps/map19_10.jpg",
         caption: "Restaurant Kitchen",
       },
     ],
@@ -687,22 +738,25 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 10,
     icon: "/csmaps/icon20.jpg",
-    floorPlanImage: "map18_1.jpg",
     images: [
       {
-        url: "map18_2.jpg",
+        url: "/csmaps/map18_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map18_2.jpg",
         caption: "Buildings",
       },
       {
-        url: "map18_3.jpg",
+        url: "/csmaps/map18_3.jpg",
         caption: "Living Room",
       },
       {
-        url: "map18_4.jpg",
+        url: "/csmaps/map18_4.jpg",
         caption: "Bedroom",
       },
       {
-        url: "map18_5.jpg",
+        url: "/csmaps/map18_5.jpg",
         caption: "Kitchen",
       },
     ],
@@ -721,30 +775,33 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 10,
     icon: "/csmaps/icon25.jpg",
-    floorPlanImage: "map25.jpg",
     images: [
       {
-        url: "map25_1.jpg",
+        url: "/csmaps/map25.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map25_1.jpg",
         caption: "Living Room (Counter-Terrorist Spawn Spot)",
       },
       {
-        url: "map25_2.jpg",
+        url: "/csmaps/map25_2.jpg",
         caption: "Kitchen",
       },
       {
-        url: "map25_3.jpg",
+        url: "/csmaps/map25_3.jpg",
         caption: "Bedroom",
       },
       {
-        url: "map25_4.jpg",
+        url: "/csmaps/map25_4.jpg",
         caption: "Bedroom",
       },
       {
-        url: "map25_5.jpg",
+        url: "/csmaps/map25_5.jpg",
         caption: "Staircase",
       },
       {
-        url: "map25_6.jpg",
+        url: "/csmaps/map25_6.jpg",
         caption: "Entrance (Terrorist Spawn Spot)",
       },
     ],
@@ -762,14 +819,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon16.jpg",
-    floorPlanImage: "map14_1.jpg",
     images: [
       {
-        url: "map14_2.jpg",
+        url: "/csmaps/map14_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map14_2.jpg",
         caption: "Hong Kong Departure Port",
       },
       {
-        url: "map14_3.jpg",
+        url: "/csmaps/map14_3.jpg",
         caption: "China Arrival Port",
       },
     ],
@@ -788,36 +848,39 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon23.jpg",
-    floorPlanImage: "map23.jpg",
     progressPercentage: 95,
     images: [
       {
-        url: "map23_1p.jpg",
+        url: "/csmaps/map23.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map23_1p.jpg",
         caption: "Level B1 (Terrorist Spawn Spot)",
       },
       {
-        url: "map23_2p.jpg",
+        url: "/csmaps/map23_2p.jpg",
         caption: "Levels B2 and B3",
       },
       {
-        url: "map23_3p.jpg",
+        url: "/csmaps/map23_3p.jpg",
         caption: "Levels B1 Ticketing Counter",
       },
       {
-        url: "map23_4p.jpg",
+        url: "/csmaps/map23_4p.jpg",
         caption: "Levels B3 Departure Concourse",
       },
       {
-        url: "map23_5p.jpg",
+        url: "/csmaps/map23_5p.jpg",
         caption: "Level B3 Atrium",
       },
       {
-        url: "map23_6p.jpg",
+        url: "/csmaps/map23_6p.jpg",
         caption:
           "Level B4 Platform (Counter-Terrorist Spawn Spot and Escape Point)",
       },
       {
-        url: "map23_7p.jpg",
+        url: "/csmaps/map23_7p.jpg",
         caption: "Level B2 Arrival Concourse",
       },
     ],
@@ -838,14 +901,17 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 20,
     icon: "/csmaps/icon10.jpg",
-    floorPlanImage: "map10_1.jpg",
     images: [
       {
-        url: "map10_2.jpg",
+        url: "/csmaps/map10_1.jpg",
+        caption: "Floor Plan",
+      },
+      {
+        url: "/csmaps/map10_2.jpg",
         caption: "Plaza",
       },
       {
-        url: "map10_3.jpg",
+        url: "/csmaps/map10_3.jpg",
         caption: "Entrance",
       },
     ],
