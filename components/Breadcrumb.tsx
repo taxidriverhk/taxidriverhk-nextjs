@@ -26,7 +26,16 @@ const PATH_TITLES = {
       prefix: "/others",
       title: "Personal Website",
       children: [
-        { prefix: "/pages", title: "Pages" },
+        {
+          prefix: "/pages",
+          title: "Pages",
+          children: [
+            {
+              prefix: "/apple-daily",
+              title: "Hong Kong Apple Daily Videos Archive",
+            },
+          ],
+        },
         { prefix: "/books", title: "Books" },
       ],
     },
