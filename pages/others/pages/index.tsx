@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import Template from "components/Template";
@@ -15,30 +16,32 @@ export default function OthersPages() {
         <li>Buses</li>
         <ul>
           <li>
-            <a href="legacy/colorparadox/MotorCity/Speedway/8728/p_bus.html">
+            <Link href="/legacy/colorparadox/MotorCity/Speedway/8728/p_bus.html">
               Color Paradox - Jess&apos;s 66 Transport Photo Page (Directly
               Extracted from Geocities)
-            </a>
+            </Link>
           </li>
         </ul>
         <li>Video Archives</li>
         <ul>
           <li>
-            <a href="legacy/hketv">HKETV (香港教育電視) Videos Archive</a>
+            <Link href="/legacy/hketv">
+              HKETV (香港教育電視) Videos Archive
+            </Link>
           </li>
           <li>
-            <a href={`${currentPath}/apple-daily`}>
+            <Link href={`${currentPath}/apple-daily`}>
               Apple Daily (蘋果日報) Videos Archive (Mostly between 2019 and
               2021)
-            </a>
+            </Link>
           </li>
         </ul>
         <li>Others</li>
         <ul>
           <li>
-            <a href="legacy/wordpress">
+            <Link href="/legacy/wordpress">
               Extract of My Old Xanga Blog Entries (Password Required)
-            </a>
+            </Link>
           </li>
         </ul>
       </ul>
