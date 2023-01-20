@@ -2,6 +2,7 @@ import type { GetStaticPropsResult } from "next";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
+import Breadcrumb from "components/Breadcrumb";
 import MapSection from "components/MapSection";
 import Template from "components/Template";
 import type { MapCategory, MapItem } from "shared/config/csMapData";
@@ -16,7 +17,7 @@ type PropType = {
 
 export default function CsMaps({ categories, maps }: PropType) {
   const router = useRouter();
-  const { pathname: currentPath, query } = router;
+  const { asPath: path, pathname: currentPath, query } = router;
 
   useEffect(() => {
     const id = query.id;
@@ -27,6 +28,7 @@ export default function CsMaps({ categories, maps }: PropType) {
 
   return (
     <Template activeItemIndex={0}>
+      <Breadcrumb path={path} />
       {categories.map((category) => (
         <MapSection
           key={category.id}

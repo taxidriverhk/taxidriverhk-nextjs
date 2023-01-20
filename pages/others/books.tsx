@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 
+import Breadcrumb from "components/Breadcrumb";
 import Template from "components/Template";
 
 export default function OthersBooks() {
@@ -7,6 +8,7 @@ export default function OthersBooks() {
   const { asPath: currentPath } = router;
   return (
     <Template activeItemIndex={2}>
+      <Breadcrumb path={currentPath} />
       <p>
         This page shares the books that I have read, am reading or wish to read.
         Most of the books are in Chinese, so the content below are mostly in
