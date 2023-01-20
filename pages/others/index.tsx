@@ -18,7 +18,7 @@ import Template from "components/Template";
 
 export default function Personal() {
   const router = useRouter();
-  const currentPath = router.asPath;
+  const { asPath: currentPath } = router;
   return (
     <Template activeItemIndex={2}>
       <PersonalSection
