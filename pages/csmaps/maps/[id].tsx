@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Table from "react-bootstrap/Table";
 
-import Breadcrumb from "components/Breadcrumb";
 import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
 import type { MapItem } from "shared/config/csMapData";
@@ -30,8 +29,7 @@ export default function CsMapDetails({
   const router = useRouter();
   const { asPath: currentPath } = router;
   return (
-    <Template activeItemIndex={0}>
-      <Breadcrumb path={currentPath} />
+    <Template activeItemIndex={0} path={currentPath}>
       <h3>{name}</h3>
       {images && <ImageCarousel images={images} />}
       <Table bordered>

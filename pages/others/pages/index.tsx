@@ -1,14 +1,12 @@
 import { useRouter } from "next/router";
 
-import Breadcrumb from "components/Breadcrumb";
 import Template from "components/Template";
 
 export default function OthersPages() {
   const router = useRouter();
   const { asPath: currentPath } = router;
   return (
-    <Template activeItemIndex={2}>
-      <Breadcrumb path={currentPath} />
+    <Template activeItemIndex={2} path={currentPath}>
       <p>
         All other pages like tutorials, archives and anything interesting are
         listed below:
@@ -18,8 +16,8 @@ export default function OthersPages() {
         <ul>
           <li>
             <a href="legacy/colorparadox/MotorCity/Speedway/8728/p_bus.html">
-              Color Paradox - Jess's 66 Transport Photo Page (Directly Extracted
-              from Geocities)
+              Color Paradox - Jess&apos;s 66 Transport Photo Page (Directly
+              Extracted from Geocities)
             </a>
           </li>
         </ul>

@@ -13,7 +13,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
-import Breadcrumb from "components/Breadcrumb";
 import PersonalSection from "components/PersonalSection";
 import Template from "components/Template";
 
@@ -21,8 +20,7 @@ export default function Personal() {
   const router = useRouter();
   const { asPath: currentPath } = router;
   return (
-    <Template activeItemIndex={2}>
-      <Breadcrumb path={currentPath} />
+    <Template activeItemIndex={2} path={currentPath}>
       <PersonalSection
         headerTitle="Portfolio"
         items={[

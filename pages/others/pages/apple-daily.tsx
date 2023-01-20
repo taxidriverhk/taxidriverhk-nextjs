@@ -1,14 +1,12 @@
 import { useRouter } from "next/router";
 
-import Breadcrumb from "components/Breadcrumb";
 import Template from "components/Template";
 
 export default function OthersPagesAppleDaily() {
   const router = useRouter();
   const { asPath: currentPath } = router;
   return (
-    <Template activeItemIndex={2}>
-      <Breadcrumb path={currentPath} />
+    <Template activeItemIndex={2} path={currentPath}>
       <ul>
         <li>
           本頁主要收集香港蘋果日報閉館前的影片，以留作紀錄，所有影片都有在本地硬碟及雲端空間上備份。
