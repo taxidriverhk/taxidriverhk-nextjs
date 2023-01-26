@@ -1,0 +1,17 @@
+.template-body {
+  background-color: #ffffff;
+  padding: 15px;
+}
+
+.template-footer {
+  background-color: #eeeeee;
+  font-size: 12px;
+  padding: 10px;
+}
+
+.template-header-image {
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  min-height: 160px;
+}
