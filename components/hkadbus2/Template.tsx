@@ -5,15 +5,32 @@ import Navbar from "react-bootstrap/Navbar";
 import styles from "components/hkadbus2/styles/Template.module.css";
 
 type PropType = {
+  busModelTitle: string;
+  categoryTitle: string;
   children: React.ReactNode;
+  linkAs?: React.ElementType;
+  locale?: string;
+  onLocaleChange: (locale: string) => void;
   path: string;
+  title: string;
 };
 
 const NUM_HEADER_IMAGES: number = 5;
 
-export default function Template({ children, path }: PropType) {
+export default function Template({
+  busModelTitle,
+  categoryTitle,
+  children,
+  linkAs,
+  locale = "en-US",
+  onLocaleChange,
+  path,
+  title,
+}: PropType) {
   const backgroundImageNumber: number =
     Math.floor(Math.random() * NUM_HEADER_IMAGES) + 1;
+  const LinkComponent = linkAs || "a";
+
   return (
     <Container>
       <div
@@ -24,18 +41,30 @@ export default function Template({ children, path }: PropType) {
       />
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand>
-            Hong Kong Advertised Bus Photo Database v2.5
-          </Navbar.Brand>
+          <Navbar.Brand>{title}</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link>Categories</Nav.Link>
-              <Nav.Link>Bus Models</Nav.Link>
+              <Nav.Link as={LinkComponent} href={`${path}/categories`}>
+                {categoryTitle}
+              </Nav.Link>
+              <Nav.Link as={LinkComponent} href={`${path}/bus-models`}>
+                {busModelTitle}
+              </Nav.Link>
             </Nav>
-            <Nav>
-              <Nav.Link>Eng</Nav.Link>
-              <Nav.Link>中</Nav.Link>
+            <Nav variant="pills">
+              <Nav.Link
+                active={locale === "en-US"}
+                onClick={() => onLocaleChange("en-US")}
+              >
+                Eng
+              </Nav.Link>
+              <Nav.Link
+                active={locale === "zh-HK"}
+                onClick={() => onLocaleChange("zh-HK")}
+              >
+                中
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
