@@ -8,15 +8,15 @@ export async function fetchGetCategories(
   locale?: string
 ): Promise<GetCategoriesResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await fetchGet(`/categories?language=${convertedLocale}`);
+  return await fetchGet("/categories", { language: convertedLocale });
 }
 
 function convertLocaleToLanguage(locale?: string): string {
   return (locale || "en-US").replace("-", "_").toLowerCase();
 }
 
-async function fetchGet<T>(endpoint: string) {
-  const response = await axios.get<T>(`${API_ENDPOINT}${endpoint}`);
+async function fetchGet<T>(endpoint: string, params: any) {
+  const response = await axios.get<T>(`${API_ENDPOINT}${endpoint}`, { params });
   const { data } = response;
   return data;
 }

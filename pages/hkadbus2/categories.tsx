@@ -1,17 +1,18 @@
+import type { PhotoCardPropType } from "components/hkadbus2/PhotoCard";
+import PhotoCardList from "components/hkadbus2/PhotoCardList";
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
 import { fetchGetCategories } from "shared/fetch/hkadbus2";
-import type { GetCategoriesResponse } from "shared/types/hkadbus2-types";
 
 type PropType = {
-  data: GetCategoriesResponse;
+  categoryPhotoCards: Array<PhotoCardPropType>;
 };
 
-export default function HKAdbus2Categories({ data }: PropType) {
+export default function HKAdbus2Categories({ categoryPhotoCards }: PropType) {
   return (
     <HKAdBus2TemplateContainer>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <PhotoCardList photos={categoryPhotoCards} />
     </HKAdBus2TemplateContainer>
   );
 }
@@ -20,11 +21,16 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PropType>> {
   const { locale } = context;
-  const data = await fetchGetCategories(locale);
+  const { categories } = await fetchGetCategories(locale);
+  const categoryPhotoCards = categories.map(({ id, name, thumbnail }) => ({
+    href: `categories/${id}`,
+    photo: thumbnail,
+    title: name,
+  }));
 
   return {
     props: {
-      data,
+      categoryPhotoCards,
     },
   };
 }
