@@ -1,8 +1,18 @@
 import axios from "axios";
 
-import type { GetCategoriesResponse } from "shared/types/hkadbus2-types";
+import type {
+  GetBusModelsResponse,
+  GetCategoriesResponse,
+} from "shared/types/hkadbus2-types";
 
 const API_ENDPOINT = "https://tomcat.taxidriverhk.com/hkadbus2/api";
+
+export async function fetchGetBusModels(
+  locale?: string
+): Promise<GetBusModelsResponse> {
+  const convertedLocale = convertLocaleToLanguage(locale);
+  return await fetchGet("/bus-models", { language: convertedLocale });
+}
 
 export async function fetchGetCategories(
   locale?: string
