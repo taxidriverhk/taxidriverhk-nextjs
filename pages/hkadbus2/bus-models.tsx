@@ -25,11 +25,11 @@ export default function HKAdbus2BusModels({ busModelGroups }: PropType) {
   return (
     <HKAdBus2TemplateContainer>
       {busModelGroups.map(({ groupName, busModelCards }) => (
-        <Card>
+        <Card key={groupName}>
           <Card.Header>{groupName}</Card.Header>
           <ListGroup>
             {busModelCards.map(({ title }) => (
-              <ListGroup.Item>{title}</ListGroup.Item>
+              <ListGroup.Item key={title}>{title}</ListGroup.Item>
             ))}
           </ListGroup>
         </Card>
