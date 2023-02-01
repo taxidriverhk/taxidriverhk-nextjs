@@ -7,7 +7,7 @@ export enum PhotoColor {
   Blue = "primary",
   Green = "success",
   LightBlue = "info",
-  None = "default",
+  None = "light",
   Red = "danger",
   Yellow = "warning",
 }
@@ -31,14 +31,18 @@ export default function PhotoCard({
     <Button
       className={styles["photo-card-container"]}
       href={href}
-      variant={backgroundColor}
+      variant="none"
     >
       <Card
         bg={backgroundColor}
         border="secondary"
         text={backgroundColor === PhotoColor.None ? "dark" : "white"}
       >
-        <Card.Img variant="top" src={photo} />
+        <Card.Img
+          className={styles["photo-card-image"]}
+          variant="top"
+          src={photo}
+        />
         <Card.Body>
           <Card.Subtitle>{title}</Card.Subtitle>
           <Card.Text>{subtitle}</Card.Text>

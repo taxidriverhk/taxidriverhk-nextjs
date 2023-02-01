@@ -2,3 +2,11 @@
   margin-bottom: 5px;
   width: 100%;
 }
+
+.photo-card-container:hover {
+  filter: brightness(90%);
+}
+
+.photo-card-image {
+  max-height: 170px;
+}
