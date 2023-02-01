@@ -24,7 +24,6 @@ export default function Template({
   linkAs,
   locale = "en-US",
   onLocaleChange,
-  path,
   title,
 }: PropType) {
   const backgroundImageNumber: number =
@@ -41,7 +40,9 @@ export default function Template({
       />
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand>{title}</Navbar.Brand>
+          <Navbar.Brand as={LinkComponent} href="/hkadbus2">
+            {title}
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">

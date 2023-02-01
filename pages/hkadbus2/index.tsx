@@ -1,6 +1,7 @@
 import { NextIntlProvider, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import ListGroup from "react-bootstrap/ListGroup";
 
 import Template from "components/hkadbus2/Template";
 import useLocalizedStrings from "shared/hooks/useLocalizedStrings";
@@ -49,5 +50,19 @@ function HKAdBus2TemplateLocalizedStringsRenderer({
 }
 
 export default function HKAdbus2Home() {
-  return <HKAdBus2TemplateContainer>Home Page</HKAdBus2TemplateContainer>;
+  return (
+    <HKAdBus2TemplateContainer>
+      <h3>Welcome</h3>
+      <p>
+        This page collects photos of buses of different full-body advertisements
+        taken by bus fans.
+      </p>
+      <h3>Recent Updates</h3>
+      <p>
+        <ListGroup>
+          <ListGroup.Item>No recent updates available</ListGroup.Item>
+        </ListGroup>
+      </p>
+    </HKAdBus2TemplateContainer>
+  );
 }
