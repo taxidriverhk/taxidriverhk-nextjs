@@ -4,33 +4,7 @@ image: node:18.13.0
 pipelines:
   default:
     - step:
-        name: build
-        caches:
-          - nextcache
+        name: build and deploy
         script:
-          # install node modules
-          - npm ci --include=dev
-          # verify the code
-          - npm run lint
-          # build Next.js app
-          - npm run build
-          # create deploy directory (to contain .next folder, package.json, node_modules, public)
-          - mkdir deploy
-          - cp -a .next ./deploy
-          - cp package.json ./deploy
-          - cp -a node_modules ./deploy
-          - cp -a public ./deploy
-        artifacts:
-          - deploy/**
-    - step:
-        name: deploy
-        script:
-          # install rsync
-          - apt-get update && apt-get -qq install rsync
-          # rsync to a temp directory on remote server
-          - rsync -arz --delete $BITBUCKET_CLONE_DIR/deploy/ $USER@$REMOTE_IP:$TEMP_DIR
-          # clear current serving directory, sync from temp directory to serving directory, restart next server
-          - ssh $USER@$REMOTE_IP "rsync -ar --delete $TEMP_DIR/ $DEPLOY_DIR && pm2 restart taxidriverhk-nextjs && rm -r $TEMP_DIR"
-definitions:
-  caches:
-    nextcache: .next/cache
+          # SSH into the server which has the Git repository cloned already to pull and build
+          - ssh $USER@$REMOTE_IP "cd $DEPLOY_DIR && git pull origin master && npm run build && pm2 restart taxidriverhk-nextjs"
