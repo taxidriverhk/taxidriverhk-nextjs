@@ -1,38 +1,24 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
 
+import type { HorizontalPhotoCardGroupPropType } from "components/hkadbus2/HorizontalPhotoCardGroup";
+import HorizontalPhotoCardGroup from "components/hkadbus2/HorizontalPhotoCardGroup";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
 import { fetchGetBusModels } from "shared/fetch/hkadbus2";
 import type { BusModel } from "shared/types/hkadbus2-types";
 
-type BusModelCard = {
-  id: string;
-  title: string;
-  photo: string;
-};
-
-type BusModelGroup = {
-  busModelCards: Array<BusModelCard>;
-  groupName: string;
-};
-
 type PropType = {
-  busModelGroups: Array<BusModelGroup>;
+  busModelGroups: Array<HorizontalPhotoCardGroupPropType>;
 };
 
 export default function HKAdbus2BusModels({ busModelGroups }: PropType) {
   return (
     <HKAdBus2TemplateContainer>
-      {busModelGroups.map(({ groupName, busModelCards }) => (
-        <Card key={groupName}>
-          <Card.Header>{groupName}</Card.Header>
-          <ListGroup>
-            {busModelCards.map(({ title }) => (
-              <ListGroup.Item key={title}>{title}</ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Card>
+      {busModelGroups.map(({ groupName, photoCards }) => (
+        <HorizontalPhotoCardGroup
+          key={groupName}
+          groupName={groupName}
+          photoCards={photoCards}
+        />
       ))}
     </HKAdBus2TemplateContainer>
   );
@@ -56,16 +42,15 @@ export async function getServerSideProps(
     },
     {}
   );
-  const busModelGroups: Array<BusModelGroup> = Object.entries(
-    busBrandModelMap
-  ).map(([groupName, busModels]) => ({
-    busModelCards: busModels.map(({ id, name, thumbnail }) => ({
-      id: id,
-      title: name,
-      photo: thumbnail,
-    })),
-    groupName,
-  }));
+  const busModelGroups: Array<HorizontalPhotoCardGroupPropType> =
+    Object.entries(busBrandModelMap).map(([groupName, busModels]) => ({
+      photoCards: busModels.map(({ id, name, thumbnail }) => ({
+        href: `bus-models/${id}`,
+        title: name,
+        photo: thumbnail,
+      })),
+      groupName,
+    }));
 
   return {
     props: {
