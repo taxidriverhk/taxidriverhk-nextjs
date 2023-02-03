@@ -7,4 +7,4 @@ pipelines:
         name: build and deploy
         script:
           # SSH into the server which has the Git repository cloned already to pull and build
-          - ssh $USER@$REMOTE_IP "cd $DEPLOY_DIR && git pull origin master && npm run build && pm2 restart taxidriverhk-nextjs"
+          - ssh $USER@$REMOTE_IP "cd $DEPLOY_DIR && git pull origin master && npm install && npm run build && pm2 restart taxidriverhk-nextjs"
