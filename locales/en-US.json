@@ -2,6 +2,7 @@
   "hkadbus2": {
     "bus-models": "Bus Models",
     "categories": "Categories",
+    "current-category": "Category: {categoryName}",
     "introduction-title": "Welcome",
     "introduction-body": "This page collects photos of buses of different full-body advertisements taken by bus fans.",
     "no-recent-updates": "No recent updates available",
