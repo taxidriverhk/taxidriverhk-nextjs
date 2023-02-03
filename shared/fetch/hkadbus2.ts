@@ -1,9 +1,13 @@
 import axios from "axios";
+import snakeCase from "lodash/snakeCase";
 
 import type {
   GetAdvertisementsResponse,
   GetBusModelsResponse,
   GetCategoriesResponse,
+  SearchPhotoQuery,
+  SearchPhotosResponse,
+  SortOrder,
 } from "shared/types/hkadbus2-types";
 
 const API_ENDPOINT = "https://tomcat.taxidriverhk.com/hkadbus2/api";
@@ -30,6 +34,28 @@ export async function fetchGetCategories(
 ): Promise<GetCategoriesResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
   return await fetchGet("/categories", { language: convertedLocale });
+}
+
+export async function fetchSearchPhotos(
+  query: SearchPhotoQuery,
+  orderBy: string,
+  sort: SortOrder,
+  locale?: string
+): Promise<SearchPhotosResponse> {
+  const convertedLocale = convertLocaleToLanguage(locale);
+  const convertedQuery = Object.entries(query).reduce(
+    (result, [key, value]) => ({
+      ...result,
+      [snakeCase(key)]: value,
+    }),
+    {}
+  );
+  return await fetchGet("/photos", {
+    ...convertedQuery,
+    order_by: orderBy,
+    sort,
+    language: convertedLocale,
+  });
 }
 
 function convertLocaleToLanguage(locale?: string): string {

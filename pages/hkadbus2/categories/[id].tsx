@@ -6,8 +6,8 @@ import type { PhotoCardPropType } from "components/hkadbus2/PhotoCard";
 import PhotoCardList from "components/hkadbus2/PhotoCardList";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
 import { fetchGetAdvertisements } from "shared/fetch/hkadbus2";
-import type { PhotoSearchQuery } from "shared/query/hkadbus2-query-builder";
 import { buildPhotoSearchUrl } from "shared/query/hkadbus2-query-builder";
+import type { SearchPhotoQuery } from "shared/types/hkadbus2-types";
 
 type PropType = {
   advertisementPhotoCards: Array<PhotoCardPropType>;
@@ -58,7 +58,7 @@ export async function getServerSideProps(
   const categoryName = advertisements[0].categoryName;
   const advertisementPhotoCards = advertisements.map(
     ({ id, name, thumbnail }) => {
-      const searchQuery: PhotoSearchQuery = {
+      const searchQuery: SearchPhotoQuery = {
         advertisementId: id,
       };
       return {
