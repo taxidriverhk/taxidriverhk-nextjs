@@ -49,20 +49,26 @@ function HKAdBus2TemplateLocalizedStringsRenderer({
   );
 }
 
+function HKAdBus2HomeBody() {
+  const t = useTranslations("hkadbus2");
+  return (
+    <>
+      <h3>{t("introduction-title")}</h3>
+      <p>{t("introduction-body")}</p>
+      <h3>{t("recent-updates")}</h3>
+      <div>
+        <ListGroup>
+          <ListGroup.Item>{t("no-recent-updates")}</ListGroup.Item>
+        </ListGroup>
+      </div>
+    </>
+  );
+}
+
 export default function HKAdbus2Home() {
   return (
     <HKAdBus2TemplateContainer>
-      <h3>Welcome</h3>
-      <p>
-        This page collects photos of buses of different full-body advertisements
-        taken by bus fans.
-      </p>
-      <h3>Recent Updates</h3>
-      <p>
-        <ListGroup>
-          <ListGroup.Item>No recent updates available</ListGroup.Item>
-        </ListGroup>
-      </p>
+      <HKAdBus2HomeBody />
     </HKAdBus2TemplateContainer>
   );
 }

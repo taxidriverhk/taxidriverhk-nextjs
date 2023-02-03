@@ -2,6 +2,10 @@
   "hkadbus2": {
     "bus-models": "巴士型號",
     "categories": "廣告分類",
+    "introduction-title": "歡迎",
+    "introduction-body": "本網頁旨在收集各個巴士迷拍攝之全車身廣告巴士相片。",
+    "no-recent-updates": "沒有任何最近更新",
+    "recent-updates": "最近更新",
     "title": "香港廣告巴士相片庫 v2.5"
   }
 }

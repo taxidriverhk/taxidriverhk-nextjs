@@ -2,6 +2,10 @@
   "hkadbus2": {
     "bus-models": "Bus Models",
     "categories": "Categories",
+    "introduction-title": "Welcome",
+    "introduction-body": "This page collects photos of buses of different full-body advertisements taken by bus fans.",
+    "no-recent-updates": "No recent updates available",
+    "recent-updates": "Recent Updates",
     "title": "Hong Kong Advertised Bus Photo Database v2.5"
   }
 }
