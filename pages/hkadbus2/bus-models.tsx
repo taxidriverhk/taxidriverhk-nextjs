@@ -4,7 +4,8 @@ import type { HorizontalPhotoCardGroupPropType } from "components/hkadbus2/Horiz
 import HorizontalPhotoCardGroup from "components/hkadbus2/HorizontalPhotoCardGroup";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
 import { fetchGetBusModels } from "shared/fetch/hkadbus2";
-import type { BusModel } from "shared/types/hkadbus2-types";
+import { buildPhotoSearchUrl } from "shared/query/hkadbus2-query-builder";
+import type { BusModel, SearchPhotoQuery } from "shared/types/hkadbus2-types";
 
 type PropType = {
   busModelGroups: Array<HorizontalPhotoCardGroupPropType>;
@@ -44,11 +45,16 @@ export async function getServerSideProps(
   );
   const busModelGroups: Array<HorizontalPhotoCardGroupPropType> =
     Object.entries(busBrandModelMap).map(([groupName, busModels]) => ({
-      photoCards: busModels.map(({ id, name, thumbnail }) => ({
-        href: `bus-models/${id}`,
-        title: name,
-        photo: thumbnail,
-      })),
+      photoCards: busModels.map(({ id, name, thumbnail }) => {
+        const searchQuery: SearchPhotoQuery = {
+          busModelId: id,
+        };
+        return {
+          href: buildPhotoSearchUrl(searchQuery),
+          title: name,
+          photo: thumbnail,
+        };
+      }),
       groupName,
     }));
 
