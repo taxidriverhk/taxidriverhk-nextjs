@@ -34,15 +34,12 @@ function HKAdBus2TemplateLocalizedStringsRenderer({
 
   return (
     <Template
-      busModelTitle={t("bus-models")}
-      categoryTitle={t("categories")}
-      path={asPath}
       linkAs={Link}
       locale={locale}
       onLocaleChange={(nextLocale) =>
         router.push({ pathname, query }, asPath, { locale: nextLocale })
       }
-      title={t("title")}
+      translationFunc={t}
     >
       {children}
     </Template>
