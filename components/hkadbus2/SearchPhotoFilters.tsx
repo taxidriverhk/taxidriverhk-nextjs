@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-export type SearchPhotoFilterType = {
+export type SearchPhotoFilterPropType = {
   keywords?: string;
   route?: string;
   fleetPrefix?: string;
@@ -14,10 +14,10 @@ export type SearchPhotoFilterType = {
 };
 
 type PropType = {
-  filters: SearchPhotoFilterType;
+  filters: SearchPhotoFilterPropType;
   isFetching: boolean;
-  onSearch: (nextFilters: SearchPhotoFilterType) => void;
-  validationErrors: SearchPhotoFilterType;
+  onSearch: (nextFilters: SearchPhotoFilterPropType) => void;
+  validationErrors: SearchPhotoFilterPropType;
   translationFunc: (key: string) => string;
 };
 
@@ -27,7 +27,8 @@ export default function SearchPhotoFilters({
   validationErrors,
   translationFunc: t,
 }: PropType) {
-  const [filters, setFilters] = useState<SearchPhotoFilterType>(initialFilters);
+  const [filters, setFilters] =
+    useState<SearchPhotoFilterPropType>(initialFilters);
 
   useEffect(() => setFilters(initialFilters), [initialFilters]);
 

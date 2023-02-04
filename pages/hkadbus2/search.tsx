@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 
-import type { SearchPhotoFilterType } from "components/hkadbus2/SearchPhotoFilters";
+import type { SearchPhotoFilterPropType } from "components/hkadbus2/SearchPhotoFilters";
 import SearchPhotoFilters from "components/hkadbus2/SearchPhotoFilters";
 import SearchPhotoResults from "components/hkadbus2/SearchPhotoResults";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
@@ -17,7 +17,7 @@ import type {
 import { SortOrder } from "shared/types/hkadbus2-types";
 
 type PropType = {
-  filters: SearchPhotoFilterType;
+  filters: SearchPhotoFilterPropType;
   photos: Array<SearchPhotoResult>;
 };
 
@@ -28,7 +28,7 @@ function HKAdbus2SearchBody({
   const router = useRouter();
   const [photos, setPhotos] = useState<Array<SearchPhotoResult>>([]);
   const [validationErrors, setValidationErrors] =
-    useState<SearchPhotoFilterType>({});
+    useState<SearchPhotoFilterPropType>({});
   const t = useTranslations("hkadbus2");
 
   const { pathname } = router;
@@ -38,7 +38,7 @@ function HKAdbus2SearchBody({
   }, [initialPhotos]);
 
   const handleSearchCallback = useCallback(
-    (nextFilters: SearchPhotoFilterType) => {
+    (nextFilters: SearchPhotoFilterPropType) => {
       const {
         keywords,
         route,
@@ -114,7 +114,7 @@ export async function getServerSideProps(
     licensePlateNumber,
     username,
   } = photoSearchQuery;
-  const filters: SearchPhotoFilterType = removeUndefinedAndLowercaseValues({
+  const filters: SearchPhotoFilterPropType = removeUndefinedAndLowercaseValues({
     keywords: q,
     route: busRouteNumber,
     fleetPrefix,
