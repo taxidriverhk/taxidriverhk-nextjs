@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -28,6 +28,8 @@ export default function SearchPhotoFilters({
   translationFunc: t,
 }: PropType) {
   const [filters, setFilters] = useState<SearchPhotoFilterType>(initialFilters);
+
+  useEffect(() => setFilters(initialFilters), [initialFilters]);
 
   const handleOnChange = useCallback(
     (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
