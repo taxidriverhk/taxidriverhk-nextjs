@@ -1,51 +1,75 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
+import type { SearchPhotoFilterType } from "components/hkadbus2/SearchPhotoFilters";
 import SearchPhotoFilters from "components/hkadbus2/SearchPhotoFilters";
 import SearchPhotoResults from "components/hkadbus2/SearchPhotoResults";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
 import { fetchSearchPhotos } from "shared/fetch/hkadbus2";
-import type { SearchPhotoQuery } from "shared/types/hkadbus2-types";
+import { removeUndefinedAndLowercaseValues } from "shared/query/hkadbus2-query-builder";
+import type {
+  SearchPhotoQuery,
+  SearchPhotoResult,
+} from "shared/types/hkadbus2-types";
 
 import { SortOrder } from "shared/types/hkadbus2-types";
 
 type PropType = {
-  photos: Array<any>;
-  query: any;
+  filters: SearchPhotoFilterType;
+  photos: Array<SearchPhotoResult>;
 };
 
 export default function HKAdbus2Search({
+  filters: initialFilters,
   photos: initialPhotos,
-  query,
 }: PropType) {
   const router = useRouter();
-  const [photos, setPhotos] = useState<Array<any>>([]);
-  const [filters, setFilters] = useState<any>({});
+  const [photos, setPhotos] = useState<Array<SearchPhotoResult>>([]);
+  const [validationErrors, setValidationErrors] =
+    useState<SearchPhotoFilterType>({});
 
   useEffect(() => {
     setPhotos(initialPhotos);
   }, [initialPhotos]);
-  useEffect(() => {
-    setFilters(query);
-  }, [query]);
+
+  const handleSearchCallback = useCallback(
+    (nextFilters: SearchPhotoFilterType) => {
+      const {
+        keywords,
+        route,
+        fleetPrefix,
+        fleetNumber,
+        licensePlateNumber,
+        uploadedBy,
+      } = nextFilters;
+      // TODO: add validation here
+
+      const nextQuery: SearchPhotoQuery = removeUndefinedAndLowercaseValues({
+        q: keywords,
+        busRouteNumber: route,
+        fleetPrefix,
+        fleetNumber,
+        licensePlateNumber,
+        username: uploadedBy,
+      });
+      router.push({
+        pathname,
+        query: nextQuery,
+      });
+    },
+    [initialFilters]
+  );
 
   const { pathname } = router;
 
   return (
     <HKAdBus2TemplateContainer>
       <SearchPhotoFilters
-        filters={filters}
+        filters={initialFilters}
         isFetching={false}
-        onSearch={() => {
-          router.push({
-            pathname,
-            query: {
-              ...filters,
-              advertisementId: "titoni",
-            },
-          });
-        }}
+        onSearch={handleSearchCallback}
+        validationErrors={validationErrors}
       />
       <SearchPhotoResults
         isFetching={false}
@@ -67,13 +91,30 @@ export async function getServerSideProps(
   if (Object.keys(query).length === 0) {
     return {
       props: {
-        query,
+        filters: {},
         photos: [],
       },
     };
   }
 
   const photoSearchQuery = query as SearchPhotoQuery;
+  const {
+    q,
+    busRouteNumber,
+    fleetPrefix,
+    fleetNumber,
+    licensePlateNumber,
+    username,
+  } = photoSearchQuery;
+  const filters: SearchPhotoFilterType = removeUndefinedAndLowercaseValues({
+    keywords: q,
+    route: busRouteNumber,
+    fleetPrefix,
+    fleetNumber,
+    licensePlateNumber,
+    uploadedBy: username,
+  });
+
   const { results } = await fetchSearchPhotos(
     photoSearchQuery,
     "uploadedDate",
@@ -83,7 +124,7 @@ export async function getServerSideProps(
 
   return {
     props: {
-      query,
+      filters,
       photos: results,
     },
   };

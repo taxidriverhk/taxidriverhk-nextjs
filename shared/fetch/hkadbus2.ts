@@ -52,6 +52,7 @@ export async function fetchSearchPhotos(
   );
   return await fetchGet("/photos", {
     ...convertedQuery,
+    search_text: query.q,
     order_by: orderBy,
     sort,
     language: convertedLocale,

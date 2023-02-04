@@ -36,10 +36,10 @@ export type SearchPhotoQuery = {
   q?: string;
   advertisementId?: string;
   busModelId?: string;
+  busRouteNumber?: string;
   fleetPrefix?: string;
   fleetNumber?: string;
   licensePlateNumber?: string;
-  routerNumber?: string;
   username?: string;
 };
 
