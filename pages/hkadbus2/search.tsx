@@ -77,10 +77,7 @@ function HKAdbus2SearchBody({
       <SearchPhotoResults
         isFetching={false}
         isLoadMoreShown={false}
-        onLoadMore={() => {
-          // Just to test how the photos work
-          setPhotos([...photos, ...photos]);
-        }}
+        onLoadMore={() => {}}
         results={photos}
       />
     </>
