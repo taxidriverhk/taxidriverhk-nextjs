@@ -39,6 +39,7 @@ export default function PhotoCard({
         text={backgroundColor === PhotoColor.None ? "dark" : "white"}
       >
         <Card.Img
+          alt={title}
           className={styles["photo-card-image"]}
           variant="top"
           src={photo}

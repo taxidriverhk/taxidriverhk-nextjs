@@ -4,6 +4,8 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
+import styles from "components/hkadbus2/styles/SearchPhoto.module.css";
+
 export type SearchPhotoFilterPropType = {
   keywords?: string;
   route?: string;
@@ -46,7 +48,7 @@ export default function SearchPhotoFilters({
   }, [filters, onSearch]);
 
   return (
-    <Card bg="light">
+    <Card bg="light" className={styles["search-photo-filter-container"]}>
       <Card.Body>
         <Form>
           <Form.Group>
@@ -55,7 +57,7 @@ export default function SearchPhotoFilters({
               isInvalid={validationErrors.keywords != null}
               onChange={handleOnChange("keywords")}
               type="text"
-              value={filters.keywords}
+              value={filters.keywords || ""}
             />
             <Form.Control.Feedback type="invalid">
               {validationErrors.keywords}
@@ -67,7 +69,7 @@ export default function SearchPhotoFilters({
               isInvalid={validationErrors.route != null}
               onChange={handleOnChange("route")}
               type="text"
-              value={filters.route}
+              value={filters.route || ""}
             />
             <Form.Control.Feedback type="invalid">
               {validationErrors.route}
@@ -81,7 +83,7 @@ export default function SearchPhotoFilters({
               onChange={handleOnChange("fleetPrefix")}
               placeholder="(e.g. 3AV)"
               type="text"
-              value={filters.fleetPrefix}
+              value={filters.fleetPrefix || ""}
             />
             <Form.Control.Feedback type="invalid">
               {validationErrors.fleetPrefix}
@@ -91,7 +93,7 @@ export default function SearchPhotoFilters({
               placeholder="(e.g. 102)"
               onChange={handleOnChange("fleetNumber")}
               type="number"
-              value={filters.fleetNumber}
+              value={filters.fleetNumber || ""}
             />
           </InputGroup>
           <Form.Group>
@@ -100,7 +102,7 @@ export default function SearchPhotoFilters({
               isInvalid={validationErrors.licensePlateNumber != null}
               onChange={handleOnChange("licensePlateNumber")}
               type="text"
-              value={filters.licensePlateNumber}
+              value={filters.licensePlateNumber || ""}
             />
             <Form.Control.Feedback type="invalid">
               {validationErrors.licensePlateNumber}
@@ -111,11 +113,18 @@ export default function SearchPhotoFilters({
             <Form.Control
               onChange={handleOnChange("uploadedBy")}
               type="text"
-              value={filters.uploadedBy}
+              value={filters.uploadedBy || ""}
             />
           </Form.Group>
         </Form>
-        <Button onClick={handleOnSearch}>{t("search-filter-submit")}</Button>
+        <div className={styles["search-photo-filter-button-container"]}>
+          <Button
+            className={styles["search-photo-filter-button"]}
+            onClick={handleOnSearch}
+          >
+            {t("search-filter-submit")}
+          </Button>
+        </div>
       </Card.Body>
     </Card>
   );

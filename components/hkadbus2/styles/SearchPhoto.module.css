@@ -1,0 +1,17 @@
+.search-photo-filter-button {
+  margin-top: 12px;
+}
+
+.search-photo-filter-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-photo-filter-container {
+  margin-bottom: 12px;
+}
+
+.search-photo-results-load-more-button-container {
+  display: flex;
+  justify-content: center;
+}

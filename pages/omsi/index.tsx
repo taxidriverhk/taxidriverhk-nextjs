@@ -24,9 +24,9 @@ export default function Omsi() {
           a name other than Hong Kong West Kowloon (or similar names).
         </p>
         <p>
-          在過去這幾個月&#xFF0C;本人不斷收到網民詢問可否獲得批准使用西九龍地圖的物件以供製作其他OMSI地圖&#x9FD;
-          本人再次重申&#xFF0C;除了路口及交界物件外&#xFF0C;其他建築物及道路物件均可以在毋須得到本人批准下使用在以其他名稱
-          (非以Hong Kong West Kowloon作為名稱) 發佈的地圖上&#x9FD;
+          在過去這幾個月，本人不斷收到網民詢問可否獲得批准使用西九龍地圖的物件以供製作其他OMSI地圖。
+          本人再次重申，除了路口及交界物件外，其他建築物及道路物件均可以在毋須得到本人批准下使用在以其他名稱
+          (非以Hong Kong West Kowloon作為名稱) 發佈的地圖上。
         </p>
       </Alert>
       <h3>About</h3>

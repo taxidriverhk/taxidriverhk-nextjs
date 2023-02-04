@@ -1,12 +1,18 @@
 .photo-card-container {
-  margin-bottom: 5px;
-  width: 100%;
+  margin: 5px;
+  padding: 0px;
+  width: 92%;
 }
 
 .photo-card-container:hover {
   filter: brightness(90%);
 }
 
+.photo-card-grid {
+  padding-right: 0px;
+}
+
 .photo-card-image {
-  max-height: 170px;
+  max-height: 180px;
+  width: 100%;
 }

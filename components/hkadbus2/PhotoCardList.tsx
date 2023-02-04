@@ -4,6 +4,8 @@ import Row from "react-bootstrap/Row";
 import type { PhotoCardPropType } from "components/hkadbus2/PhotoCard";
 import PhotoCard from "components/hkadbus2/PhotoCard";
 
+import styles from "components/hkadbus2/styles/PhotoCard.module.css";
+
 type PropType = {
   photos: Array<PhotoCardPropType>;
 };
@@ -12,7 +14,7 @@ export default function PhotoCardList({ photos }: PropType) {
   return (
     <Row xs={1} md={2} lg={4}>
       {photos.map(({ backgroundColor, href, photo, subtitle, title }) => (
-        <Col key={photo}>
+        <Col className={styles["photo-card-grid"]} key={photo}>
           <PhotoCard
             backgroundColor={backgroundColor}
             href={href}

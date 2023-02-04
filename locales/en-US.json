@@ -14,6 +14,8 @@
     "search-filter-license-plate-number": "License Plate Number",
     "search-filter-uploaded-by": "Uplodaded By",
     "search-filter-submit": "Search",
+    "search-results-load-more": "Load More",
+    "search-results-no-results": "No photos are found. Please revise the query and try again.",
     "recent-updates": "Recent Updates",
     "title": "Hong Kong Advertised Bus Photo Database v2.5"
   }

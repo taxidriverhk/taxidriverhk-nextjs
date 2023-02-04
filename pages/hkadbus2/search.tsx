@@ -79,6 +79,7 @@ function HKAdbus2SearchBody({
         isLoadMoreShown={false}
         onLoadMore={() => {}}
         results={photos}
+        translationFunc={t}
       />
     </>
   );
