@@ -18,12 +18,14 @@ type PropType = {
   isFetching: boolean;
   onSearch: (nextFilters: SearchPhotoFilterType) => void;
   validationErrors: SearchPhotoFilterType;
+  translationFunc: (key: string) => string;
 };
 
 export default function SearchPhotoFilters({
   filters: initialFilters,
   onSearch,
   validationErrors,
+  translationFunc: t,
 }: PropType) {
   const [filters, setFilters] = useState<SearchPhotoFilterType>(initialFilters);
 
@@ -45,7 +47,7 @@ export default function SearchPhotoFilters({
       <Card.Body>
         <Form>
           <Form.Group>
-            <Form.Label>Keywords (separate by commas or space)</Form.Label>
+            <Form.Label>{t("search-filter-keywords")}</Form.Label>
             <Form.Control
               isInvalid={validationErrors.keywords != null}
               onChange={handleOnChange("keywords")}
@@ -57,7 +59,7 @@ export default function SearchPhotoFilters({
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Route</Form.Label>
+            <Form.Label>{t("search-filter-route")}</Form.Label>
             <Form.Control
               isInvalid={validationErrors.route != null}
               onChange={handleOnChange("route")}
@@ -68,9 +70,9 @@ export default function SearchPhotoFilters({
               {validationErrors.route}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Label>Fleet Number</Form.Label>
+          <Form.Label>{t("search-filter-fleet-number-group")}</Form.Label>
           <InputGroup>
-            <InputGroup.Text>Prefix</InputGroup.Text>
+            <InputGroup.Text>{t("search-filter-fleet-prefix")}</InputGroup.Text>
             <Form.Control
               isInvalid={validationErrors.fleetPrefix != null}
               onChange={handleOnChange("fleetPrefix")}
@@ -81,7 +83,7 @@ export default function SearchPhotoFilters({
             <Form.Control.Feedback type="invalid">
               {validationErrors.fleetPrefix}
             </Form.Control.Feedback>
-            <InputGroup.Text>Number</InputGroup.Text>
+            <InputGroup.Text>{t("search-filter-fleet-number")}</InputGroup.Text>
             <Form.Control
               placeholder="(e.g. 102)"
               onChange={handleOnChange("fleetNumber")}
@@ -90,7 +92,7 @@ export default function SearchPhotoFilters({
             />
           </InputGroup>
           <Form.Group>
-            <Form.Label>License Plate Number</Form.Label>
+            <Form.Label>{t("search-filter-license-plate-number")}</Form.Label>
             <Form.Control
               isInvalid={validationErrors.licensePlateNumber != null}
               onChange={handleOnChange("licensePlateNumber")}
@@ -102,7 +104,7 @@ export default function SearchPhotoFilters({
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Uplodaded By</Form.Label>
+            <Form.Label>{t("search-filter-uploaded-by")}</Form.Label>
             <Form.Control
               onChange={handleOnChange("uploadedBy")}
               type="text"
@@ -110,7 +112,7 @@ export default function SearchPhotoFilters({
             />
           </Form.Group>
         </Form>
-        <Button onClick={handleOnSearch}>Search</Button>
+        <Button onClick={handleOnSearch}>{t("search-filter-submit")}</Button>
       </Card.Body>
     </Card>
   );

@@ -1,4 +1,5 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 
@@ -20,7 +21,7 @@ type PropType = {
   photos: Array<SearchPhotoResult>;
 };
 
-export default function HKAdbus2Search({
+function HKAdbus2SearchBody({
   filters: initialFilters,
   photos: initialPhotos,
 }: PropType) {
@@ -28,6 +29,7 @@ export default function HKAdbus2Search({
   const [photos, setPhotos] = useState<Array<SearchPhotoResult>>([]);
   const [validationErrors, setValidationErrors] =
     useState<SearchPhotoFilterType>({});
+  const t = useTranslations("hkadbus2");
 
   useEffect(() => {
     setPhotos(initialPhotos);
@@ -64,12 +66,13 @@ export default function HKAdbus2Search({
   const { pathname } = router;
 
   return (
-    <HKAdBus2TemplateContainer>
+    <>
       <SearchPhotoFilters
         filters={initialFilters}
         isFetching={false}
         onSearch={handleSearchCallback}
         validationErrors={validationErrors}
+        translationFunc={t}
       />
       <SearchPhotoResults
         isFetching={false}
@@ -80,6 +83,14 @@ export default function HKAdbus2Search({
         }}
         results={photos}
       />
+    </>
+  );
+}
+
+export default function HKAdbus2Search({ filters, photos }: PropType) {
+  return (
+    <HKAdBus2TemplateContainer>
+      <HKAdbus2SearchBody filters={filters} photos={photos} />
     </HKAdBus2TemplateContainer>
   );
 }

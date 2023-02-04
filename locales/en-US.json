@@ -6,6 +6,14 @@
     "introduction-title": "Welcome",
     "introduction-body": "This page collects photos of buses of different full-body advertisements taken by bus fans.",
     "no-recent-updates": "No recent updates available",
+    "search-filter-keywords": "Keywords (separate by commas or space)",
+    "search-filter-route": "Route",
+    "search-filter-fleet-number-group": "Fleet Number",
+    "search-filter-fleet-prefix": "Prefix",
+    "search-filter-fleet-number": "Number",
+    "search-filter-license-plate-number": "License Plate Number",
+    "search-filter-uploaded-by": "Uplodaded By",
+    "search-filter-submit": "Search",
     "recent-updates": "Recent Updates",
     "title": "Hong Kong Advertised Bus Photo Database v2.5"
   }

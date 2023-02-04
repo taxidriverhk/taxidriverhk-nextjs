@@ -6,6 +6,14 @@
     "introduction-title": "歡迎",
     "introduction-body": "本網頁旨在收集各個巴士迷拍攝之全車身廣告巴士相片。",
     "no-recent-updates": "沒有任何最近更新",
+    "search-filter-keywords": "關鍵字 (以逗號或空格分隔)",
+    "search-filter-route": "路線編號",
+    "search-filter-fleet-number-group": "車隊編號",
+    "search-filter-fleet-prefix": "前綴",
+    "search-filter-fleet-number": "數字",
+    "search-filter-license-plate-number": "車牌號碼",
+    "search-filter-uploaded-by": "上傳者",
+    "search-filter-submit": "搜尋",
     "recent-updates": "最近更新",
     "title": "香港廣告巴士相片庫 v2.5"
   }
