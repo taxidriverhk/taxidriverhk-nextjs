@@ -43,14 +43,15 @@ export default function SearchPhotoFilters({
     },
     [filters, setFilters]
   );
-  const handleOnSearch = useCallback(() => {
+  const handleOnSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     onSearch(filters);
-  }, [filters, onSearch]);
+  };
 
   return (
     <Card bg="light" className={styles["search-photo-filter-container"]}>
       <Card.Body>
-        <Form>
+        <Form onSubmit={handleOnSearch}>
           <Form.Group>
             <Form.Label>{t("search-filter-keywords")}</Form.Label>
             <Form.Control
@@ -116,15 +117,15 @@ export default function SearchPhotoFilters({
               value={filters.uploadedBy || ""}
             />
           </Form.Group>
+          <div className={styles["search-photo-filter-button-container"]}>
+            <Button
+              className={styles["search-photo-filter-button"]}
+              type="submit"
+            >
+              {t("search-filter-submit")}
+            </Button>
+          </div>
         </Form>
-        <div className={styles["search-photo-filter-button-container"]}>
-          <Button
-            className={styles["search-photo-filter-button"]}
-            onClick={handleOnSearch}
-          >
-            {t("search-filter-submit")}
-          </Button>
-        </div>
       </Card.Body>
     </Card>
   );
