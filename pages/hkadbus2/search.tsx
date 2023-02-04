@@ -31,6 +31,8 @@ function HKAdbus2SearchBody({
     useState<SearchPhotoFilterType>({});
   const t = useTranslations("hkadbus2");
 
+  const { pathname } = router;
+
   useEffect(() => {
     setPhotos(initialPhotos);
   }, [initialPhotos]);
@@ -60,10 +62,8 @@ function HKAdbus2SearchBody({
         query: nextQuery,
       });
     },
-    [initialFilters]
+    [pathname, router]
   );
-
-  const { pathname } = router;
 
   return (
     <>
