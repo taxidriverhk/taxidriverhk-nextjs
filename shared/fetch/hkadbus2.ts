@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import snakeCase from "lodash/snakeCase";
 
 import type {
@@ -6,6 +6,7 @@ import type {
   GetBusModelsResponse,
   GetCategoriesResponse,
   GetPhotoResponse,
+  ItemNotFoundResponse,
   SearchPhotoQuery,
   SearchPhotosResponse,
   SortOrder,
@@ -18,9 +19,12 @@ export async function fetchGetAdvertisements(
   locale?: string
 ): Promise<GetAdvertisementsResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await fetchGet(`/categories/${categoryId}/advertisements`, {
-    language: convertedLocale,
-  });
+  return await fetchGetWithItemNotFoundHandled(
+    `/categories/${categoryId}/advertisements`,
+    {
+      language: convertedLocale,
+    }
+  );
 }
 
 export async function fetchGetBusModels(
@@ -42,7 +46,9 @@ export async function fetchGetPhoto(
   locale?: string
 ): Promise<GetPhotoResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await fetchGet(`/photos/${photoId}`, { language: convertedLocale });
+  return await fetchGetWithItemNotFoundHandled(`/photos/${photoId}`, {
+    language: convertedLocale,
+  });
 }
 
 export async function fetchSearchPhotos(
@@ -76,4 +82,24 @@ async function fetchGet<T>(endpoint: string, params: any) {
   const response = await axios.get<T>(`${API_ENDPOINT}${endpoint}`, { params });
   const { data } = response;
   return data;
+}
+
+async function fetchGetWithItemNotFoundHandled<T>(
+  endpoint: string,
+  params: any
+): Promise<
+  (GetAdvertisementsResponse | GetPhotoResponse) & ItemNotFoundResponse
+> {
+  try {
+    return await fetchGet(endpoint, params);
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    if (axiosError?.response?.status === 404) {
+      return {
+        notFound: true,
+      };
+    } else {
+      throw new Error(axiosError.message);
+    }
+  }
 }

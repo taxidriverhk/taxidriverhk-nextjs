@@ -83,9 +83,13 @@ export type SearchPhotoResult = {
   username: string;
 };
 
-export type GetAdvertisementsResponse = {
-  advertisements: Array<Advertisement>;
+export type ItemNotFoundResponse = {
+  notFound?: boolean;
 };
+
+export type GetAdvertisementsResponse = {
+  advertisements?: Array<Advertisement>;
+} & ItemNotFoundResponse;
 
 export type GetBusModelsResponse = {
   busModels: Array<BusModel>;
@@ -96,8 +100,8 @@ export type GetCategoriesResponse = {
 };
 
 export type GetPhotoResponse = {
-  photo: Photo;
-};
+  photo?: Photo;
+} & ItemNotFoundResponse;
 
 export type SearchPhotosResponse = {
   nextPageCursor: string | null;

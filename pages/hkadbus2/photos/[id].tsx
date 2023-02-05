@@ -30,7 +30,16 @@ export async function getServerSideProps(
     };
   }
 
-  const { photo } = await fetchGetPhoto(Number.parseInt(photoId), locale);
+  const { photo, notFound } = await fetchGetPhoto(
+    Number.parseInt(photoId),
+    locale
+  );
+  if (photo == null || notFound === true) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       photo,

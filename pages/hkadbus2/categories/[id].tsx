@@ -54,7 +54,20 @@ export async function getServerSideProps(
     };
   }
 
-  const { advertisements } = await fetchGetAdvertisements(categoryId, locale);
+  const { advertisements, notFound } = await fetchGetAdvertisements(
+    categoryId,
+    locale
+  );
+  if (
+    advertisements == null ||
+    advertisements.length === 0 ||
+    notFound === true
+  ) {
+    return {
+      notFound: true,
+    };
+  }
+
   const categoryName = advertisements[0].categoryName;
   const advertisementPhotoCards = advertisements.map(
     ({ id, name, thumbnail }) => {
