@@ -83,7 +83,7 @@ function HKAdbus2SearchBody({
         query: nextQuery,
       });
     },
-    [pathname, router]
+    [pathname, router, t]
   );
 
   return (
