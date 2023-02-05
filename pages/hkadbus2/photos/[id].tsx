@@ -1,14 +1,18 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import { useTranslations } from "next-intl";
 
+import PhotoDetails from "components/hkadbus2/PhotoDetails";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
 import { fetchGetPhoto } from "shared/fetch/hkadbus2";
+import type { Photo } from "shared/types/hkadbus2-types";
 
 type PropType = {
-  photo: any;
+  photo: Photo;
 };
 
 function HKAdbus2PhotoDetailsBody({ photo }: PropType) {
-  return <pre>{JSON.stringify(photo, null, 2)}</pre>;
+  const t = useTranslations("hkadbus2");
+  return <PhotoDetails photo={photo} translationFunc={t} />;
 }
 
 export default function HKAdbus2PhotoDetails({ photo }: PropType) {

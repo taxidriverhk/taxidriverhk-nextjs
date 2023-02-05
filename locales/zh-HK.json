@@ -1,10 +1,18 @@
 {
   "hkadbus2": {
+    "advertisement": "廣告",
+    "bus": "巴士",
+    "bus-company": "巴士公司",
     "bus-models": "巴士型號",
     "categories": "廣告分類",
+    "category": "廣告類別",
     "current-category": "目前廣告類別: {categoryName}",
+    "fleet": "車隊",
+    "fleet-number": "車隊編號",
     "introduction-title": "歡迎",
     "introduction-body": "本網頁旨在收集各個巴士迷拍攝之全車身廣告巴士相片。",
+    "license-plate-number": "車牌號碼",
+    "model": "巴士型號",
     "no-recent-updates": "沒有任何最近更新",
     "search-filter-keywords": "關鍵字 (以逗號或空格分隔)",
     "search-filter-route": "路線編號",
@@ -18,6 +26,10 @@
     "search-results-load-more": "載入更多",
     "search-results-no-results": "找不到任何相片。請更改或輸入最少一項搜尋條件然後再試。",
     "recent-updates": "最近更新",
-    "title": "香港廣告巴士相片庫 v2.5"
+    "related-photos": "其他相同{attribute}相片",
+    "route-number": "巴士路線",
+    "title": "香港廣告巴士相片庫 v2.5",
+    "uploaded-by": "上傳者: {username}",
+    "uploaded-date": "上傳日期: {uploadedDate, date, ::dMMMMyyyy}"
   }
 }
