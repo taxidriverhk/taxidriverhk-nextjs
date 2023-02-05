@@ -67,6 +67,7 @@ export default function SearchPhotoFilters({
           <Form.Group>
             <Form.Label>{t("search-filter-route")}</Form.Label>
             <Form.Control
+              className={styles["search-photo-input-uppercase"]}
               isInvalid={validationErrors.route != null}
               onChange={handleOnChange("route")}
               type="text"
@@ -80,9 +81,9 @@ export default function SearchPhotoFilters({
           <InputGroup>
             <InputGroup.Text>{t("search-filter-fleet-prefix")}</InputGroup.Text>
             <Form.Control
+              className={styles["search-photo-input-uppercase"]}
               isInvalid={validationErrors.fleetPrefix != null}
               onChange={handleOnChange("fleetPrefix")}
-              placeholder="(e.g. 3AV)"
               type="text"
               value={filters.fleetPrefix || ""}
             />
@@ -91,7 +92,6 @@ export default function SearchPhotoFilters({
             </Form.Control.Feedback>
             <InputGroup.Text>{t("search-filter-fleet-number")}</InputGroup.Text>
             <Form.Control
-              placeholder="(e.g. 102)"
               onChange={handleOnChange("fleetNumber")}
               type="number"
               value={filters.fleetNumber || ""}
@@ -100,6 +100,7 @@ export default function SearchPhotoFilters({
           <Form.Group>
             <Form.Label>{t("search-filter-license-plate-number")}</Form.Label>
             <Form.Control
+              className={styles["search-photo-input-uppercase"]}
               isInvalid={validationErrors.licensePlateNumber != null}
               onChange={handleOnChange("licensePlateNumber")}
               type="text"
