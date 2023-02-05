@@ -1,3 +1,4 @@
+import isEmpty from "lodash/isEmpty";
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
@@ -18,17 +19,24 @@ import { SortOrder } from "shared/types/hkadbus2-types";
 
 type PropType = {
   filters: SearchPhotoFilterPropType;
+  nextCursor: string | null;
   photos: Array<SearchPhotoResult>;
 };
 
 function HKAdbus2SearchBody({
   filters: initialFilters,
+  nextCursor: initialNextCursor,
   photos: initialPhotos,
 }: PropType) {
   const router = useRouter();
+
   const [photos, setPhotos] = useState<Array<SearchPhotoResult>>([]);
   const [validationErrors, setValidationErrors] =
     useState<SearchPhotoFilterPropType>({});
+  const [nextCursor, setNextCursor] = useState<string | null>(
+    initialNextCursor
+  );
+
   const t = useTranslations("hkadbus2");
 
   const { pathname } = router;
@@ -47,7 +55,20 @@ function HKAdbus2SearchBody({
         licensePlateNumber,
         uploadedBy,
       } = nextFilters;
-      // TODO: add validation here
+
+      // Validate by simply checking if at least one input is provided
+      const hasAtLeastOneInput = Object.values(nextFilters).reduce(
+        (result, value) => result || !isEmpty(value),
+        false
+      );
+      if (!hasAtLeastOneInput) {
+        setValidationErrors({
+          keywords: t("search-filter-validation-error"),
+        });
+        return;
+      } else {
+        setValidationErrors({});
+      }
 
       const nextQuery: SearchPhotoQuery = removeUndefinedAndLowercaseValues({
         q: keywords,
@@ -76,7 +97,7 @@ function HKAdbus2SearchBody({
       />
       <SearchPhotoResults
         isFetching={false}
-        isLoadMoreShown={false}
+        isLoadMoreShown={nextCursor != null}
         onLoadMore={() => {}}
         results={photos}
         translationFunc={t}
@@ -85,10 +106,18 @@ function HKAdbus2SearchBody({
   );
 }
 
-export default function HKAdbus2Search({ filters, photos }: PropType) {
+export default function HKAdbus2Search({
+  filters,
+  nextCursor,
+  photos,
+}: PropType) {
   return (
     <HKAdBus2TemplateContainer>
-      <HKAdbus2SearchBody filters={filters} photos={photos} />
+      <HKAdbus2SearchBody
+        filters={filters}
+        nextCursor={nextCursor}
+        photos={photos}
+      />
     </HKAdBus2TemplateContainer>
   );
 }
@@ -101,6 +130,7 @@ export async function getServerSideProps(
     return {
       props: {
         filters: {},
+        nextCursor: null,
         photos: [],
       },
     };
@@ -124,7 +154,7 @@ export async function getServerSideProps(
     uploadedBy: username,
   });
 
-  const { results } = await fetchSearchPhotos(
+  const { results, nextPageCursor } = await fetchSearchPhotos(
     photoSearchQuery,
     "uploadedDate",
     SortOrder.ASC,
@@ -134,6 +164,7 @@ export async function getServerSideProps(
   return {
     props: {
       filters,
+      nextCursor: nextPageCursor,
       photos: results,
     },
   };
