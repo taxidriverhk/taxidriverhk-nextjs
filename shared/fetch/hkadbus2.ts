@@ -5,6 +5,7 @@ import type {
   GetAdvertisementsResponse,
   GetBusModelsResponse,
   GetCategoriesResponse,
+  GetPhotoResponse,
   SearchPhotoQuery,
   SearchPhotosResponse,
   SortOrder,
@@ -34,6 +35,14 @@ export async function fetchGetCategories(
 ): Promise<GetCategoriesResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
   return await fetchGet("/categories", { language: convertedLocale });
+}
+
+export async function fetchGetPhoto(
+  photoId: number,
+  locale?: string
+): Promise<GetPhotoResponse> {
+  const convertedLocale = convertLocaleToLanguage(locale);
+  return await fetchGet(`/photos/${photoId}`, { language: convertedLocale });
 }
 
 export async function fetchSearchPhotos(

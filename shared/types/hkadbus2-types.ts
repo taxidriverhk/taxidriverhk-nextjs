@@ -32,6 +32,26 @@ export type Category = {
   thumbnail: string;
 };
 
+export type Photo = {
+  advertisement: string;
+  advertisementId: string;
+  busCompany: BusCompany;
+  busId: number;
+  busModel: string;
+  busModelId: string;
+  category: string;
+  categoryId: string;
+  fleetNumber: string;
+  fleetPrefix: string;
+  image: string;
+  licensePlateNumber: string;
+  photoId: number;
+  routeNumber: string;
+  thumbnail: string;
+  uploadedDate: EpochTimeStamp;
+  username: string;
+};
+
 export type SearchPhotoQuery = {
   q?: string;
   advertisementId?: string;
@@ -73,6 +93,10 @@ export type GetBusModelsResponse = {
 
 export type GetCategoriesResponse = {
   categories: Array<Category>;
+};
+
+export type GetPhotoResponse = {
+  photo: Photo;
 };
 
 export type SearchPhotosResponse = {
