@@ -98,6 +98,7 @@ function HKAdbus2SearchBody({
       <SearchPhotoResults
         isFetching={false}
         isLoadMoreShown={nextCursor != null}
+        // TODO: Implement me, should not be needed right now given the low volume of photos
         onLoadMore={() => {}}
         results={photos}
         translationFunc={t}
