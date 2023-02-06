@@ -41,12 +41,14 @@ const MODEL_OPTIONS: {
 
 type PropType = {
   hasValidationError: boolean;
+  isDisabled?: boolean;
   query: VehicleInventorySearchQuery;
   onSubmit: (nextQuery: VehicleInventorySearchQuery) => void;
 };
 
 export default function SearchInput({
   hasValidationError,
+  isDisabled = false,
   query: initialQuery,
   onSubmit,
 }: PropType) {
@@ -165,7 +167,9 @@ export default function SearchInput({
               </Form.Control.Feedback>
             </Col>
           </Form.Group>
-          <Button type="submit">Search Inventory</Button>
+          <Button disabled={isDisabled} type="submit">
+            Search Inventory
+          </Button>
         </Form>
       </Card.Body>
     </Card>

@@ -9,7 +9,7 @@ import type {
   VehicleInventorySearchQuery,
 } from "pages/api/vehicle-inventory-lookup/search";
 import { getData } from "pages/api/vehicle-inventory-lookup/search";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const DEFAULT_QUERY: VehicleInventorySearchQuery = {
   year: 2023,
@@ -30,25 +30,30 @@ export default function VehicleInventoryLookup({ query, vehicles }: PropType) {
 
   const handleSubmit = useCallback((nextQuery: VehicleInventorySearchQuery) => {
     if (
-      (Number.isNaN(nextQuery.zipCode) && isEmpty(nextQuery.zipCode)) ||
-      (Number.isNaN(nextQuery.maxDealers) && isEmpty(nextQuery.maxDealers))
+      (!Number.isInteger(nextQuery.zipCode) && isEmpty(nextQuery.zipCode)) ||
+      (!Number.isInteger(nextQuery.maxDealers) && isEmpty(nextQuery.maxDealers))
     ) {
       setHasValidationError(true);
       return;
     }
 
     setHasValidationError(false);
+    setIsSearching(true);
     router.push({
       pathname,
       query: nextQuery,
     });
   }, []);
   const [hasValidationError, setHasValidationError] = useState<boolean>(false);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+
+  useEffect(() => setIsSearching(false), [query]);
 
   return (
     <Template activeItemIndex={2} path={currentPath}>
       <SearchInput
         hasValidationError={hasValidationError}
+        isDisabled={isSearching}
         query={query}
         onSubmit={handleSubmit}
       />
