@@ -1,5 +1,4 @@
 import axios from "axios";
-import type { NextApiRequest, NextApiResponse } from "next";
 
 import type {
   VehicleInventory,
@@ -23,22 +22,6 @@ export async function fetchSearchInventory(
 
   const inventoryService = SERVICE_PROVIDER[brand];
   return inventoryService.search(query);
-}
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<VehicleInventorySearchResponse>
-) {
-  // TODO: convert the request to a query
-  const query: VehicleInventorySearchQuery = {
-    year: 2023,
-    brand: "honda",
-    model: "civic-si",
-    zipCode: 91770,
-    maxDealers: 40,
-  };
-  const data = await getData(query);
-  res.status(200).json(data);
 }
 
 abstract class VehicleInventoryService {
