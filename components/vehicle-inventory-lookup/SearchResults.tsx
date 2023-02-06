@@ -9,7 +9,7 @@ import {
   TableHeader,
 } from "react-bs-datatable";
 
-import type { VehicleInventory } from "pages/api/vehicle-inventory-lookup/search";
+import type { VehicleInventory } from "shared/types/vehicle-inventory-lookup-types";
 
 const HEADERS: Array<TableColumnType<VehicleInventory>> = [
   { title: "VIN", prop: "vin", isSortable: true },

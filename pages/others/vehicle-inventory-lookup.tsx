@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import Template from "components/Template";
 import SearchInput from "components/vehicle-inventory-lookup/SearchInput";
 import SearchResults from "components/vehicle-inventory-lookup/SearchResults";
+import { useCallback, useEffect, useState } from "react";
+import { getData } from "shared/fetch/vehicle-inventory-lookup";
 import type {
   VehicleInventory,
   VehicleInventorySearchQuery,
-} from "pages/api/vehicle-inventory-lookup/search";
-import { getData } from "pages/api/vehicle-inventory-lookup/search";
-import { useCallback, useEffect, useState } from "react";
+} from "shared/types/vehicle-inventory-lookup-types";
 
 const DEFAULT_QUERY: VehicleInventorySearchQuery = {
   year: 2023,

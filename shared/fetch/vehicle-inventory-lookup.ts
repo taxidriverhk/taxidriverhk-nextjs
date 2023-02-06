@@ -1,26 +1,10 @@
 import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export type VehicleInventory = {
-  vin: string;
-  dealer: string;
-  drivingDistance: number;
-  year: number;
-  model: string;
-  trim: string;
-  transmission: string;
-  exteriorColor: string;
-  interiorColor: string;
-  numAvailable: number;
-};
-
-export type VehicleInventorySearchQuery = {
-  year?: number;
-  brand?: string;
-  model?: string;
-  zipCode?: number;
-  maxDealers?: number;
-};
+import type {
+  VehicleInventory,
+  VehicleInventorySearchQuery,
+} from "shared/types/vehicle-inventory-lookup-types";
 
 export type VehicleInventorySearchResponse = {
   vehicles?: Array<VehicleInventory>;

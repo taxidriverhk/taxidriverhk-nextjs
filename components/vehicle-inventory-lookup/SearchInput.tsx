@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-import type { VehicleInventorySearchQuery } from "pages/api/vehicle-inventory-lookup/search";
+import type { VehicleInventorySearchQuery } from "shared/types/vehicle-inventory-lookup-types";
 
 const CURRENT_YEAR = new Date().getFullYear();
 const YEAR_OPTONS = [CURRENT_YEAR, CURRENT_YEAR - 1];
