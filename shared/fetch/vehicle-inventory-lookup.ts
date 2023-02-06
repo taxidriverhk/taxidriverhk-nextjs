@@ -115,13 +115,39 @@ class HondaVehicleInventoryService extends VehicleInventoryService {
   }
 }
 
+type ToyotaVehicleInventory = {
+  vin: string;
+  marketingSeries: string;
+  year: number;
+  dealerMarketingName: string;
+  distance: number;
+  model: {
+    marketingName: string;
+  };
+  transmission: {
+    transmissionType: string;
+  };
+  intColor: {
+    marketingName: string;
+  };
+  extColor: {
+    marketingName: string;
+  };
+};
+
 class ToyotaVehicleInventoryService extends VehicleInventoryService {
   async search({
     year,
     model,
     zipCode,
   }: VehicleInventorySearchQuery): Promise<VehicleInventorySearchResponse> {
-    const data = await axios.post(
+    const { data } = await axios.post<{
+      data: {
+        locateVehiclesByZip: {
+          vehicleSummary: Array<ToyotaVehicleInventory>;
+        };
+      };
+    }>(
       "https://api.search-inventory.toyota.com/graphql",
       {
         query: `
@@ -140,6 +166,9 @@ class ToyotaVehicleInventoryService extends VehicleInventoryService {
                 year
                 dealerMarketingName
                 distance
+                model {
+                  marketingName
+                }
                 transmission {
                   transmissionType
                 }
@@ -156,11 +185,40 @@ class ToyotaVehicleInventoryService extends VehicleInventoryService {
           zip: zipCode?.toString(),
           model,
         },
+      },
+      {
+        // This has to be added to avoid the 403 error due to the call being made on the server side
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        },
       }
     );
 
     return {
-      vehicles: [],
+      vehicles: data.data?.locateVehiclesByZip?.vehicleSummary.map(
+        ({
+          vin,
+          marketingSeries,
+          year,
+          dealerMarketingName,
+          distance,
+          model: { marketingName: modelFullName },
+          transmission: { transmissionType },
+          intColor: { marketingName: intColor },
+          extColor: { marketingName: extColor },
+        }) => ({
+          vin,
+          dealer: dealerMarketingName,
+          drivingDistance: distance,
+          year,
+          model: marketingSeries,
+          trim: modelFullName.substring(marketingSeries.length + 1),
+          transmission: transmissionType,
+          exteriorColor: extColor,
+          interiorColor: intColor,
+          numAvailable: 1,
+        })
+      ),
     };
   }
 }
