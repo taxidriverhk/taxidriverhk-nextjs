@@ -14,22 +14,29 @@ export type VehicleInventory = {
   numAvailable: number;
 };
 
-export type VehicleInventorySearchRequest = {
-  year: number;
-  brand: string;
-  model: string;
-  zipCode: number;
-  maxDealers: number;
+export type VehicleInventorySearchQuery = {
+  year?: number;
+  brand?: string;
+  model?: string;
+  zipCode?: number;
+  maxDealers?: number;
 };
 
 export type VehicleInventorySearchResponse = {
-  vehicles: Array<VehicleInventory>;
+  vehicles?: Array<VehicleInventory>;
+  hasError?: boolean;
 };
 
 export async function getData(
-  query: VehicleInventorySearchRequest
+  query: VehicleInventorySearchQuery
 ): Promise<VehicleInventorySearchResponse> {
   const { brand } = query;
+  if (brand == null) {
+    return {
+      hasError: true,
+    };
+  }
+
   const inventoryService = SERVICE_PROVIDER[brand];
   return inventoryService.search(query);
 }
@@ -38,7 +45,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<VehicleInventorySearchResponse>
 ) {
-  const query: VehicleInventorySearchRequest = {
+  // TODO: convert the request to a query
+  const query: VehicleInventorySearchQuery = {
     year: 2023,
     brand: "honda",
     model: "civic-si",
@@ -51,7 +59,7 @@ export default async function handler(
 
 abstract class VehicleInventoryService {
   abstract search(
-    query: VehicleInventorySearchRequest
+    query: VehicleInventorySearchQuery
   ): Promise<VehicleInventorySearchResponse>;
 }
 
@@ -84,7 +92,7 @@ class HondaVehicleInventoryService extends VehicleInventoryService {
     model,
     zipCode,
     maxDealers,
-  }: VehicleInventorySearchRequest): Promise<VehicleInventorySearchResponse> {
+  }: VehicleInventorySearchQuery): Promise<VehicleInventorySearchResponse> {
     const { data } = await axios.get<{
       dealers: Array<HondaVehicleDealer>;
       inventory: Array<HondaVehicleInventory>;
@@ -142,7 +150,7 @@ class HondaVehicleInventoryService extends VehicleInventoryService {
 
 class ToyotaVehicleInventoryService extends VehicleInventoryService {
   async search(
-    query: VehicleInventorySearchRequest
+    query: VehicleInventorySearchQuery
   ): Promise<VehicleInventorySearchResponse> {
     return {
       vehicles: [],
