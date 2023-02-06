@@ -82,6 +82,7 @@ export default function SearchInput({
 
   return (
     <Card>
+      <Card.Header>Query</Card.Header>
       <Card.Body>
         <Form onSubmit={handleOnSubmit}>
           <Form.Group as={Row} className="mb-3">

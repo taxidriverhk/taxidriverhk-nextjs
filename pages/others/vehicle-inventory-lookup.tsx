@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 import Template from "components/Template";
 import SearchInput from "components/vehicle-inventory-lookup/SearchInput";
+import SearchResults from "components/vehicle-inventory-lookup/SearchResults";
 import type {
   VehicleInventory,
   VehicleInventorySearchQuery,
@@ -28,22 +29,26 @@ export default function VehicleInventoryLookup({ query, vehicles }: PropType) {
   const router = useRouter();
   const { asPath: currentPath, pathname } = router;
 
-  const handleSubmit = useCallback((nextQuery: VehicleInventorySearchQuery) => {
-    if (
-      (!Number.isInteger(nextQuery.zipCode) && isEmpty(nextQuery.zipCode)) ||
-      (!Number.isInteger(nextQuery.maxDealers) && isEmpty(nextQuery.maxDealers))
-    ) {
-      setHasValidationError(true);
-      return;
-    }
+  const handleSubmit = useCallback(
+    (nextQuery: VehicleInventorySearchQuery) => {
+      if (
+        (!Number.isInteger(nextQuery.zipCode) && isEmpty(nextQuery.zipCode)) ||
+        (!Number.isInteger(nextQuery.maxDealers) &&
+          isEmpty(nextQuery.maxDealers))
+      ) {
+        setHasValidationError(true);
+        return;
+      }
 
-    setHasValidationError(false);
-    setIsSearching(true);
-    router.push({
-      pathname,
-      query: nextQuery,
-    });
-  }, []);
+      setHasValidationError(false);
+      setIsSearching(true);
+      router.push({
+        pathname,
+        query: nextQuery,
+      });
+    },
+    [pathname, router]
+  );
   const [hasValidationError, setHasValidationError] = useState<boolean>(false);
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
@@ -57,7 +62,7 @@ export default function VehicleInventoryLookup({ query, vehicles }: PropType) {
         query={query}
         onSubmit={handleSubmit}
       />
-      <pre>{JSON.stringify(vehicles, null, 2)}</pre>
+      <SearchResults vehicles={vehicles} />
     </Template>
   );
 }
