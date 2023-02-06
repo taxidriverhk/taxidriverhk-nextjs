@@ -36,7 +36,10 @@ const MODEL_OPTIONS: {
     ["Ridgeline", "ridgeline"],
     ["Odyssey", "odyssey"],
   ],
-  toyota: [["Corolla", "corolla"]],
+  toyota: [
+    ["Corolla", "corolla"],
+    ["GR Corolla", "grcorolla"],
+  ],
 };
 
 type PropType = {

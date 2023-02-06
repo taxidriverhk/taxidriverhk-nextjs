@@ -11,7 +11,7 @@ export type VehicleInventorySearchResponse = {
   hasError?: boolean;
 };
 
-export async function getData(
+export async function fetchSearchInventory(
   query: VehicleInventorySearchQuery
 ): Promise<VehicleInventorySearchResponse> {
   const { brand } = query;
@@ -133,9 +133,49 @@ class HondaVehicleInventoryService extends VehicleInventoryService {
 }
 
 class ToyotaVehicleInventoryService extends VehicleInventoryService {
-  async search(
-    query: VehicleInventorySearchQuery
-  ): Promise<VehicleInventorySearchResponse> {
+  async search({
+    year,
+    model,
+    zipCode,
+  }: VehicleInventorySearchQuery): Promise<VehicleInventorySearchResponse> {
+    const data = await axios.post(
+      "https://api.search-inventory.toyota.com/graphql",
+      {
+        query: `
+          query searchInventory($zip: String!, $model: String!) {
+            locateVehiclesByZip(
+              zipCode: $zip
+              brand: "TOYOTA"
+              pageNo: 1
+              pageSize: 500
+              seriesCodes: $model
+              distance: 50
+            ) {
+              vehicleSummary {
+                vin
+                marketingSeries
+                year
+                dealerMarketingName
+                distance
+                transmission {
+                  transmissionType
+                }
+                intColor {
+                  marketingName
+                }
+                extColor {
+                  marketingName
+                }
+              }
+            }
+          }`,
+        variables: {
+          zip: zipCode?.toString(),
+          model,
+        },
+      }
+    );
+
     return {
       vehicles: [],
     };
