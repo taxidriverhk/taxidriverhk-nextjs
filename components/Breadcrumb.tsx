@@ -37,6 +37,10 @@ const PATH_TITLES = {
           ],
         },
         { prefix: "/books", title: "Books" },
+        {
+          prefix: "/vehicle-inventory-lookup",
+          title: "Vehicle Inventory Lookup",
+        },
       ],
     },
   ],
