@@ -37,7 +37,7 @@ export async function getServerSideProps(
   const searchQuery: VehicleInventorySearchRequest = {
     year: 2023,
     brand: "honda",
-    model: "civic-si",
+    model: "civic-sedan",
     zipCode: 91770,
     maxDealers: 40,
   };

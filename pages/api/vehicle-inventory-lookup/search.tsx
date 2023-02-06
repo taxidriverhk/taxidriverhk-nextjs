@@ -1,6 +1,18 @@
+import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export type VehicleInventory = {};
+export type VehicleInventory = {
+  vin: string;
+  dealer: string;
+  drivingDistance: number;
+  year: number;
+  model: string;
+  trim: string;
+  transmission: string;
+  exteriorColor: string;
+  interiorColor: string;
+  numAvailable: number;
+};
 
 export type VehicleInventorySearchRequest = {
   year: number;
@@ -40,19 +52,98 @@ export default async function handler(
 abstract class VehicleInventoryService {
   abstract search(
     query: VehicleInventorySearchRequest
-  ): VehicleInventorySearchResponse;
+  ): Promise<VehicleInventorySearchResponse>;
 }
 
+type HondaVehicleDealer = {
+  DealerNumber: string;
+  Name: string;
+  DrivingDistanceMiles: number;
+};
+
+type HondaVehicleInventory = {
+  DealerNumber: string;
+  ModelYear: string;
+  ModelGroupName: string;
+  ModelTrim: string;
+  Transmission: string;
+  VINs: Array<{
+    VIN: string;
+    Accessories: Array<any>;
+    OnlineRetailingPreferredVIN: string | null;
+    VehicleDetailPageURL: string | null;
+  }>;
+  ExteriorColor: string;
+  InteriorColor: string;
+  NumberOnSite: number;
+};
+
 class HondaVehicleInventoryService extends VehicleInventoryService {
-  search(query: VehicleInventorySearchRequest): VehicleInventorySearchResponse {
+  async search({
+    year,
+    model,
+    zipCode,
+    maxDealers,
+  }: VehicleInventorySearchRequest): Promise<VehicleInventorySearchResponse> {
+    const { data } = await axios.get<{
+      dealers: Array<HondaVehicleDealer>;
+      inventory: Array<HondaVehicleInventory>;
+    }>("https://automobiles.honda.com/platform/api/v3/inventoryAndDealers", {
+      params: {
+        productDivisionCode: "A",
+        modelYear: year,
+        modelGroup: model,
+        zipCode,
+        maxDealers,
+      },
+    });
+
+    const dealerLookup: { [key: string]: HondaVehicleDealer } = (
+      data.dealers || []
+    ).reduce((result, dealer) => {
+      const dealerNumber = dealer.DealerNumber;
+      if (dealerNumber == null || dealer == null) {
+        return result;
+      }
+      return {
+        ...result,
+        [dealerNumber]: dealer,
+      };
+    }, {});
+
     return {
-      vehicles: [],
+      vehicles: data.inventory?.map(
+        ({
+          DealerNumber,
+          ModelYear,
+          ModelGroupName,
+          ModelTrim,
+          Transmission,
+          VINs,
+          ExteriorColor,
+          InteriorColor,
+          NumberOnSite,
+        }) => ({
+          vin: VINs[0].VIN,
+          dealer: dealerLookup[DealerNumber].Name,
+          drivingDistance: dealerLookup[DealerNumber].DrivingDistanceMiles,
+          year: Number.parseInt(ModelYear),
+          model: ModelGroupName,
+          trim: ModelTrim,
+          transmission: Transmission,
+          exteriorColor: ExteriorColor,
+          interiorColor: InteriorColor,
+          numAvailable: NumberOnSite,
+        })
+      ),
     };
   }
 }
 
 class ToyotaVehicleInventoryService extends VehicleInventoryService {
-  search(query: VehicleInventorySearchRequest): VehicleInventorySearchResponse {
+  async search(
+    query: VehicleInventorySearchRequest
+  ): Promise<VehicleInventorySearchResponse> {
     return {
       vehicles: [],
     };
