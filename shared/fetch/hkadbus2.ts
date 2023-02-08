@@ -12,7 +12,7 @@ import type {
   SortOrder,
 } from "shared/types/hkadbus2-types";
 
-const API_ENDPOINT = "https://tomcat.taxidriverhk.com/hkadbus2/api";
+const API_ENDPOINT = "http://127.0.0.1:8080/hkadbus2/api";
 
 export async function fetchGetAdvertisements(
   categoryId: string,
