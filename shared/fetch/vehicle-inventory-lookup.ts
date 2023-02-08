@@ -1,4 +1,5 @@
 import axios from "axios";
+import logger from "logger";
 
 import type {
   VehicleInventory,
@@ -194,6 +195,11 @@ class ToyotaVehicleInventoryService extends VehicleInventoryService {
       }
     );
 
+    logger.info(
+      `${
+        data.data?.locateVehiclesByZip?.vehicleSummary?.length ?? 0
+      } vehicles found from Toyota inventory`
+    );
     return {
       vehicles: data.data?.locateVehiclesByZip?.vehicleSummary.map(
         ({
