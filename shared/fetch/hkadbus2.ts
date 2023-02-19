@@ -12,7 +12,7 @@ import type {
   SortOrder,
 } from "shared/types/hkadbus2-types";
 
-const API_ENDPOINT = "http://192.168.1.33:8080/hkadbus2/api";
+const API_ENDPOINT = "http://127.0.0.1:8080/hkadbus2/api";
 const PAGE_SIZE = 20;
 
 export async function fetchGetAdvertisements(
