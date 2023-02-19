@@ -12,6 +12,7 @@ import styles from "components/hkadbus2/styles/SearchPhoto.module.css";
 
 type PropType = {
   isFetching: boolean;
+  isLoadMoreDisabled: boolean;
   isLoadMoreShown: boolean;
   onLoadMore: () => void;
   results: Array<SearchPhotoResult>;
@@ -27,6 +28,7 @@ const busCompanyColorMap = {
 
 export default function SearchPhotoResults({
   isLoadMoreShown,
+  isLoadMoreDisabled,
   onLoadMore,
   results,
   translationFunc: t,
@@ -65,7 +67,11 @@ export default function SearchPhotoResults({
         <div
           className={styles["search-photo-results-load-more-button-container"]}
         >
-          <Button variant="outline-secondary" onClick={onLoadMore}>
+          <Button
+            disabled={isLoadMoreDisabled}
+            variant="outline-secondary"
+            onClick={onLoadMore}
+          >
             {t("search-results-load-more")}
           </Button>
         </div>

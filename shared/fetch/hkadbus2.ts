@@ -12,7 +12,8 @@ import type {
   SortOrder,
 } from "shared/types/hkadbus2-types";
 
-const API_ENDPOINT = "http://127.0.0.1:8080/hkadbus2/api";
+const API_ENDPOINT = "http://192.168.1.33:8080/hkadbus2/api";
+const PAGE_SIZE = 20;
 
 export async function fetchGetAdvertisements(
   categoryId: string,
@@ -55,7 +56,9 @@ export async function fetchSearchPhotos(
   query: SearchPhotoQuery,
   orderBy: string,
   sort: SortOrder,
-  locale?: string
+  locale?: string,
+  cursor?: string,
+  size?: number
 ): Promise<SearchPhotosResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
   const convertedQuery = Object.entries(query).reduce(
@@ -70,8 +73,32 @@ export async function fetchSearchPhotos(
     search_text: query.q,
     order_by: orderBy,
     sort,
+    size: size ?? PAGE_SIZE,
+    next_sort_key: cursor,
     language: convertedLocale,
   });
+}
+
+export async function fetchSearchPhotosFromClientSide(
+  searchQuery: SearchPhotoQuery,
+  orderBy: string,
+  sort: SortOrder,
+  locale?: string,
+  cursor?: string
+): Promise<SearchPhotosResponse> {
+  const { data } = await axios.post<SearchPhotosResponse>(
+    "/api/hkadbus2/search-photos-with-cursor",
+    {
+      params: {
+        searchQuery,
+        orderBy,
+        sort,
+        cursor,
+        locale,
+      },
+    }
+  );
+  return data;
 }
 
 function convertLocaleToLanguage(locale?: string): string {

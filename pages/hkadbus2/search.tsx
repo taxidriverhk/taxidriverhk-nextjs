@@ -8,7 +8,10 @@ import type { SearchPhotoFilterPropType } from "components/hkadbus2/SearchPhotoF
 import SearchPhotoFilters from "components/hkadbus2/SearchPhotoFilters";
 import SearchPhotoResults from "components/hkadbus2/SearchPhotoResults";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
-import { fetchSearchPhotos } from "shared/fetch/hkadbus2";
+import {
+  fetchSearchPhotos,
+  fetchSearchPhotosFromClientSide,
+} from "shared/fetch/hkadbus2";
 import { removeUndefinedAndLowercaseValues } from "shared/query/hkadbus2-query-builder";
 import type {
   SearchPhotoQuery,
@@ -16,6 +19,9 @@ import type {
 } from "shared/types/hkadbus2-types";
 
 import { SortOrder } from "shared/types/hkadbus2-types";
+
+const ORDER_BY = "uploadedDate";
+const SORT = SortOrder.ASC;
 
 type PropType = {
   filters: SearchPhotoFilterPropType;
@@ -29,6 +35,7 @@ function HKAdbus2SearchBody({
   photos: initialPhotos,
 }: PropType) {
   const router = useRouter();
+  const { locale, pathname, query } = router;
 
   const [photos, setPhotos] = useState<Array<SearchPhotoResult>>([]);
   const [validationErrors, setValidationErrors] =
@@ -36,14 +43,9 @@ function HKAdbus2SearchBody({
   const [nextCursor, setNextCursor] = useState<string | null>(
     initialNextCursor
   );
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 
   const t = useTranslations("hkadbus2");
-
-  const { pathname } = router;
-
-  useEffect(() => {
-    setPhotos(initialPhotos);
-  }, [initialPhotos]);
 
   const handleSearchCallback = useCallback(
     (nextFilters: SearchPhotoFilterPropType) => {
@@ -85,6 +87,28 @@ function HKAdbus2SearchBody({
     },
     [pathname, router, t]
   );
+  const handleLoadMoreCallback = useCallback(async () => {
+    if (nextCursor == null) {
+      return;
+    }
+
+    setIsLoadingMore(true);
+    const { nextPageCursor, results: nextPhotos } =
+      await fetchSearchPhotosFromClientSide(
+        query as SearchPhotoQuery,
+        ORDER_BY,
+        SORT,
+        locale,
+        nextCursor
+      );
+    setPhotos([...photos, ...nextPhotos]);
+    setNextCursor(nextPageCursor);
+    setIsLoadingMore(false);
+  }, [photos, nextCursor, setIsLoadingMore, setPhotos, setNextCursor]);
+
+  useEffect(() => {
+    setPhotos(initialPhotos);
+  }, [initialPhotos]);
 
   return (
     <>
@@ -97,9 +121,9 @@ function HKAdbus2SearchBody({
       />
       <SearchPhotoResults
         isFetching={false}
+        isLoadMoreDisabled={isLoadingMore}
         isLoadMoreShown={nextCursor != null}
-        // TODO: Implement me, should not be needed right now given the low volume of photos
-        onLoadMore={() => {}}
+        onLoadMore={handleLoadMoreCallback}
         results={photos}
         translationFunc={t}
       />
@@ -157,8 +181,8 @@ export async function getServerSideProps(
 
   const { results, nextPageCursor } = await fetchSearchPhotos(
     photoSearchQuery,
-    "uploadedDate",
-    SortOrder.ASC,
+    ORDER_BY,
+    SORT,
     locale
   );
 
