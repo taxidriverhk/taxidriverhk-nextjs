@@ -23,6 +23,7 @@
     "search-filter-uploaded-by": "上傳者",
     "search-filter-submit": "搜尋",
     "search-filter-validation-error": "請輸入最少一項搜尋條件",
+    "search-results-count": "已載入 {loaded}/{total}相片",
     "search-results-load-more": "載入更多",
     "search-results-no-results": "找不到任何相片。請更改或輸入最少一項搜尋條件然後再試。",
     "recent-updates": "最近更新",

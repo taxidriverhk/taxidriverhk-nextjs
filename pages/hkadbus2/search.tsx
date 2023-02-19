@@ -27,12 +27,14 @@ type PropType = {
   filters: SearchPhotoFilterPropType;
   nextCursor: string | null;
   photos: Array<SearchPhotoResult>;
+  total: number;
 };
 
 function HKAdbus2SearchBody({
   filters: initialFilters,
   nextCursor: initialNextCursor,
   photos: initialPhotos,
+  total,
 }: PropType) {
   const router = useRouter();
   const { locale, pathname, query } = router;
@@ -101,10 +103,19 @@ function HKAdbus2SearchBody({
         locale,
         nextCursor
       );
+
     setPhotos([...photos, ...nextPhotos]);
     setNextCursor(nextPageCursor);
     setIsLoadingMore(false);
-  }, [photos, nextCursor, setIsLoadingMore, setPhotos, setNextCursor]);
+  }, [
+    locale,
+    query,
+    photos,
+    nextCursor,
+    setIsLoadingMore,
+    setPhotos,
+    setNextCursor,
+  ]);
 
   useEffect(() => {
     setPhotos(initialPhotos);
@@ -125,6 +136,7 @@ function HKAdbus2SearchBody({
         isLoadMoreShown={nextCursor != null}
         onLoadMore={handleLoadMoreCallback}
         results={photos}
+        total={total}
         translationFunc={t}
       />
     </>
@@ -135,6 +147,7 @@ export default function HKAdbus2Search({
   filters,
   nextCursor,
   photos,
+  total,
 }: PropType) {
   return (
     <HKAdBus2TemplateContainer>
@@ -142,6 +155,7 @@ export default function HKAdbus2Search({
         filters={filters}
         nextCursor={nextCursor}
         photos={photos}
+        total={total}
       />
     </HKAdBus2TemplateContainer>
   );
@@ -157,6 +171,7 @@ export async function getServerSideProps(
         filters: {},
         nextCursor: null,
         photos: [],
+        total: 0,
       },
     };
   }
@@ -179,7 +194,7 @@ export async function getServerSideProps(
     uploadedBy: username,
   });
 
-  const { results, nextPageCursor } = await fetchSearchPhotos(
+  const { results, nextPageCursor, total } = await fetchSearchPhotos(
     photoSearchQuery,
     ORDER_BY,
     SORT,
@@ -191,6 +206,7 @@ export async function getServerSideProps(
       filters,
       nextCursor: nextPageCursor,
       photos: results,
+      total,
     },
   };
 }

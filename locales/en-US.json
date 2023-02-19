@@ -23,6 +23,7 @@
     "search-filter-uploaded-by": "Uplodaded By",
     "search-filter-submit": "Search",
     "search-filter-validation-error": "Please specify at least one input",
+    "search-results-count": "{loaded} out of {total} photo(s) shown",
     "search-results-load-more": "Load More",
     "search-results-no-results": "No photos are found. Please revise the query by providing at least one input and then try again.",
     "recent-updates": "Recent Updates",

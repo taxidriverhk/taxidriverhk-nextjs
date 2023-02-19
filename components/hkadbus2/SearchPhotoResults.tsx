@@ -16,7 +16,8 @@ type PropType = {
   isLoadMoreShown: boolean;
   onLoadMore: () => void;
   results: Array<SearchPhotoResult>;
-  translationFunc: (key: string) => string;
+  total: number;
+  translationFunc: (key: string, params?: any) => string;
 };
 
 const busCompanyColorMap = {
@@ -31,6 +32,7 @@ export default function SearchPhotoResults({
   isLoadMoreDisabled,
   onLoadMore,
   results,
+  total,
   translationFunc: t,
 }: PropType) {
   const photoCards: Array<PhotoCardPropType> = useMemo(
@@ -57,7 +59,17 @@ export default function SearchPhotoResults({
   return (
     <>
       {photoCards.length > 0 ? (
-        <PhotoCardList photos={photoCards} />
+        <>
+          <PhotoCardList photos={photoCards} />
+          <Card>
+            <Card.Body>
+              {t("search-results-count", {
+                loaded: photoCards.length,
+                total,
+              })}
+            </Card.Body>
+          </Card>
+        </>
       ) : (
         <Card>
           <Card.Body>{t("search-results-no-results")}</Card.Body>
