@@ -62,8 +62,8 @@ function HKAdBus2TemplateLocalizedStringsRenderer({
 function HKAdBus2HomeBody({ recentPhotos }: PropType) {
   const t = useTranslations("hkadbus2");
   const intl = useIntl();
+  const { asPath } = useRouter();
 
-  const currentDate = new Date();
   const photoCards: Array<PhotoCardPropType> = useMemo(
     () =>
       recentPhotos.map(
@@ -76,7 +76,7 @@ function HKAdBus2HomeBody({ recentPhotos }: PropType) {
           uploadedDate,
           username,
         }) => ({
-          href: `photos/${photoId}`,
+          href: `${asPath}/photos/${photoId}`,
           photo: thumbnail,
           title: `${fleetPrefix}${fleetNumber}`,
           subtitle: licensePlateNumber,
@@ -84,12 +84,12 @@ function HKAdBus2HomeBody({ recentPhotos }: PropType) {
             username,
             relativeUploadedDate: intl.formatRelativeTime(
               uploadedDate,
-              currentDate
+              new Date()
             ),
           }),
         })
       ),
-    [recentPhotos]
+    [asPath, intl, recentPhotos, t]
   );
 
   return (
