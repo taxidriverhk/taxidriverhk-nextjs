@@ -26,11 +26,12 @@
     "search-results-count": "{loaded} out of {total} photo(s) shown",
     "search-results-load-more": "Load More",
     "search-results-no-results": "No photos are found. Please revise the query by providing at least one input and then try again.",
-    "recent-updates": "Recent Updates",
+    "recent-updates": "Recently Uploaded Photos",
     "related-photos": "Photos of same {attribute}",
     "route-number": "Route Number",
     "title": "Hong Kong Advertised Bus Photo Database v2.5",
     "uploaded-by": "Uploaded By: {username}",
+    "uploaded-by-with-date": "Uploaded by {username} {relativeUploadedDate}",
     "uploaded-date": "Date Uploaded: {uploadedDate, date, ::dMMMMyyyy}"
   }
 }

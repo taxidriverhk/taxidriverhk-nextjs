@@ -26,11 +26,12 @@
     "search-results-count": "已載入 {loaded}/{total}相片",
     "search-results-load-more": "載入更多",
     "search-results-no-results": "找不到任何相片。請更改或輸入最少一項搜尋條件然後再試。",
-    "recent-updates": "最近更新",
+    "recent-updates": "最新上傳相片",
     "related-photos": "其他相同{attribute}相片",
     "route-number": "巴士路線",
     "title": "香港廣告巴士相片庫 v2.5",
     "uploaded-by": "上傳者: {username}",
+    "uploaded-by-with-date": "由 {username} {relativeUploadedDate}上傳",
     "uploaded-date": "上傳日期: {uploadedDate, date, ::dMMMMyyyy}"
   }
 }

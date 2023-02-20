@@ -13,17 +13,20 @@ type PropType = {
 export default function PhotoCardList({ photos }: PropType) {
   return (
     <Row xs={1} md={2} lg={4}>
-      {photos.map(({ backgroundColor, href, photo, subtitle, title }) => (
-        <Col className={styles["photo-card-grid"]} key={photo}>
-          <PhotoCard
-            backgroundColor={backgroundColor}
-            href={href}
-            photo={photo}
-            subtitle={subtitle}
-            title={title}
-          />
-        </Col>
-      ))}
+      {photos.map(
+        ({ backgroundColor, extra, href, photo, subtitle, title }) => (
+          <Col className={styles["photo-card-grid"]} key={photo}>
+            <PhotoCard
+              backgroundColor={backgroundColor}
+              extra={extra}
+              href={href}
+              photo={photo}
+              subtitle={subtitle}
+              title={title}
+            />
+          </Col>
+        )
+      )}
     </Row>
   );
 }

@@ -14,6 +14,7 @@ export enum PhotoColor {
 
 export type PhotoCardPropType = {
   backgroundColor?: PhotoColor;
+  extra?: string;
   href?: string;
   photo: string;
   subtitle?: string;
@@ -22,6 +23,7 @@ export type PhotoCardPropType = {
 
 export default function PhotoCard({
   backgroundColor = PhotoColor.None,
+  extra,
   href,
   photo,
   subtitle,
@@ -48,6 +50,11 @@ export default function PhotoCard({
           <Card.Subtitle>{title}</Card.Subtitle>
           <Card.Text>{subtitle}</Card.Text>
         </Card.Body>
+        {extra && (
+          <Card.Footer>
+            <small className="text-muted">{extra}</small>
+          </Card.Footer>
+        )}
       </Card>
     </Button>
   );

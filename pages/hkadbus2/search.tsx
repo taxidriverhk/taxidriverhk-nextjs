@@ -17,7 +17,6 @@ import type {
   SearchPhotoQuery,
   SearchPhotoResult,
 } from "shared/types/hkadbus2-types";
-
 import { SortOrder } from "shared/types/hkadbus2-types";
 
 const ORDER_BY = "uploadedDate";
