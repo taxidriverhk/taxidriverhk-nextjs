@@ -48,14 +48,18 @@ export default function OthersPagesAppleDaily() {
         </li>
         <ul>
           <li>
-            <a href="https://www.youtube.com/channel/UCGKZBiAkSYd1v1O_5vFky7A">
-              米紙 (部份前果籽成員組成) 地板油
+            <a href="https://www.youtube.com/@ricezi2hk">
+              米紙 (部份前果籽成員組成)
             </a>
-            <a href="https://www.youtube.com/channel/UC_ogl0qjBdXrTiZZJ6ltsQQ">
-              (部份前果籽成員組成，主要上載汽車相關影片) 餓底TV
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@flatout852">
+              地板油 (部份前果籽成員組成，主要上載汽車相關影片)
             </a>
-            <a href="https://www.youtube.com/c/hungrytvhk">
-              (部份前飲食男女成員組成)
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@hungrytvhk">
+              餓底TV (部份前飲食男女成員組成)
             </a>
           </li>
         </ul>
