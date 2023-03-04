@@ -1,5 +1,6 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { NextIntlProvider, useIntl, useTranslations } from "next-intl";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
@@ -46,16 +47,21 @@ function HKAdBus2TemplateLocalizedStringsRenderer({
   const { asPath, pathname, locale, query } = router;
 
   return (
-    <Template
-      linkAs={Link}
-      locale={locale}
-      onLocaleChange={(nextLocale) =>
-        router.push({ pathname, query }, asPath, { locale: nextLocale })
-      }
-      translationFunc={t}
-    >
-      {children}
-    </Template>
+    <>
+      <Head>
+        <title>{t("title")}</title>
+      </Head>
+      <Template
+        linkAs={Link}
+        locale={locale}
+        onLocaleChange={(nextLocale) =>
+          router.push({ pathname, query }, asPath, { locale: nextLocale })
+        }
+        translationFunc={t}
+      >
+        {children}
+      </Template>
+    </>
   );
 }
 

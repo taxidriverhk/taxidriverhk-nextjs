@@ -30,7 +30,7 @@
     "related-photos": "Photos of same {attribute}",
     "route-number": "Route Number",
     "title": "Hong Kong Advertised Bus Photo Database v2.5",
-    "uploaded-by": "Uploaded By: {username}",
+    "uploaded-by": "Uploaded By:",
     "uploaded-by-with-date": "Uploaded by {username} {relativeUploadedDate}",
     "uploaded-date": "Date Uploaded: {uploadedDate, date, ::dMMMMyyyy}"
   }

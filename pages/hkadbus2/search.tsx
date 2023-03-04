@@ -119,6 +119,9 @@ function HKAdbus2SearchBody({
   useEffect(() => {
     setPhotos(initialPhotos);
   }, [initialPhotos]);
+  useEffect(() => {
+    setNextCursor(initialNextCursor);
+  }, [initialNextCursor]);
 
   return (
     <>

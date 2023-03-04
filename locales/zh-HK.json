@@ -30,7 +30,7 @@
     "related-photos": "其他相同{attribute}相片",
     "route-number": "巴士路線",
     "title": "香港廣告巴士相片庫 v2.5",
-    "uploaded-by": "上傳者: {username}",
+    "uploaded-by": "上傳者:",
     "uploaded-by-with-date": "由 {username} {relativeUploadedDate}上傳",
     "uploaded-date": "上傳日期: {uploadedDate, date, ::dMMMMyyyy}"
   }
