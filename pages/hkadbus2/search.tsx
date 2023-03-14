@@ -79,7 +79,7 @@ function HKAdbus2SearchBody({
         fleetPrefix,
         fleetNumber,
         licensePlateNumber,
-        username: uploadedBy,
+        uploaderName: uploadedBy,
       });
       router.push({
         pathname,
