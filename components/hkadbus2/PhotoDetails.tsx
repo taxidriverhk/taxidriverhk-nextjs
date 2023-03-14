@@ -55,7 +55,9 @@ export default function PhotoDetails({
             <tr>
               <td colSpan={3}>
                 {t("uploaded-by")}{" "}
-                <a href={`../${buildPhotoSearchUrl({ username })}`}>
+                <a
+                  href={`../${buildPhotoSearchUrl({ uploaderName: username })}`}
+                >
                   {username}
                 </a>
               </td>

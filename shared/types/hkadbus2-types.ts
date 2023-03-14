@@ -60,7 +60,7 @@ export type SearchPhotoQuery = {
   fleetPrefix?: string;
   fleetNumber?: string;
   licensePlateNumber?: string;
-  username?: string;
+  uploaderName?: string;
 };
 
 export type SearchPhotoResult = {

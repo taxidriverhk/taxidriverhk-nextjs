@@ -185,7 +185,7 @@ export async function getServerSideProps(
     fleetPrefix,
     fleetNumber,
     licensePlateNumber,
-    username,
+    uploaderName,
   } = photoSearchQuery;
   const filters: SearchPhotoFilterPropType = removeUndefinedAndLowercaseValues({
     keywords: q,
@@ -193,7 +193,7 @@ export async function getServerSideProps(
     fleetPrefix,
     fleetNumber,
     licensePlateNumber,
-    uploadedBy: username,
+    uploadedBy: uploaderName,
   });
 
   const { results, nextPageCursor, total } = await fetchSearchPhotos(
