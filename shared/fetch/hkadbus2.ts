@@ -106,7 +106,9 @@ function convertLocaleToLanguage(locale?: string): string {
 }
 
 async function fetchGet<T>(endpoint: string, params: any) {
-  const response = await axios.get<T>(`${API_ENDPOINT}${endpoint}`, { params });
+  const response = await axios.get<T>(`${getApiEndpoint()}${endpoint}`, {
+    params,
+  });
   const { data } = response;
   return data;
 }
@@ -129,4 +131,9 @@ async function fetchGetWithItemNotFoundHandled<T>(
       throw new Error(axiosError.message);
     }
   }
+}
+
+function getApiEndpoint(): string {
+  const endpointOverride = process.env.HKADBUS2_API_ENDPOINT;
+  return endpointOverride != null ? endpointOverride : API_ENDPOINT;
 }
