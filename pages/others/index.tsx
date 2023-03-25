@@ -1,5 +1,5 @@
 import {
-  faBitbucket,
+  faGithub,
   faHtml5,
   faJs,
   faLinkedin,
@@ -30,8 +30,10 @@ export default function Personal() {
             title: "LinkedIn Profile",
           },
           {
-            href: "https://bitbucket.org/taxidriverhk/",
-            icon: faBitbucket,
+            description:
+              "Collection of personal code written during school and spare time.",
+            href: "https://github.com/taxidriverhk/",
+            icon: faGithub,
             title: "Code Repositories",
           },
           {
