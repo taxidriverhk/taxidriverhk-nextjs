@@ -1,0 +1,35 @@
+name: Deploy to Production Server (which is the only server)
+
+# Triggered 
+on:
+  push:
+    branches:
+    - master
+
+# SSH into the production machine and then build directly
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup SSH Key
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/production-server.key
+        chmod 600 ~/.ssh/production-server.key
+        cat >>~/.ssh/config <<END
+        Host production-server
+          HostName $REMOTE_IP
+          User $USER
+          IdentityFile ~/.ssh/production-server.key
+          StrictHostKeyChecking no
+        END
+      shell: bash
+      env:
+        USER: ${{ secrets.USER }}
+        REMOTE_IP: ${{ secrets.REMOTE_IP }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Build and deploy
+      run: ssh production-server "cd $DEPLOY_DIR && git pull origin master && npm install && npm run build && pm2 restart taxidriverhk-nextjs"
+      shell: bash
+      env:
+        DEPLOY_DIR: ${{ secrets.DEPLOY_DIR }}
