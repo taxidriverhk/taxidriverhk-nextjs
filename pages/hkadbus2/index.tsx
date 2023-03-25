@@ -3,13 +3,15 @@ import { NextIntlProvider, useIntl, useTranslations } from "next-intl";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import type { PhotoCardPropType } from "components/hkadbus2/PhotoCard";
 import PhotoCardList from "components/hkadbus2/PhotoCardList";
+import QuickSearchCard from "components/hkadbus2/QuickSearchCard";
 import Template from "components/hkadbus2/Template";
 import { fetchSearchPhotos } from "shared/fetch/hkadbus2";
 import useLocalizedStrings from "shared/hooks/useLocalizedStrings";
+import { removeUndefinedAndLowercaseValues } from "shared/query/hkadbus2-query-builder";
 import type {
   SearchPhotoQuery,
   SearchPhotoResult,
@@ -23,6 +25,8 @@ type TemplateContainerPropType = {
 type PropType = {
   recentPhotos: Array<SearchPhotoResult>;
 };
+
+const RECENT_PHOTOS_COUNT = 8;
 
 export function HKAdBus2TemplateContainer({
   children,
@@ -68,7 +72,8 @@ function HKAdBus2TemplateLocalizedStringsRenderer({
 function HKAdBus2HomeBody({ recentPhotos }: PropType) {
   const t = useTranslations("hkadbus2");
   const intl = useIntl();
-  const { asPath } = useRouter();
+  const router = useRouter();
+  const { asPath, pathname } = router;
 
   const photoCards: Array<PhotoCardPropType> = useMemo(
     () =>
@@ -98,10 +103,25 @@ function HKAdBus2HomeBody({ recentPhotos }: PropType) {
     [asPath, intl, recentPhotos, t]
   );
 
+  const handleSearchCallback = useCallback(
+    (keyword: string) => {
+      const searchQuery: SearchPhotoQuery = removeUndefinedAndLowercaseValues({
+        q: keyword,
+      });
+      router.push({
+        pathname: `${pathname}/search`,
+        query: searchQuery,
+      });
+    },
+    [pathname, router]
+  );
+
   return (
     <>
       <h3>{t("introduction-title")}</h3>
       <p>{t("introduction-body")}</p>
+      <h3>{t("search-small-filter-title")}</h3>
+      <QuickSearchCard onSearch={handleSearchCallback} translationFunc={t} />
       <h3>{t("recent-updates")}</h3>
       <PhotoCardList photos={photoCards} />
     </>
@@ -127,7 +147,7 @@ export async function getServerSideProps(
     SortOrder.DESC,
     locale,
     undefined,
-    12
+    RECENT_PHOTOS_COUNT
   );
 
   return {

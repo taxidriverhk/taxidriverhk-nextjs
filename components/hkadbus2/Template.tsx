@@ -41,6 +41,9 @@ export default function Template({
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
+              <Nav.Link as={LinkComponent} href="/hkadbus2/search">
+                {t("search")}
+              </Nav.Link>
               <Nav.Link as={LinkComponent} href="/hkadbus2/categories">
                 {t("categories")}
               </Nav.Link>
