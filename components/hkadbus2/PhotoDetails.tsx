@@ -66,7 +66,10 @@ export default function PhotoDetails({
               <td>{t("category")}</td>
               <td>{category}</td>
               <td>
-                <Button href={`../categories/${categoryId}`} variant="info">
+                <Button
+                  href={`../categories/${categoryId}`}
+                  variant="outline-secondary"
+                >
                   {t("related-photos", { attribute: t("category") })}
                 </Button>
               </td>
@@ -77,7 +80,7 @@ export default function PhotoDetails({
               <td>
                 <Button
                   href={`../${buildPhotoSearchUrl({ advertisementId })}`}
-                  variant="info"
+                  variant="outline-secondary"
                 >
                   {t("related-photos", { attribute: t("advertisement") })}
                 </Button>
@@ -89,7 +92,7 @@ export default function PhotoDetails({
               <td>
                 <Button
                   href={`../${buildPhotoSearchUrl({ busModelId })}`}
-                  variant="info"
+                  variant="outline-secondary"
                 >
                   {t("related-photos", { attribute: t("model") })}
                 </Button>
@@ -104,7 +107,7 @@ export default function PhotoDetails({
               <td>
                 <Button
                   href={`../${buildPhotoSearchUrl({ fleetPrefix })}`}
-                  variant="info"
+                  variant="outline-secondary"
                 >
                   {t("related-photos", { attribute: t("fleet") })}
                 </Button>
@@ -123,7 +126,7 @@ export default function PhotoDetails({
               <td>
                 <Button
                   href={`../${buildPhotoSearchUrl({ licensePlateNumber })}`}
-                  variant="info"
+                  variant="outline-secondary"
                 >
                   {t("related-photos", { attribute: t("bus") })}
                 </Button>
@@ -141,7 +144,7 @@ export default function PhotoDetails({
                   href={`../${buildPhotoSearchUrl({
                     busRouteNumber: routeNumber,
                   })}`}
-                  variant="info"
+                  variant="outline-secondary"
                 >
                   {t("related-photos", { attribute: t("route-number") })}
                 </Button>
