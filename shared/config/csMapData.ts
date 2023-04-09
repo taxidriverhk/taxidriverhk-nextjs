@@ -4,9 +4,19 @@ export enum ReleaseStatus {
   Unavailable,
 }
 
+export enum GameVersion {
+  COUNTER_STRIKE_1_6 = "Counter Strike 1.6",
+  COUNTER_STRIKE_2 = "Counter Strike 2",
+}
+
 export const releaseStatusDisplayText = {
   [ReleaseStatus.InProgress]: "In Progress",
   [ReleaseStatus.Unavailable]: "Unavailable",
+};
+
+export const gameVersionBadgeColor = {
+  [GameVersion.COUNTER_STRIKE_1_6]: "secondary",
+  [GameVersion.COUNTER_STRIKE_2]: "warning",
 };
 
 export type MapCategory = {
@@ -31,6 +41,7 @@ export type MapItem = {
   version: string;
   releaseDate: string;
   status: ReleaseStatus;
+  targetGameVersion: GameVersion;
 };
 
 export const mapCategories: Array<MapCategory> = [
@@ -79,6 +90,7 @@ export const mapItems: Array<MapItem> = [
     maxPlayers: 10,
     images: [],
     downloadLinks: [],
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
   },
   {
     id: 1,
@@ -90,6 +102,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     icon: "/csmaps/icon2.jpg",
     maxPlayers: 16,
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52633794936_ccfa1a31f7_o_d.jpg",
@@ -119,6 +132,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 24,
     icon: "/csmaps/icon11.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52633794611_6862686b91_o_d.jpg",
@@ -148,6 +162,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 24,
     icon: "/csmaps/icon24.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52656989652_d4be66ce9b_o_d.jpg",
@@ -196,6 +211,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Unavailable,
     maxPlayers: 26,
     icon: "/csmaps/icon5.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [],
     downloadLinks: [],
   },
@@ -209,6 +225,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 16,
     icon: "/csmaps/icon3.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634051534_a74a8a9c2d_o_d.jpg",
@@ -238,6 +255,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon4.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634279113_3615f5f552_z.jpg",
@@ -267,6 +285,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon13.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634259528_85fd672804_o_d.jpg",
@@ -296,6 +315,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon15.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634228360_b4778f858d_o_d.jpg",
@@ -325,6 +345,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon18.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52656922507_a492df979a_c_d.jpg",
@@ -366,6 +387,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon22.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634267943_4f82d0c0ce_o_d.jpg",
@@ -421,6 +443,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 16,
     icon: "/csmaps/icon6.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634050664_c39746464f_o_d.jpg",
@@ -450,6 +473,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 20,
     icon: "/csmaps/icon7.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52633280872_b26f522838_o_d.jpg",
@@ -479,6 +503,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 24,
     icon: "/csmaps/icon8.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634213520_1c44972099_o_d.jpg",
@@ -508,6 +533,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon9.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52633279832_42365f536d_o_d.jpg",
@@ -537,6 +563,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 24,
     icon: "/csmaps/icon12.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634276998_3081d52ce3_o_d.jpg",
@@ -566,6 +593,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon14.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634047449_d7d3c481ae_o_d.jpg",
@@ -595,6 +623,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.InProgress,
     maxPlayers: 30,
     icon: "/csmaps/icon17.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52656914307_ffee1441db_o_d.jpg",
@@ -642,6 +671,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon19.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634042364_be5ea62c5f_o_d.jpg",
@@ -679,6 +709,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 30,
     icon: "/csmaps/icon21.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634222245_a3a42bedff_o_d.jpg",
@@ -738,6 +769,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 10,
     icon: "/csmaps/icon20.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52633272497_668a73b3f0_o_d.jpg",
@@ -775,6 +807,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 10,
     icon: "/csmaps/icon25.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52657768849_aeec102f85_o_d.jpg",
@@ -819,6 +852,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 32,
     icon: "/csmaps/icon16.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634274758_b73690928b_o_d.jpg",
@@ -849,6 +883,7 @@ export const mapItems: Array<MapItem> = [
     maxPlayers: 32,
     icon: "/csmaps/icon23.jpg",
     progressPercentage: 95,
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52656922517_ddebd1e9ac_o_d.jpg",
@@ -901,6 +936,7 @@ export const mapItems: Array<MapItem> = [
     status: ReleaseStatus.Released,
     maxPlayers: 20,
     icon: "/csmaps/icon10.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_1_6,
     images: [
       {
         url: "https://live.staticflickr.com/65535/52634229805_83bfae7afa_o_d.jpg",
