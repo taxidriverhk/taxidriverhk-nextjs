@@ -28,15 +28,19 @@ export default function MapItem({
   onFilter,
 }: PropType) {
   const handleOnChange = useCallback(
-    (field: string) => (e: React.ChangeEvent<HTMLSelectElement>) => {
-      onFilter({
-        ...{
-          versions,
-          sort,
-        },
-        [field]: Array.from(e.target.selectedOptions).map((item) => item.value),
-      });
-    },
+    (field: string, multiselect: boolean) =>
+      (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const options = Array.from(e.target.selectedOptions).map(
+          (item) => item.value
+        );
+        onFilter({
+          ...{
+            versions,
+            sort,
+          },
+          [field]: multiselect ? options : options[0],
+        });
+      },
     [versions, sort, onFilter]
   );
 
@@ -49,7 +53,7 @@ export default function MapItem({
               <InputGroup.Text>Filter by Version(s)</InputGroup.Text>
               <Form.Select
                 multiple
-                onChange={handleOnChange("versions")}
+                onChange={handleOnChange("versions", true)}
                 value={versions}
               >
                 {Object.values(GameVersion).map((value) => (
@@ -63,7 +67,10 @@ export default function MapItem({
           <div>
             <InputGroup>
               <InputGroup.Text>Sort by</InputGroup.Text>
-              <Form.Select onChange={handleOnChange("sort")} value={sort}>
+              <Form.Select
+                onChange={handleOnChange("sort", false)}
+                value={sort}
+              >
                 <option value="releaseDate">Last Update Date</option>
                 <option value="name">Map Name</option>
               </Form.Select>
