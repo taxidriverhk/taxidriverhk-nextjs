@@ -23,6 +23,7 @@ export default function CsMapDetails({
     progressPercentage,
     releaseDate,
     status,
+    targetGameVersion,
     version,
   },
 }: PropType) {
@@ -53,6 +54,10 @@ export default function CsMapDetails({
           <tr>
             <td>Maximum Players Allowed</td>
             <td>{`${maxPlayers} (${maxPlayers / 2} per team)`}</td>
+          </tr>
+          <tr>
+            <td>Target Game Version</td>
+            <td>{targetGameVersion}</td>
           </tr>
           <tr>
             <td>Download</td>
