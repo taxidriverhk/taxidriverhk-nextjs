@@ -1,7 +1,9 @@
 import type { GetStaticPropsResult } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import type { MapFilterInput } from "components/MapFilter";
+import MapFilter, { DEFAULT_FILTER } from "components/MapFilter";
 import MapSection from "components/MapSection";
 import Template from "components/Template";
 import type { MapCategory, MapItem } from "shared/config/csMapData";
@@ -9,10 +11,30 @@ import { mapCategories, mapItems } from "shared/config/csMapData";
 
 type PropType = {
   categories: Array<MapCategory>;
+  currentPath?: string;
   maps: {
     [key: number]: Array<MapItem>;
   };
 };
+
+function MapSectionContainer({ categories, currentPath = "", maps }: PropType) {
+  const [filter, setFilter] = useState<MapFilterInput>(DEFAULT_FILTER);
+
+  return (
+    <>
+      <MapFilter filter={filter} onFilter={setFilter} />
+      {categories.map((category) => (
+        <MapSection
+          key={category.id}
+          basePath={currentPath}
+          category={category}
+          filter={filter}
+          maps={maps[category.id]}
+        />
+      ))}
+    </>
+  );
+}
 
 export default function CsMaps({ categories, maps }: PropType) {
   const router = useRouter();
@@ -27,14 +49,11 @@ export default function CsMaps({ categories, maps }: PropType) {
 
   return (
     <Template activeItemIndex={0} path={path}>
-      {categories.map((category) => (
-        <MapSection
-          key={category.id}
-          basePath={currentPath}
-          category={category}
-          maps={maps[category.id]}
-        />
-      ))}
+      <MapSectionContainer
+        categories={categories}
+        currentPath={currentPath}
+        maps={maps}
+      />
     </Template>
   );
 }
