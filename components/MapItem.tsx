@@ -18,14 +18,14 @@ type PropType = {
 };
 
 export default function MapItem({ basePath, map }: PropType) {
-  const { id, icon, name, releaseDate, status, targetGameVersion } = map;
+  const { icon, name, releaseDate, status, targetGameVersion } = map;
   const showStatus = status !== ReleaseStatus.Released;
   const isUnavailable = status === ReleaseStatus.Unavailable;
   const statusText = showStatus ? `[${releaseStatusDisplayText[status]}]` : "";
   return (
     <ListGroup.Item
       action={!isUnavailable}
-      href={isUnavailable ? "" : `${basePath}/maps/${id}`}
+      href={isUnavailable ? "" : `${basePath}/maps/${name}`}
     >
       <Figure className={styles["section-block"]}>
         <Figure.Image alt={name} className={styles["item-image"]} src={icon} />

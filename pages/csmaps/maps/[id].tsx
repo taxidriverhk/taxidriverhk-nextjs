@@ -96,14 +96,14 @@ export async function getServerSideProps(
     };
   }
 
+  let map = null;
   const idNumber = parseInt(id, 10);
   if (Number.isNaN(idNumber)) {
-    return {
-      notFound: true,
-    };
+    map = mapItems.find((mapItem) => mapItem.name === id.toLowerCase());
+  } else {
+    map = mapItems.find((mapItem) => mapItem.id === idNumber);
   }
 
-  const map = mapItems.find((mapItem) => mapItem.id === idNumber);
   if (map == null) {
     return {
       notFound: true,
