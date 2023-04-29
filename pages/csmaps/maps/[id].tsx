@@ -6,8 +6,8 @@ import Table from "react-bootstrap/Table";
 
 import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
-import type { MapItem } from "shared/config/csMapData";
-import { mapItems, ReleaseStatus } from "shared/config/csMapData";
+import type { MapItem } from "shared/config/cs-map-config";
+import { mapItems, ReleaseStatus } from "shared/config/cs-map-config";
 
 type PropType = {
   map: MapItem;

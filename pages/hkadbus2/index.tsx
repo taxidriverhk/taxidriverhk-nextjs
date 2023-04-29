@@ -10,7 +10,7 @@ import PhotoCardList from "components/hkadbus2/PhotoCardList";
 import QuickSearchCard from "components/hkadbus2/QuickSearchCard";
 import Template from "components/hkadbus2/Template";
 import { fetchSearchPhotos } from "shared/fetch/hkadbus2";
-import useLocalizedStrings from "shared/hooks/useLocalizedStrings";
+import useLocalizedStrings from "shared/hooks/use-localized-strings";
 import { removeUndefinedAndLowercaseValues } from "shared/query/hkadbus2-query-builder";
 import type {
   SearchPhotoQuery,

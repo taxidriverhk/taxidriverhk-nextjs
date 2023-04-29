@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Stack from "react-bootstrap/Stack";
 
-import { GameVersion } from "shared/config/csMapData";
+import { GameVersion } from "shared/config/cs-map-config";
 
 import styles from "components/styles/MapSection.module.css";
 

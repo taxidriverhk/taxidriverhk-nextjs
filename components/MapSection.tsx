@@ -7,7 +7,7 @@ import MapItem from "components/MapItem";
 import type {
   MapCategory,
   MapItem as MapItemType,
-} from "shared/config/csMapData";
+} from "shared/config/cs-map-config";
 
 import styles from "components/styles/MapSection.module.css";
 
