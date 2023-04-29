@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 
 import Template from "components/Template";
+import { Website } from "shared/config/website-config";
 
 export default function OthersBooks() {
   const router = useRouter();
   const { asPath: currentPath } = router;
   return (
-    <Template activeItemIndex={2} path={currentPath}>
+    <Template activeWebsite={Website.PERSONAL} path={currentPath}>
       <p>
         This page shares the books that I have read, am reading or wish to read.
         Most of the books are in Chinese, so the content below are mostly in

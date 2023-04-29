@@ -8,6 +8,7 @@ import MapSection from "components/MapSection";
 import Template from "components/Template";
 import type { MapCategory, MapItem } from "shared/config/cs-map-config";
 import { mapCategories, mapItems } from "shared/config/cs-map-config";
+import { Website } from "shared/config/website-config";
 
 type PropType = {
   categories: Array<MapCategory>;
@@ -48,7 +49,7 @@ export default function CsMaps({ categories, maps }: PropType) {
   });
 
   return (
-    <Template activeItemIndex={0} path={path}>
+    <Template activeWebsite={Website.CSMAPS} path={path}>
       <MapSectionContainer
         categories={categories}
         currentPath={currentPath}

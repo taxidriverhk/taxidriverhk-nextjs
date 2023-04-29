@@ -6,12 +6,17 @@ import Table from "react-bootstrap/Table";
 
 import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
+import { Website } from "shared/config/website-config";
 
 export default function Omsi() {
   const router = useRouter();
   const currentPath = router.asPath;
   return (
-    <Template activeItemIndex={1} path={currentPath} showBreadcrumb={false}>
+    <Template
+      activeWebsite={Website.OMSI}
+      path={currentPath}
+      showBreadcrumb={false}
+    >
       <Alert variant="warning">
         <Alert.Heading>Notice 通知</Alert.Heading>
         <p>

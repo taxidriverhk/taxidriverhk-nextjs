@@ -6,6 +6,7 @@ import Template from "components/Template";
 import SearchInput from "components/vehicle-inventory-lookup/SearchInput";
 import SearchResults from "components/vehicle-inventory-lookup/SearchResults";
 import { useCallback, useEffect, useState } from "react";
+import { Website } from "shared/config/website-config";
 import { fetchSearchInventory } from "shared/fetch/vehicle-inventory-lookup";
 import type {
   VehicleInventory,
@@ -55,7 +56,7 @@ export default function VehicleInventoryLookup({ query, vehicles }: PropType) {
   useEffect(() => setIsSearching(false), [query]);
 
   return (
-    <Template activeItemIndex={2} path={currentPath}>
+    <Template activeWebsite={Website.PERSONAL} path={currentPath}>
       <SearchInput
         hasValidationError={hasValidationError}
         isDisabled={isSearching}

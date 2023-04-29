@@ -4,6 +4,8 @@ import Link from "next/link";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 
+import { websites } from "shared/config/website-config";
+
 import styles from "shared/styles/Home.module.css";
 
 export default function Home() {
@@ -16,36 +18,19 @@ export default function Home() {
             Hong Kong Taxi Driver Workshop
           </ListGroup.Item>
           {/* Sections */}
-          <ListGroup.Item
-            as={Link}
-            className={classNames(
-              styles["section-button"],
-              styles["section-button-urban-taxi"]
-            )}
-            href="csmaps"
-          >
-            Counter Strike Maps
-          </ListGroup.Item>
-          <ListGroup.Item
-            as={Link}
-            className={classNames(
-              styles["section-button"],
-              styles["section-button-nt-taxi"]
-            )}
-            href="omsi"
-          >
-            OMSI / Bus Driving Simulator
-          </ListGroup.Item>
-          <ListGroup.Item
-            as={Link}
-            className={classNames(
-              styles["section-button"],
-              styles["section-button-lantau-taxi"]
-            )}
-            href="others"
-          >
-            Personal Website
-          </ListGroup.Item>
+          {websites.map(({ buttonClassName, href, name, website }) => (
+            <ListGroup.Item
+              as={Link}
+              className={classNames(
+                styles["section-button"],
+                styles[buttonClassName]
+              )}
+              href={href}
+              key={website}
+            >
+              {name}
+            </ListGroup.Item>
+          ))}
           {/* Footer */}
           <ListGroup.Item className={styles["section-footer"]} disabled>
             Created by Alex Leung &copy; 2023

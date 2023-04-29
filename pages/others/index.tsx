@@ -15,12 +15,13 @@ import { useRouter } from "next/router";
 
 import PersonalSection from "components/PersonalSection";
 import Template from "components/Template";
+import { Website } from "shared/config/website-config";
 
 export default function Personal() {
   const router = useRouter();
   const { asPath: currentPath } = router;
   return (
-    <Template activeItemIndex={2} path={currentPath}>
+    <Template activeWebsite={Website.PERSONAL} path={currentPath}>
       <PersonalSection
         headerTitle="Portfolio"
         items={[

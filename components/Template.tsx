@@ -3,16 +3,17 @@ import Container from "react-bootstrap/Container";
 import Breadcrumb from "components/Breadcrumb";
 import Header from "components/Header";
 import styles from "components/styles/Template.module.css";
+import type { Website } from "shared/config/website-config";
 
 type PropType = {
-  activeItemIndex: number;
+  activeWebsite: Website;
   children: React.ReactNode;
   path: string;
   showBreadcrumb?: boolean;
 };
 
 export default function Template({
-  activeItemIndex,
+  activeWebsite,
   children,
   path,
   showBreadcrumb = true,
@@ -20,7 +21,7 @@ export default function Template({
   return (
     <Container>
       <div className={styles["template-container"]}>
-        <Header activeItemIndex={activeItemIndex} />
+        <Header activeWebsite={activeWebsite} />
         {showBreadcrumb && <Breadcrumb path={path} />}
         <Container className={styles["template-content"]}>{children}</Container>
         <div className={styles["template-footer"]}>

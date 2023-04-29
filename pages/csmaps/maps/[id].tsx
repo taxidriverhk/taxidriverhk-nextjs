@@ -8,6 +8,7 @@ import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
 import type { MapItem } from "shared/config/cs-map-config";
 import { mapItems, ReleaseStatus } from "shared/config/cs-map-config";
+import { Website } from "shared/config/website-config";
 
 type PropType = {
   map: MapItem;
@@ -30,7 +31,7 @@ export default function CsMapDetails({
   const router = useRouter();
   const { asPath: currentPath } = router;
   return (
-    <Template activeItemIndex={0} path={currentPath}>
+    <Template activeWebsite={Website.CSMAPS} path={currentPath}>
       <h3>{name}</h3>
       {images && <ImageCarousel images={images} />}
       <Table bordered>
