@@ -13,20 +13,20 @@ export default function Omsi() {
   return (
     <Template activeItemIndex={1} path={currentPath} showBreadcrumb={false}>
       <Alert variant="warning">
-        <Alert.Heading>Attention 注意</Alert.Heading>
+        <Alert.Heading>Notice 通知</Alert.Heading>
         <p>
-          In the past months, I have got multiple emails and messages asking for
-          permission to use the scenery objects from HKWK map for their own OMSI
-          map creations. I would like to re-state that approvals are not
-          required when using the scenery objects (except for
-          intersection/crossing objects) and splines made by me. Please feel
-          free to use them on your own map, as long as the map is published with
-          a name other than Hong Kong West Kowloon (or similar names).
+          <strong>Updated on 2023-04-28</strong>
         </p>
         <p>
-          在過去這幾個月，本人不斷收到網民詢問可否獲得批准使用西九龍地圖的物件以供製作其他OMSI地圖。
-          本人再次重申，除了路口及交界物件外，其他建築物及道路物件均可以在毋須得到本人批准下使用在以其他名稱
-          (非以Hong Kong West Kowloon作為名稱) 發佈的地圖上。
+          Permissoins are <strong>no longer required</strong> when using both
+          the sceneray objects and splines into your own map. You are also free
+          to fork the map for your own development as long as a credit is given
+          to me as the original author.
+        </p>
+        <p>
+          各位再<strong>毋須</strong>
+          得到本人同意下使用本地圖的任何物件作其他地圖開發用。
+          亦歡迎各位在註明本人為原作者下繼續開發或修改本地圖。
         </p>
       </Alert>
       <h3>About</h3>
@@ -45,25 +45,25 @@ export default function Omsi() {
         driving experience.
       </p>
       <p>
-        Hong Kong West Kowloon is so far the only planned and ongoing project,
-        this map covers the main streets in West Kowloon including Nathan Road,
-        Cheung Sha Wan Road, etc. The development has started since 2012, and
-        expansions are split into different phases. Expansion for East Tsim Sha
-        Tsui was completed in August 2018.
+        Hong Kong West Kowloon was so far the only planned and ongoing project.
+        This map covers the main streets in West Kowloon including Nathan Road,
+        Cheung Sha Wan Road, etc. The development started since 2012, and
+        expansions are divided into different phases. The latest expansion for
+        East Tsim Sha Tsui was completed in August 2018.
       </p>
       <p>
-        Further expansion has been paused, as{" "}
+        Further expansion has been paused since 2018, as{" "}
         <Link href="https://www.lotus-simulator.de/index.php?landingpage-en/">
           LOTUS
         </Link>{" "}
-        could become the next generation of bus simulation within the next few
-        years (just like what happend when OMSI was out back in 2011 that almost
-        replaced MM2). In which case, this map could be migrated to LOTUS and
-        continue its expansion, or a different map might be created.
+        could become the next generation of bus driving simulation within the
+        next few years (just like what happend when OMSI was out back in 2011
+        that almost dominated MM2). In which case, this map could be migrated to
+        LOTUS and continue its expansion, or a different map might be created.
       </p>
       <p>
-        If you are still interested in seeing the original expansion plan of
-        Hong Kong West Kowloon, please visit this{" "}
+        If you are still interested in seeing the original roadmap of Hong Kong
+        West Kowloon, please visit this{" "}
         <Link href="https://www.google.com/maps/d/u/0/edit?mid=1x5E60mp7bYjpAcWFcfsbIpHLdII&ll=22.31762025302199%2C114.1652401&z=14">
           Google My Maps page
         </Link>
