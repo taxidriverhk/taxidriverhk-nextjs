@@ -2,6 +2,7 @@
   "hkadbus2": {
     "advertisement": "廣告",
     "bus": "巴士",
+    "bus-brand-and-model": "{brand}{model}",
     "bus-company": "巴士公司",
     "bus-models": "巴士型號",
     "categories": "廣告分類",

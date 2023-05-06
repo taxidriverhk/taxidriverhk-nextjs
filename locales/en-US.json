@@ -2,6 +2,7 @@
   "hkadbus2": {
     "advertisement": "Advertisement",
     "bus": "Bus",
+    "bus-brand-and-model": "{brand} {model}",
     "bus-company": "Bus Company",
     "bus-models": "Bus Models",
     "categories": "Categories",

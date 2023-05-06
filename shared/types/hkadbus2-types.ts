@@ -37,6 +37,7 @@ export type Photo = {
   advertisementId: string;
   busCompany: BusCompany;
   busId: number;
+  busBrand: string;
   busModel: string;
   busModelId: string;
   category: string;

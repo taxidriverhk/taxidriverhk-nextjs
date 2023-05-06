@@ -22,6 +22,7 @@ export default function PhotoDetails({
   photo: {
     advertisement,
     advertisementId,
+    busBrand,
     busCompany,
     busModel,
     busModelId,
@@ -88,7 +89,9 @@ export default function PhotoDetails({
             </tr>
             <tr>
               <td>{t("model")}</td>
-              <td>{busModel}</td>
+              <td>
+                {t("bus-brand-and-model", { brand: busBrand, model: busModel })}
+              </td>
               <td>
                 <Button
                   href={`../${buildPhotoSearchUrl({ busModelId })}`}
