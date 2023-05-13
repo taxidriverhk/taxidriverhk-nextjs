@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Fragment } from "react";
 import BootstrapBreadcrumb from "react-bootstrap/Breadcrumb";
 
 import styles from "components/styles/Breadcrumb.module.css";
@@ -56,7 +57,7 @@ function renderBreadcrumbItems(
   { children = [], prefix, title }: PathTitle
 ): ReactNode {
   return (
-    <>
+    <Fragment key={path}>
       {pathPrefixMatches(path, prefix) && (
         <BootstrapBreadcrumb.Item
           active={prefix === path || children.length === 0}
@@ -72,7 +73,7 @@ function renderBreadcrumbItems(
           prefix: `${prefix}${child.prefix}`,
         })
       )}
-    </>
+    </Fragment>
   );
 }
 

@@ -2,6 +2,7 @@ export enum Website {
   CSMAPS = 0,
   OMSI = 1,
   PERSONAL = 2,
+  HKADBUS2 = 3,
 }
 
 export type WebsiteConfig = {
@@ -33,5 +34,12 @@ export const websites: Array<WebsiteConfig> = [
     name: "Personal Website",
     shortName: "Personal",
     website: Website.PERSONAL,
+  },
+  {
+    buttonClassName: "section-button-ad-bus",
+    href: "hkadbus2",
+    name: "Hong Kong Advertised Bus Photo Database v2.5",
+    shortName: "HKAdBus2",
+    website: Website.HKADBUS2,
   },
 ];

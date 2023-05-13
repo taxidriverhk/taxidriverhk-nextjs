@@ -9,7 +9,7 @@
 }
 
 .section-header {
-  background-image: url('/header.jpg');
+  background-image: url("/header.jpg");
   background-size: cover;
   background-position-y: 80%;
   font-size: 1.2rem;
@@ -37,15 +37,19 @@
 }
 
 .section-button-urban-taxi {
-  background-image: url('/new-taxi-urban.jpg');
+  background-image: url("/new-taxi-urban.jpg");
 }
 
 .section-button-nt-taxi {
-  background-image: url('/new-taxi-nt.jpg');
+  background-image: url("/new-taxi-nt.jpg");
 }
 
 .section-button-lantau-taxi {
-  background-image: url('/new-taxi-lantau.jpg');
+  background-image: url("/new-taxi-lantau.jpg");
+}
+
+.section-button-ad-bus {
+  background-image: url("/new-ad-bus.jpg");
 }
 
 .section-footer {
