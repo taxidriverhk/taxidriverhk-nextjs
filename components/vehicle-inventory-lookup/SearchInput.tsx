@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -27,6 +27,7 @@ export default function SearchInput({
   onSubmit,
 }: PropType) {
   const [query, setQuery] = useState<VehicleInventorySearchQuery>(initialQuery);
+  const { brand } = query;
 
   const handleTextInputChange = useCallback(
     (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +64,13 @@ export default function SearchInput({
       ),
     [query.brand]
   );
+
+  useEffect(() => {
+    setQuery({
+      ...query,
+      model: modelOptions[0][1],
+    });
+  }, [brand, modelOptions]);
 
   return (
     <Card>
