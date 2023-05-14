@@ -1,3 +1,9 @@
+export enum VehicleBrand {
+  HONDA = "honda",
+  TOYOTA = "toyota",
+  SUBARU = "subaru",
+}
+
 export type VehicleInventory = {
   vin: string;
   dealer: string;
@@ -13,8 +19,19 @@ export type VehicleInventory = {
 
 export type VehicleInventorySearchQuery = {
   year?: number;
-  brand?: string;
+  brand?: VehicleBrand;
   model?: string;
   zipCode?: number;
   maxDealers?: number;
 };
+
+export type VehicleInventorySearchResponse = {
+  vehicles?: Array<VehicleInventory>;
+  hasError?: boolean;
+};
+
+export abstract class VehicleInventoryService {
+  abstract search(
+    query: VehicleInventorySearchQuery
+  ): Promise<VehicleInventorySearchResponse>;
+}

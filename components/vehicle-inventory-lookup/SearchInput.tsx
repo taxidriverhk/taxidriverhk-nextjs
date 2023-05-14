@@ -1,46 +1,17 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
+import { brands, models } from "shared/config/vehicle-inventory-config";
 import type { VehicleInventorySearchQuery } from "shared/types/vehicle-inventory-lookup-types";
+import { VehicleBrand } from "shared/types/vehicle-inventory-lookup-types";
 
 const CURRENT_YEAR = new Date().getFullYear();
 const YEAR_OPTONS = [CURRENT_YEAR, CURRENT_YEAR - 1];
-
-const DEFAULT_BRAND = "honda";
-const BRAND_OPTIONS = [
-  ["Honda", "honda"],
-  ["Toyota", "toyota"],
-];
-const MODEL_OPTIONS: {
-  [key: string]: string[][];
-} = {
-  honda: [
-    ["Civic Sedan", "civic-sedan"],
-    ["Civic Coupe", "civic-coupe"],
-    ["Civic Si Sedan", "civic-si-sedan"],
-    ["Civic Si Coupe", "civic-si-coupe"],
-    ["Civic Hatchback", "civic-hatchback"],
-    ["Civic Type R", "civic-type-r"],
-    ["Accord Sedan", "accord-sedan"],
-    ["HR-V", "hr-v"],
-    ["CR-V", "cr-v"],
-    ["Insight", "insight"],
-    ["Passport", "passport"],
-    ["Pilot", "pilot"],
-    ["Accord Hybrid", "accord-hybrid"],
-    ["CR-V Hybrid", "cr-v-hybrid"],
-    ["Ridgeline", "ridgeline"],
-    ["Odyssey", "odyssey"],
-  ],
-  toyota: [
-    ["Corolla", "corolla"],
-    ["GR Corolla", "grcorolla"],
-  ],
-};
+const DEFAULT_BRAND = VehicleBrand.HONDA;
 
 type PropType = {
   hasValidationError: boolean;
@@ -83,6 +54,16 @@ export default function SearchInput({
     [onSubmit, query]
   );
 
+  const brandOptions = useMemo(() => Array.from(brands.entries()), []);
+  const modelOptions = useMemo(
+    () =>
+      Array.from(
+        models.get((query.brand as VehicleBrand) || DEFAULT_BRAND)?.values() ||
+          []
+      ),
+    [query.brand]
+  );
+
   return (
     <Card>
       <Card.Header>Query</Card.Header>
@@ -114,9 +95,9 @@ export default function SearchInput({
                 onChange={handleSelectionChange("brand")}
                 value={query.brand}
               >
-                {BRAND_OPTIONS.map((brand) => (
-                  <option key={brand[1]} value={brand[1]}>
-                    {brand[0]}
+                {brandOptions.map((brand) => (
+                  <option key={brand[0]} value={brand[0]}>
+                    {brand[1]}
                   </option>
                 ))}
               </Form.Select>
@@ -131,7 +112,7 @@ export default function SearchInput({
                 onChange={handleSelectionChange("model")}
                 value={query.model}
               >
-                {MODEL_OPTIONS[query.brand || DEFAULT_BRAND].map((model) => (
+                {modelOptions.map((model) => (
                   <option key={model[1]} value={model[1]}>
                     {model[0]}
                   </option>

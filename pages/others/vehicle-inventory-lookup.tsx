@@ -8,14 +8,15 @@ import SearchResults from "components/vehicle-inventory-lookup/SearchResults";
 import { useCallback, useEffect, useState } from "react";
 import { Website } from "shared/config/website-config";
 import { fetchSearchInventory } from "shared/fetch/vehicle-inventory-lookup";
-import type {
+import {
+  VehicleBrand,
   VehicleInventory,
   VehicleInventorySearchQuery,
 } from "shared/types/vehicle-inventory-lookup-types";
 
 const DEFAULT_QUERY: VehicleInventorySearchQuery = {
   year: 2023,
-  brand: "honda",
+  brand: VehicleBrand.HONDA,
   model: "civic-si-sedan",
   zipCode: 91754,
   maxDealers: 40,
