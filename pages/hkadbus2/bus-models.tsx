@@ -31,7 +31,11 @@ export async function getServerSideProps(
   const { locale } = context;
   const { busModels } = await fetchGetBusModels(locale);
 
-  const busBrandModelMap = busModels.reduce(
+  // Order by bus brand name first, then followed by bus model name
+  const sortedBusModels = busModels.sort((m1, m2) =>
+    m1.busBrandName.localeCompare(m2.busBrandName)
+  );
+  const busBrandModelMap = sortedBusModels.reduce(
     (result: { [key: string]: Array<BusModel> }, busModel) => {
       const { busBrandName } = busModel;
       if (result[busBrandName]) {
@@ -45,16 +49,18 @@ export async function getServerSideProps(
   );
   const busModelGroups: Array<HorizontalPhotoCardGroupPropType> =
     Object.entries(busBrandModelMap).map(([groupName, busModels]) => ({
-      photoCards: busModels.map(({ id, name, thumbnail }) => {
-        const searchQuery: SearchPhotoQuery = {
-          busModelId: id,
-        };
-        return {
-          href: buildPhotoSearchUrl(searchQuery),
-          title: name,
-          photo: thumbnail,
-        };
-      }),
+      photoCards: busModels
+        .sort((m1, m2) => m1.name.localeCompare(m2.name))
+        .map(({ id, name, thumbnail }) => {
+          const searchQuery: SearchPhotoQuery = {
+            busModelId: id,
+          };
+          return {
+            href: buildPhotoSearchUrl(searchQuery),
+            title: name,
+            photo: thumbnail,
+          };
+        }),
       groupName,
     }));
 
