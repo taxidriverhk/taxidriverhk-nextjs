@@ -5,6 +5,7 @@ import type {
   GetAdvertisementsResponse,
   GetBusModelsResponse,
   GetCategoriesResponse,
+  GetEntityOptionsResponse,
   GetPhotoResponse,
   ItemNotFoundResponse,
   SearchPhotoQuery,
@@ -40,6 +41,13 @@ export async function fetchGetCategories(
 ): Promise<GetCategoriesResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
   return await fetchGet("/categories", { language: convertedLocale });
+}
+
+export async function fetchGetEntityOptions(
+  entityType: string,
+  language: string
+): Promise<GetEntityOptionsResponse> {
+  return await fetchGet(`/entities/${entityType}`, { language });
 }
 
 export async function fetchGetPhoto(
@@ -99,6 +107,21 @@ export async function fetchSearchPhotosFromClientSide(
     }
   );
   return data;
+}
+
+export async function isAuthorizedToInsertPhotos(
+  apiKey: string
+): Promise<boolean> {
+  try {
+    const response = await axios.options(`${getApiEndpoint()}/photo`, {
+      headers: {
+        Authorization: apiKey,
+      },
+    });
+    return response.status === 200;
+  } catch (_error) {
+    return false;
+  }
 }
 
 function convertLocaleToLanguage(locale?: string): string {

@@ -10,6 +10,14 @@ export enum SortOrder {
   DESC = "desc",
 }
 
+export enum TypeaheadOptionType {
+  ADVERTISEMENT = "advertisement",
+  BUS_MODEL = "bus-model",
+  CATEGORY = "category",
+  LICENSE_PLATE_NUMBER = "license-plate-number",
+  ROUTE = "route",
+}
+
 export type Advertisement = {
   categoryId: string;
   categoryName: string;
@@ -30,6 +38,33 @@ export type Category = {
   id: string;
   name: string;
   thumbnail: string;
+};
+
+export type PutPhotoRequestString = {
+  en_us: string;
+  zh_hk: string;
+};
+
+export type PutPhotoRequest = {
+  advertisementId: string;
+  advertisementNames: PutPhotoRequestString;
+  busBrandId: string;
+  busBrandNames: PutPhotoRequestString;
+  busModelId: string;
+  busModelNames: PutPhotoRequestString;
+  busCompany: BusCompany;
+  routeNumber: string;
+  busRouteId: string;
+  busRouteStartLocationNames: PutPhotoRequestString;
+  busRouteEndLocationNames: PutPhotoRequestString;
+  categoryId: string;
+  categoryNames: PutPhotoRequestString;
+  fleetPrefix: string;
+  fleetNumber: string;
+  image: string;
+  licensePlateNumber: string;
+  thumbnail: string;
+  username: string;
 };
 
 export type Photo = {
@@ -98,6 +133,13 @@ export type GetBusModelsResponse = {
 
 export type GetCategoriesResponse = {
   categories: Array<Category>;
+};
+
+export type GetEntityOptionsResponse = {
+  entityType: TypeaheadOptionType;
+  options: {
+    [key: string]: string;
+  };
 };
 
 export type GetPhotoResponse = {

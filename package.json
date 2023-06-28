@@ -30,6 +30,7 @@
     "pino": "^8.9.0",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.0",
+    "react-bootstrap-typeahead": "^6.2.3",
     "react-bs-datatable": "^3.6.1",
     "react-dom": "18.2.0",
     "typescript": "4.9.4"
