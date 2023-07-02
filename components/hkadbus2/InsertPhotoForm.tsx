@@ -10,12 +10,27 @@ import Row from "react-bootstrap/Row";
 import { useState } from "react";
 import { Option } from "react-bootstrap-typeahead/types/types";
 import {
+  BusCompany,
   PutPhotoRequest,
+  PutPhotoRequestString,
   TypeaheadOptionType,
 } from "shared/types/hkadbus2-types";
 
 import type { TypeaheadOption } from "components/hkadbus2/InsertPhotoFormTypeahead";
 import InsertPhotoFormTypeahead from "components/hkadbus2/InsertPhotoFormTypeahead";
+
+const BRAND_NAME_MAPPING: Map<string, PutPhotoRequestString> = new Map<
+  string,
+  PutPhotoRequestString
+>([
+  ["dennis", { en_us: "Dennis", zh_hk: "丹尼士" }],
+  ["daimler", { en_us: "Daimler", zh_hk: "丹拿" }],
+  ["guy", { en_us: "Guy", zh_hk: "佳牌" }],
+  ["leyland", { en_us: "Leyland", zh_hk: "利蘭" }],
+  ["mcw", { en_us: "MCW", zh_hk: "都城嘉慕" }],
+  ["mercedes-benz", { en_us: "Mercedes Benz", zh_hk: "梅斯特斯平治" }],
+  ["volvo", { en_us: "Volvo", zh_hk: "富豪" }],
+]);
 
 export type TypeaheadOptionItems = {
   en_us: {
@@ -47,6 +62,11 @@ export default function InsertPhotoForm({
   const [licensePlateNumber, setLicensePlateNumber] = useState<string>("");
   const [username, setUsername] = useState<string>("");
 
+  const [startNameEn, setStartNameEn] = useState<string>("");
+  const [startNameZh, setStartNameZh] = useState<string>("");
+  const [endNameEn, setEndNameEn] = useState<string>("");
+  const [endNameZh, setEndNameZh] = useState<string>("");
+
   const [advertisement, setAdvertisement] = useState<TypeaheadOption | null>(
     null
   );
@@ -61,31 +81,48 @@ export default function InsertPhotoForm({
       setter(e.currentTarget.value);
     };
   const handleOnSubmit = () => {
-    // const payload: PutPhotoRequest = {
-    //   advertisementId: advertisementHashKey,
-    //   advertisementNames: {
-    //     en_us: advertisementEn.toString(),
-    //     zh_hk: advertisementZh.toString(),
-    //   },
-    //   busBrandId: busBrandHashKey
-    //   busBrandNames: PutPhotoRequestString;
-    //   busModelId: string;
-    //   busModelNames: PutPhotoRequestString;
-    //   busCompany: BusCompany;
-    //   routeNumber: string;
-    //   busRouteId: string;
-    //   busRouteStartLocationNames: PutPhotoRequestString;
-    //   busRouteEndLocationNames: PutPhotoRequestString;
-    //   categoryId: string;
-    //   categoryNames: PutPhotoRequestString;
-    //   fleetPrefix: string;
-    //   fleetNumber: string;
-    //   image: string;
-    //   licensePlateNumber: string;
-    //   thumbnail: string;
-    //   username: string;
-    // };
-    // onSubmit(payload);
+    const busCompanyLabel: keyof typeof BusCompany = (
+      busCompany as Array<any>
+    )[0]["label"];
+    const busCompanyEnum: BusCompany = BusCompany[busCompanyLabel];
+
+    const payload: PutPhotoRequest = {
+      advertisementId: buildHashKeyFromEnglishName(advertisement!)!,
+      advertisementNames: {
+        en_us: advertisement!.en_us!,
+        zh_hk: advertisement!.zh_hk!,
+      },
+      busBrandId: busBrandHashKey,
+      busBrandNames: BRAND_NAME_MAPPING.get(busBrandHashKey)!,
+      busModelId: buildHashKeyFromEnglishName(busModel!)!,
+      busModelNames: {
+        en_us: busModel!.en_us!,
+        zh_hk: busModel!.zh_hk!,
+      },
+      busCompany: busCompanyEnum,
+      routeNumber: busRouteNumber,
+      busRouteId: busRoute!.en_us!,
+      busRouteStartLocationNames: {
+        en_us: startNameEn,
+        zh_hk: startNameZh,
+      },
+      busRouteEndLocationNames: {
+        en_us: endNameEn,
+        zh_hk: endNameZh,
+      },
+      categoryId: buildHashKeyFromEnglishName(category!)!,
+      categoryNames: {
+        en_us: category!.en_us!,
+        zh_hk: category!.zh_hk!,
+      },
+      fleetPrefix,
+      fleetNumber,
+      image: imageUrl,
+      licensePlateNumber,
+      thumbnail: imageUrl,
+      username,
+    };
+    onSubmit(payload);
   };
 
   return (
@@ -99,11 +136,16 @@ export default function InsertPhotoForm({
           </Form.Group>
           <Form.Group>
             <Form.Label>Image</Form.Label>
-            {imageUrl != null ? (
+            {imageUrl != null && imageUrl.length > 0 ? (
               <Image alt="photo" src={imageUrl} fluid />
-            ) : null}
+            ) : (
+              <Card bg="dark" text="white">
+                <Card.Body>Image to be Shown Here</Card.Body>
+              </Card>
+            )}
             <Form.Control
               onChange={handleOnChange((nextValue) => setImageUrl(nextValue))}
+              placeholder="Image URL"
               type="text"
               value={imageUrl}
             />
@@ -242,6 +284,45 @@ export default function InsertPhotoForm({
             />
           </Form.Group>
           <Form.Group>
+            <Form.Label>Bus Route Destinations</Form.Label>
+            <InputGroup>
+              <Form.Control
+                onChange={handleOnChange((nextValue) =>
+                  setStartNameEn(nextValue)
+                )}
+                placeholder="Start"
+                type="text"
+                value={startNameEn}
+              />
+              <Form.Control
+                onChange={handleOnChange((nextValue) =>
+                  setStartNameZh(nextValue)
+                )}
+                placeholder="起點"
+                type="text"
+                value={startNameZh}
+              />
+            </InputGroup>
+            <InputGroup>
+              <Form.Control
+                onChange={handleOnChange((nextValue) =>
+                  setEndNameEn(nextValue)
+                )}
+                placeholder="End"
+                type="text"
+                value={endNameEn}
+              />
+              <Form.Control
+                onChange={handleOnChange((nextValue) =>
+                  setEndNameZh(nextValue)
+                )}
+                placeholder="終點"
+                type="text"
+                value={endNameZh}
+              />
+            </InputGroup>
+          </Form.Group>
+          <Form.Group>
             <Form.Label>Username (must already exist in database)</Form.Label>
             <Form.Control
               onChange={handleOnChange((nextValue) => setUsername(nextValue))}
@@ -258,6 +339,16 @@ export default function InsertPhotoForm({
       </Card.Footer>
     </Card>
   );
+}
+
+function buildHashKeyFromEnglishName(option: TypeaheadOption): string | null {
+  // Use the existing key if not a new one
+  if (option?.key != null && !option.key?.includes("new-id-")) {
+    return option.key;
+  }
+  return option.en_us != null
+    ? option.en_us?.toLowerCase().replace(/[^a-zA-Z]/gi, "-")
+    : null;
 }
 
 function getBusBrandHashKeyByBusModelHashKey(
