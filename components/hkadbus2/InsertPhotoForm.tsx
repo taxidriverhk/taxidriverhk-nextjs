@@ -1,5 +1,6 @@
 import capitalize from "lodash/capitalize";
 import { Typeahead } from "react-bootstrap-typeahead";
+import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -43,6 +44,8 @@ export type TypeaheadOptionItems = {
 
 type PropType = {
   apiKey: string;
+  error: Error | null;
+  photoId: number | null;
   typeaheadOptions: {
     [entityType: string]: TypeaheadOptionItems;
   };
@@ -51,6 +54,8 @@ type PropType = {
 
 export default function InsertPhotoForm({
   apiKey,
+  error,
+  photoId,
   typeaheadOptions,
   onSubmit,
 }: PropType) {
@@ -85,6 +90,9 @@ export default function InsertPhotoForm({
       busCompany as Array<any>
     )[0]["label"];
     const busCompanyEnum: BusCompany = BusCompany[busCompanyLabel];
+    const busModelNameEn = removeBrandNameFromModelEnglishName(
+      busModel!.en_us!
+    );
 
     const payload: PutPhotoRequest = {
       advertisementId: buildHashKeyFromEnglishName(advertisement!)!,
@@ -96,7 +104,7 @@ export default function InsertPhotoForm({
       busBrandNames: BRAND_NAME_MAPPING.get(busBrandHashKey)!,
       busModelId: buildHashKeyFromEnglishName(busModel!)!,
       busModelNames: {
-        en_us: busModel!.en_us!,
+        en_us: busModelNameEn,
         zh_hk: busModel!.zh_hk!,
       },
       busCompany: busCompanyEnum,
@@ -129,6 +137,11 @@ export default function InsertPhotoForm({
     <Card bg="light">
       <Card.Header>Photo Insertion Form</Card.Header>
       <Card.Body>
+        {photoId != null && (
+          <Alert variant="success">
+            Inserted photo successfully with ID {photoId}
+          </Alert>
+        )}
         <Form>
           <Form.Group>
             <Form.Label>API Key</Form.Label>
@@ -336,6 +349,12 @@ export default function InsertPhotoForm({
         <Row className="justify-content-md-end">
           <Button onClick={handleOnSubmit}>Submit</Button>
         </Row>
+        {error != null && (
+          <Alert variant="danger">
+            Error occurred when inserting photos {error.message}. Please try
+            again
+          </Alert>
+        )}
       </Card.Footer>
     </Card>
   );
@@ -374,4 +393,8 @@ function getBusRouteNumberByBusRouteHashKey(
     return lastToken.toUpperCase();
   }
   return "";
+}
+
+function removeBrandNameFromModelEnglishName(name: string): string {
+  return name.split(" ").slice(1).join(" ");
 }

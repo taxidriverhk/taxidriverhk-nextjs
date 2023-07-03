@@ -67,6 +67,10 @@ export type PutPhotoRequest = {
   username: string;
 };
 
+export type PutPhotoResponse = {
+  photoId: number;
+};
+
 export type Photo = {
   advertisement: string;
   advertisementId: string;

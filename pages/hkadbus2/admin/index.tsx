@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -6,12 +7,14 @@ import Row from "react-bootstrap/Row";
 import InsertPhotoForm, {
   TypeaheadOptionItems,
 } from "components/hkadbus2/InsertPhotoForm";
+import { useRouter } from "next/router";
 import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
 } from "next/types";
 import {
   fetchGetEntityOptions,
+  insertPhotoFromClientSide,
   isAuthorizedToInsertPhotos,
 } from "shared/fetch/hkadbus2";
 import {
@@ -21,6 +24,7 @@ import {
 
 type PropType = {
   apiKey?: string;
+  photoId?: number | null;
   typeaheadOptions?: {
     [entityType: string]: TypeaheadOptionItems;
   };
@@ -29,16 +33,39 @@ type PropType = {
 
 export default function HKAdbus2AdminHome({
   apiKey,
+  photoId,
   typeaheadOptions,
-  error,
+  error: unauthorizedError,
 }: PropType) {
-  if (apiKey == null || typeaheadOptions == null || error != null) {
+  const router = useRouter();
+  const { pathname } = router;
+  const [insertionError, setInsertionError] = useState<Error | null>(null);
+
+  if (apiKey == null || typeaheadOptions == null || unauthorizedError != null) {
     return (
       <Alert variant="danger">
         You are not authorized to access this page.
       </Alert>
     );
   }
+
+  const handleSubmit = async (payload: PutPhotoRequest) => {
+    // Submit the photo from the client side, so that in case of failure
+    // the inputs can still be kept
+    try {
+      const insertedPhotoId = await insertPhotoFromClientSide(apiKey, payload);
+      // Refresh the page with photo ID shown (which refreshes the typeahead options upon successful insertion)
+      router.push({
+        pathname,
+        query: {
+          apiKey,
+          photoId: insertedPhotoId,
+        },
+      });
+    } catch (error) {
+      setInsertionError(error as Error);
+    }
+  };
 
   return (
     <Container>
@@ -53,8 +80,10 @@ export default function HKAdbus2AdminHome({
         <Col>
           <InsertPhotoForm
             apiKey={apiKey}
+            error={insertionError}
+            photoId={photoId ?? null}
             typeaheadOptions={typeaheadOptions}
-            onSubmit={(payload: PutPhotoRequest) => {}}
+            onSubmit={handleSubmit}
           />
         </Col>
       </Row>
@@ -66,7 +95,7 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PropType>> {
   const { query } = context;
-  const { apiKey } = query;
+  const { apiKey, photoId } = query;
   if (apiKey == null || Array.isArray(apiKey)) {
     return handleUnauthorized(context);
   }
@@ -97,9 +126,13 @@ export async function getServerSideProps(
     };
   }
 
+  const photoIdNum =
+    photoId != null && !Array.isArray(photoId) ? parseInt(photoId) : null;
+
   return {
     props: {
       apiKey,
+      photoId: photoIdNum,
       typeaheadOptions,
     },
   };

@@ -8,6 +8,8 @@ import type {
   GetEntityOptionsResponse,
   GetPhotoResponse,
   ItemNotFoundResponse,
+  PutPhotoRequest,
+  PutPhotoResponse,
   SearchPhotoQuery,
   SearchPhotosResponse,
   SortOrder,
@@ -107,6 +109,38 @@ export async function fetchSearchPhotosFromClientSide(
     }
   );
   return data;
+}
+
+export async function insertPhoto(
+  apiKey: string,
+  payload: PutPhotoRequest
+): Promise<PutPhotoResponse> {
+  const { data } = await axios.post<PutPhotoResponse>(
+    `${getApiEndpoint()}/photo`,
+    payload,
+    {
+      headers: {
+        Authorization: apiKey,
+      },
+    }
+  );
+  return data;
+}
+
+export async function insertPhotoFromClientSide(
+  apiKey: string,
+  payload: PutPhotoRequest
+): Promise<number> {
+  const { data } = await axios.post<PutPhotoResponse>(
+    "/api/hkadbus2/insert-photo",
+    payload,
+    {
+      headers: {
+        Authorization: apiKey,
+      },
+    }
+  );
+  return data.photoId;
 }
 
 export async function isAuthorizedToInsertPhotos(
