@@ -351,11 +351,11 @@ function buildHashKeyFromEnglishName(option: TypeaheadOption): string | null {
   if (option?.key != null && !option.key?.includes("new-id-")) {
     return option.key;
   }
-  // First remove non-alphabet characters (except for space), then replace the spaces with a hyphen
+  // First remove non-alphanumeric characters (except for space), then replace the spaces with a hyphen
   return option.en_us != null
     ? option.en_us
         ?.toLowerCase()
-        .replace(/[^a-zA-Z\s]/gi, "")
+        .replace(/[^a-zA-Z0-9\.\s]/gi, "")
         .replace(/\s/g, "-")
     : null;
 }
