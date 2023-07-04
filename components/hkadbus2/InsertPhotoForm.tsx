@@ -67,11 +67,6 @@ export default function InsertPhotoForm({
   const [licensePlateNumber, setLicensePlateNumber] = useState<string>("");
   const [username, setUsername] = useState<string>("");
 
-  const [startNameEn, setStartNameEn] = useState<string>("");
-  const [startNameZh, setStartNameZh] = useState<string>("");
-  const [endNameEn, setEndNameEn] = useState<string>("");
-  const [endNameZh, setEndNameZh] = useState<string>("");
-
   const [advertisement, setAdvertisement] = useState<TypeaheadOption | null>(
     null
   );
@@ -79,6 +74,10 @@ export default function InsertPhotoForm({
   const [busModel, setBusModel] = useState<TypeaheadOption | null>(null);
   const [busRoute, setBusRoute] = useState<TypeaheadOption | null>(null);
   const [category, setCategory] = useState<TypeaheadOption | null>(null);
+  const [endLocation, setEndLocation] = useState<TypeaheadOption | null>(null);
+  const [startLocation, setStartLocation] = useState<TypeaheadOption | null>(
+    null
+  );
 
   const handleOnChange =
     (setter: (nextValue: string) => void) =>
@@ -111,12 +110,12 @@ export default function InsertPhotoForm({
       routeNumber: busRouteNumber,
       busRouteId: busRoute!.en_us!,
       busRouteStartLocationNames: {
-        en_us: startNameEn,
-        zh_hk: startNameZh,
+        en_us: startLocation!.en_us!,
+        zh_hk: startLocation!.zh_hk!,
       },
       busRouteEndLocationNames: {
-        en_us: endNameEn,
-        zh_hk: endNameZh,
+        en_us: endLocation!.en_us!,
+        zh_hk: endLocation!.zh_hk!,
       },
       categoryId: buildHashKeyFromEnglishName(category!)!,
       categoryNames: {
@@ -171,6 +170,7 @@ export default function InsertPhotoForm({
               onChange={setCategory}
               options={typeaheadOptions[TypeaheadOptionType.CATEGORY]}
               selectedOption={category}
+              synchronizeOptions
             />
           </Form.Group>
           <Form.Group>
@@ -181,6 +181,7 @@ export default function InsertPhotoForm({
               onChange={setAdvertisement}
               options={typeaheadOptions[TypeaheadOptionType.ADVERTISEMENT]}
               selectedOption={advertisement}
+              synchronizeOptions
             />
           </Form.Group>
           <Form.Group>
@@ -211,6 +212,7 @@ export default function InsertPhotoForm({
               }}
               options={typeaheadOptions[TypeaheadOptionType.BUS_MODEL]}
               selectedOption={busModel}
+              synchronizeOptions
             />
           </Form.Group>
           <Form.Group>
@@ -298,42 +300,26 @@ export default function InsertPhotoForm({
           </Form.Group>
           <Form.Group>
             <Form.Label>Bus Route Destinations</Form.Label>
-            <InputGroup>
-              <Form.Control
-                onChange={handleOnChange((nextValue) =>
-                  setStartNameEn(nextValue)
-                )}
-                placeholder="Start"
-                type="text"
-                value={startNameEn}
-              />
-              <Form.Control
-                onChange={handleOnChange((nextValue) =>
-                  setStartNameZh(nextValue)
-                )}
-                placeholder="起點"
-                type="text"
-                value={startNameZh}
-              />
-            </InputGroup>
-            <InputGroup>
-              <Form.Control
-                onChange={handleOnChange((nextValue) =>
-                  setEndNameEn(nextValue)
-                )}
-                placeholder="End"
-                type="text"
-                value={endNameEn}
-              />
-              <Form.Control
-                onChange={handleOnChange((nextValue) =>
-                  setEndNameZh(nextValue)
-                )}
-                placeholder="終點"
-                type="text"
-                value={endNameZh}
-              />
-            </InputGroup>
+            <Card>
+              <Card.Body>
+                <Form.Label>Start Location</Form.Label>
+                <InsertPhotoFormTypeahead
+                  id={TypeaheadOptionType.LOCATION}
+                  isMultilingual
+                  onChange={setStartLocation}
+                  options={typeaheadOptions[TypeaheadOptionType.LOCATION]}
+                  selectedOption={startLocation}
+                />
+                <Form.Label>End Location</Form.Label>
+                <InsertPhotoFormTypeahead
+                  id={TypeaheadOptionType.LOCATION}
+                  isMultilingual
+                  onChange={setEndLocation}
+                  options={typeaheadOptions[TypeaheadOptionType.LOCATION]}
+                  selectedOption={endLocation}
+                />
+              </Card.Body>
+            </Card>
           </Form.Group>
           <Form.Group>
             <Form.Label>Username (must already exist in database)</Form.Label>
@@ -365,8 +351,12 @@ function buildHashKeyFromEnglishName(option: TypeaheadOption): string | null {
   if (option?.key != null && !option.key?.includes("new-id-")) {
     return option.key;
   }
+  // First remove non-alphabet characters (except for space), then replace the spaces with a hyphen
   return option.en_us != null
-    ? option.en_us?.toLowerCase().replace(/[^a-zA-Z]/gi, "-")
+    ? option.en_us
+        ?.toLowerCase()
+        .replace(/[^a-zA-Z\s]/gi, "")
+        .replace(/\s/g, "-")
     : null;
 }
 

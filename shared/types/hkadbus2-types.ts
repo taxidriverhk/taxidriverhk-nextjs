@@ -14,6 +14,7 @@ export enum TypeaheadOptionType {
   ADVERTISEMENT = "advertisement",
   BUS_MODEL = "bus-model",
   CATEGORY = "category",
+  LOCATION = "location",
   LICENSE_PLATE_NUMBER = "license-plate-number",
   ROUTE = "route",
 }

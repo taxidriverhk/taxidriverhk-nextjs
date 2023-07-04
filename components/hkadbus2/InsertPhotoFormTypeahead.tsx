@@ -24,6 +24,7 @@ type PropType = {
   onChange: (nextOption: TypeaheadOption) => void;
   options: TypeaheadOptionItems;
   selectedOption?: TypeaheadOption | null;
+  synchronizeOptions?: boolean;
 };
 
 export default function InsertPhotoFormTypeahead({
@@ -33,6 +34,7 @@ export default function InsertPhotoFormTypeahead({
   onChange,
   options,
   selectedOption,
+  synchronizeOptions = false,
 }: PropType) {
   const [optionsEn, optionsZh] = useMemo(
     () => convertToTypeaheadOptions(options, customLabelFunc),
@@ -89,6 +91,7 @@ export default function InsertPhotoFormTypeahead({
 
       // New entries provided or not multilingual, just use the input value and do not synchronize
       if (
+        !synchronizeOptions ||
         (language === "en_us" && nextSelectedOptionEn.length === 0) ||
         (language === "zh_hk" && nextSelectedOptionZh.length === 0)
       ) {
@@ -151,15 +154,19 @@ function convertToTypeaheadOptions(
 > {
   const { en_us, zh_hk } = items;
   return [
-    Object.entries(en_us).map(([id, label]) => ({
-      id,
-      label: (() => {
-        if (customLabelFunc != null) {
-          return customLabelFunc(id, label);
-        }
-        return label;
-      })(),
-    })),
-    Object.entries(zh_hk).map(([id, label]) => ({ id, label })),
+    Object.entries(en_us)
+      .sort()
+      .map(([id, label]) => ({
+        id,
+        label: (() => {
+          if (customLabelFunc != null) {
+            return customLabelFunc(id, label);
+          }
+          return label;
+        })(),
+      })),
+    Object.entries(zh_hk)
+      .sort()
+      .map(([id, label]) => ({ id, label })),
   ];
 }
