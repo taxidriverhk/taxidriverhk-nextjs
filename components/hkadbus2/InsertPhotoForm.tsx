@@ -309,6 +309,7 @@ export default function InsertPhotoForm({
                   onChange={setStartLocation}
                   options={typeaheadOptions[TypeaheadOptionType.LOCATION]}
                   selectedOption={startLocation}
+                  synchronizeOptions
                 />
                 <Form.Label>End Location</Form.Label>
                 <InsertPhotoFormTypeahead
@@ -317,6 +318,7 @@ export default function InsertPhotoForm({
                   onChange={setEndLocation}
                   options={typeaheadOptions[TypeaheadOptionType.LOCATION]}
                   selectedOption={endLocation}
+                  synchronizeOptions
                 />
               </Card.Body>
             </Card>
