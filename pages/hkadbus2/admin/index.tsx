@@ -62,6 +62,7 @@ export default function HKAdbus2AdminHome({
           photoId: insertedPhotoId,
         },
       });
+      setInsertionError(null);
     } catch (error) {
       setInsertionError(error as Error);
     }
@@ -94,12 +95,22 @@ export default function HKAdbus2AdminHome({
 export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PropType>> {
-  const { query } = context;
-  const { apiKey, photoId } = query;
-  if (apiKey == null || Array.isArray(apiKey)) {
+  const {
+    query,
+    req: { cookies },
+  } = context;
+
+  const { apiKey: apiKeyFromQuery, photoId } = query;
+  const apiKeyFromCookie = cookies["apiKey"];
+
+  if (
+    (apiKeyFromQuery == null || Array.isArray(apiKeyFromQuery)) &&
+    apiKeyFromCookie == null
+  ) {
     return handleUnauthorized(context);
   }
 
+  const apiKey = (apiKeyFromQuery as string) ?? (apiKeyFromCookie as string);
   const isAuthorized = await isAuthorizedToInsertPhotos(apiKey);
   if (!isAuthorized) {
     return handleUnauthorized(context);
