@@ -4,7 +4,6 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
-import Image from "react-bootstrap/Image";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 
@@ -149,13 +148,13 @@ export default function InsertPhotoForm({
           </Form.Group>
           <Form.Group>
             <Form.Label>Image</Form.Label>
-            {imageUrl != null && imageUrl.length > 0 ? (
-              <Image alt="photo" src={imageUrl} fluid />
-            ) : (
-              <Card bg="dark" text="white">
+            <Card bg="dark" text="white">
+              {imageUrl != null && imageUrl.length > 0 ? (
+                <Card.Img alt="photo" src={imageUrl} variant="top" />
+              ) : (
                 <Card.Body>Image to be Shown Here</Card.Body>
-              </Card>
-            )}
+              )}
+            </Card>
             <Form.Control
               onChange={handleOnChange((nextValue) => setImageUrl(nextValue))}
               placeholder="Image URL"
