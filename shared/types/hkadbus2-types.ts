@@ -2,6 +2,7 @@ export enum BusCompany {
   KMB = "KMB",
   CTB = "CTB",
   CMB = "CMB",
+  LWB = "LWB",
   NWFB = "NWFB",
 }
 

@@ -24,6 +24,7 @@ const busCompanyColorMap = {
   [BusCompany.KMB]: PhotoColor.Red,
   [BusCompany.CTB]: PhotoColor.Yellow,
   [BusCompany.CMB]: PhotoColor.LightBlue,
+  [BusCompany.LWB]: "#FF8819", // Orange
   [BusCompany.NWFB]: PhotoColor.Green,
 };
 

@@ -13,7 +13,7 @@ export enum PhotoColor {
 }
 
 export type PhotoCardPropType = {
-  backgroundColor?: PhotoColor;
+  backgroundColor?: PhotoColor | string;
   extra?: string;
   href?: string;
   photo: string;
@@ -29,6 +29,10 @@ export default function PhotoCard({
   subtitle,
   title,
 }: PhotoCardPropType) {
+  const isBuiltInColor = Object.values(PhotoColor).includes(
+    backgroundColor as PhotoColor
+  );
+
   return (
     <Button
       className={styles["photo-card-container"]}
@@ -36,9 +40,16 @@ export default function PhotoCard({
       variant="none"
     >
       <Card
-        bg={backgroundColor}
+        bg={isBuiltInColor ? backgroundColor : PhotoColor.None}
         border="secondary"
         text={backgroundColor === PhotoColor.None ? "dark" : "white"}
+        style={
+          isBuiltInColor
+            ? {}
+            : {
+                backgroundColor: `${backgroundColor} !important`,
+              }
+        }
       >
         <Card.Img
           alt={title}
