@@ -43,13 +43,6 @@ export default function PhotoCard({
         bg={isBuiltInColor ? backgroundColor : PhotoColor.None}
         border="secondary"
         text={backgroundColor === PhotoColor.None ? "dark" : "white"}
-        style={
-          isBuiltInColor
-            ? {}
-            : {
-                backgroundColor: `${backgroundColor} !important`,
-              }
-        }
       >
         <Card.Img
           alt={title}
@@ -57,7 +50,15 @@ export default function PhotoCard({
           variant="top"
           src={photo}
         />
-        <Card.Body>
+        <Card.Body
+          style={
+            isBuiltInColor
+              ? {}
+              : {
+                  backgroundColor,
+                }
+          }
+        >
           <Card.Subtitle>{title}</Card.Subtitle>
           <Card.Text>{subtitle}</Card.Text>
         </Card.Body>
