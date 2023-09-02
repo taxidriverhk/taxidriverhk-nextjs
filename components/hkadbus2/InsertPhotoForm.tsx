@@ -28,6 +28,7 @@ const BRAND_NAME_MAPPING: Map<string, PutPhotoRequestString> = new Map<
   ["guy", { en_us: "Guy", zh_hk: "佳牌" }],
   ["leyland", { en_us: "Leyland", zh_hk: "利蘭" }],
   ["man", { en_us: "MAN", zh_hk: "猛獅" }],
+  ["neoplan", { en_us: "Neoplan", zh_hk: "利寶輪" }],
   ["mitsubishi", { en_us: "Mitsubishi", zh_hk: "三菱" }],
   ["mcw", { en_us: "MCW", zh_hk: "都城嘉慕" }],
   ["mercedes-benz", { en_us: "Mercedes Benz", zh_hk: "梅斯特斯平治" }],
