@@ -10,7 +10,7 @@ import type { VehicleInventorySearchQuery } from "shared/types/vehicle-inventory
 import { VehicleBrand } from "shared/types/vehicle-inventory-lookup-types";
 
 const CURRENT_YEAR = new Date().getFullYear();
-const YEAR_OPTONS = [CURRENT_YEAR, CURRENT_YEAR - 1];
+const YEAR_OPTONS = [CURRENT_YEAR + 1, CURRENT_YEAR, CURRENT_YEAR - 1];
 const DEFAULT_BRAND = VehicleBrand.HONDA;
 
 type PropType = {

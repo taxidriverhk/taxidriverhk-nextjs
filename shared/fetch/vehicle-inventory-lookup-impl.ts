@@ -178,30 +178,31 @@ export class ToyotaVehicleInventoryService extends VehicleInventoryService {
       } vehicles found from Toyota inventory`
     );
     return {
-      vehicles: data.data?.locateVehiclesByZip?.vehicleSummary.map(
-        ({
-          vin,
-          marketingSeries,
-          year,
-          dealerMarketingName,
-          distance,
-          model: { marketingName: modelFullName },
-          transmission: { transmissionType },
-          intColor: { marketingName: intColor },
-          extColor: { marketingName: extColor },
-        }) => ({
-          vin,
-          dealer: dealerMarketingName,
-          drivingDistance: distance,
-          year,
-          model: marketingSeries,
-          trim: modelFullName.substring(marketingSeries.length + 1),
-          transmission: transmissionType,
-          exteriorColor: extColor,
-          interiorColor: intColor,
-          numAvailable: 1,
-        })
-      ),
+      vehicles:
+        data.data?.locateVehiclesByZip?.vehicleSummary.map(
+          ({
+            vin,
+            marketingSeries,
+            year,
+            dealerMarketingName,
+            distance,
+            model: { marketingName: modelFullName },
+            transmission: { transmissionType },
+            intColor: { marketingName: intColor },
+            extColor: { marketingName: extColor },
+          }) => ({
+            vin,
+            dealer: dealerMarketingName,
+            drivingDistance: distance,
+            year,
+            model: marketingSeries,
+            trim: modelFullName.substring(marketingSeries.length + 1),
+            transmission: transmissionType,
+            exteriorColor: extColor,
+            interiorColor: intColor,
+            numAvailable: 1,
+          })
+        ) ?? [],
     };
   }
 }
