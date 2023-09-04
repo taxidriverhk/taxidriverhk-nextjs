@@ -67,6 +67,7 @@ export type PutPhotoRequest = {
   licensePlateNumber: string;
   thumbnail: string;
   username: string;
+  additionalTags: string;
 };
 
 export type PutPhotoResponse = {

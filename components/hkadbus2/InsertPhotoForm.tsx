@@ -6,6 +6,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import { WithContext as ReactTags } from "react-tag-input";
 
 import { useState } from "react";
 import { Option } from "react-bootstrap-typeahead/types/types";
@@ -68,6 +69,7 @@ export default function InsertPhotoForm({
   const [imageUrl, setImageUrl] = useState<string>("");
   const [licensePlateNumber, setLicensePlateNumber] = useState<string>("");
   const [username, setUsername] = useState<string>("");
+  const [additionalTags, setAdditionalTags] = useState<Array<string>>([]);
 
   const [advertisement, setAdvertisement] = useState<TypeaheadOption | null>(
     null
@@ -130,6 +132,7 @@ export default function InsertPhotoForm({
       licensePlateNumber,
       thumbnail: imageUrl,
       username,
+      additionalTags: additionalTags.join(" "),
     };
     onSubmit(payload);
   };
@@ -328,6 +331,20 @@ export default function InsertPhotoForm({
                 />
               </Card.Body>
             </Card>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Additional Tags (Separated by Space)</Form.Label>
+            <ReactTags
+              tags={additionalTags.map((tag) => ({ id: tag, text: tag }))}
+              handleAddition={(newTag) =>
+                setAdditionalTags([...additionalTags, newTag.text])
+              }
+              handleDelete={(deletedIndex) =>
+                setAdditionalTags(
+                  additionalTags.filter((_, index) => index !== deletedIndex)
+                )
+              }
+            />
           </Form.Group>
           <Form.Group>
             <Form.Label>Username (must already exist in database)</Form.Label>
