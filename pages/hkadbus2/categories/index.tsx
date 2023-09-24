@@ -23,16 +23,11 @@ export async function getServerSideProps(
   const { locale } = context;
   const { categories } = await fetchGetCategories(locale);
 
-  const sortedCategories = categories.sort((c1, c2) =>
-    c1.name.localeCompare(c2.name)
-  );
-  const categoryPhotoCards = sortedCategories.map(
-    ({ id, name, thumbnail }) => ({
-      href: `categories/${id}`,
-      photo: thumbnail,
-      title: name,
-    })
-  );
+  const categoryPhotoCards = categories.map(({ id, name, thumbnail }) => ({
+    href: `categories/${id}`,
+    photo: thumbnail,
+    title: name,
+  }));
 
   return {
     props: {

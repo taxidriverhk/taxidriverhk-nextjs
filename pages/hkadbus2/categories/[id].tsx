@@ -68,11 +68,8 @@ export async function getServerSideProps(
     };
   }
 
-  const sortedAdvertisements = advertisements.sort((a1, a2) =>
-    a1.name.localeCompare(a2.name)
-  );
   const categoryName = advertisements[0].categoryName;
-  const advertisementPhotoCards = sortedAdvertisements.map(
+  const advertisementPhotoCards = advertisements.map(
     ({ id, name, thumbnail }) => {
       const searchQuery: SearchPhotoQuery = {
         advertisementId: id,
