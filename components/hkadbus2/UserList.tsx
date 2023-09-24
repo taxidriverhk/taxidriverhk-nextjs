@@ -42,7 +42,7 @@ export default function UserList({ hrefFunc, users }: UserListPropType) {
     <Container>
       <Row>
         {users.map((user) => (
-          <Col xs={12} md={6}>
+          <Col key={user.username} xs={12} md={6}>
             <UserItem hrefFunc={hrefFunc} user={user} />
           </Col>
         ))}
