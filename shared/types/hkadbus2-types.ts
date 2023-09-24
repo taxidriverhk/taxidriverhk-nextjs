@@ -95,6 +95,12 @@ export type Photo = {
   username: string;
 };
 
+export type User = {
+  username: string;
+  thumbnail: string;
+  registrationDate: EpochTimeStamp;
+};
+
 export type SearchPhotoQuery = {
   q?: string;
   advertisementId?: string;
@@ -152,6 +158,10 @@ export type GetEntityOptionsResponse = {
 export type GetPhotoResponse = {
   photo?: Photo;
 } & ItemNotFoundResponse;
+
+export type GetUsersResponse = {
+  users: Array<User>;
+};
 
 export type SearchPhotosResponse = {
   nextPageCursor: string | null;

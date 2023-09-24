@@ -37,6 +37,9 @@
     "title": "Hong Kong Advertised Bus Photo Database v2.5",
     "uploaded-by": "Uploaded By:",
     "uploaded-by-with-date": "Uploaded by {username} {relativeUploadedDate}",
-    "uploaded-date": "Date Uploaded: {uploadedDate, date, ::dMMMMyyyy}"
+    "uploaded-date": "Date Uploaded: {uploadedDate, date, ::dMMMMyyyy}",
+    "user-list-link": "Photographers",
+    "user-list-title": "List of Photographers",
+    "user-list-intro": "Credit to the following {numOfUsers} photographers for providing the photos of buses with whole-body advertisements."
   }
 }

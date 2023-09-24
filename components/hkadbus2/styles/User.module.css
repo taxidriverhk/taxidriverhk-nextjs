@@ -1,0 +1,12 @@
+.user-item-container {
+  text-align: left;
+  width: 100%;
+}
+
+.user-item-container:hover {
+  filter: brightness(90%);
+}
+
+.user-item-username {
+  margin-left: 8px;
+}

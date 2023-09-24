@@ -37,6 +37,9 @@
     "title": "香港廣告巴士相片庫 v2.5",
     "uploaded-by": "上傳者:",
     "uploaded-by-with-date": "由 {username} {relativeUploadedDate}上傳",
-    "uploaded-date": "上傳日期: {uploadedDate, date, ::dMMMMyyyy}"
+    "uploaded-date": "上傳日期: {uploadedDate, date, ::dMMMMyyyy}",
+    "user-list-link": "拍攝者",
+    "user-list-title": "拍攝者名單",
+    "user-list-intro": "鳴謝以下 {numOfUsers} 位拍攝者提供的全車身廣告巴士照片。"
   }
 }

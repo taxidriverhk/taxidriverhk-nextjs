@@ -7,6 +7,7 @@ import type {
   GetCategoriesResponse,
   GetEntityOptionsResponse,
   GetPhotoResponse,
+  GetUsersResponse,
   ItemNotFoundResponse,
   PutPhotoRequest,
   PutPhotoResponse,
@@ -60,6 +61,10 @@ export async function fetchGetPhoto(
   return await fetchGetWithItemNotFoundHandled(`/photos/${photoId}`, {
     language: convertedLocale,
   });
+}
+
+export async function fetchGetUsers(): Promise<GetUsersResponse> {
+  return await fetchGet("/users", {});
 }
 
 export async function fetchSearchPhotos(

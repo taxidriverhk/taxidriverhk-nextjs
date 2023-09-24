@@ -50,6 +50,9 @@ export default function Template({
               <Nav.Link as={LinkComponent} href="/hkadbus2/bus-models">
                 {t("bus-models")}
               </Nav.Link>
+              <Nav.Link as={LinkComponent} href="/hkadbus2/users">
+                {t("user-list-link")}
+              </Nav.Link>
             </Nav>
             <Nav variant="pills">
               <Nav.Link
