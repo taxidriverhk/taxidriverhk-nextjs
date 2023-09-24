@@ -12,6 +12,7 @@ import { VehicleBrand } from "shared/types/vehicle-inventory-lookup-types";
 const CURRENT_YEAR = new Date().getFullYear();
 const YEAR_OPTONS = [CURRENT_YEAR + 1, CURRENT_YEAR, CURRENT_YEAR - 1];
 const DEFAULT_BRAND = VehicleBrand.HONDA;
+const DISABLED_BRANDS = new Set<VehicleBrand>([VehicleBrand.TOYOTA]);
 
 type PropType = {
   hasValidationError: boolean;
@@ -103,9 +104,15 @@ export default function SearchInput({
                 onChange={handleSelectionChange("brand")}
                 value={query.brand}
               >
-                {brandOptions.map((brand) => (
-                  <option key={brand[0]} value={brand[0]}>
-                    {brand[1]}
+                {brandOptions.map(([brandKey, brandLabel]) => (
+                  <option
+                    key={brandKey}
+                    value={brandKey}
+                    disabled={DISABLED_BRANDS.has(brandKey)}
+                  >
+                    {`${brandLabel}${
+                      DISABLED_BRANDS.has(brandKey) ? " [Disabled]" : ""
+                    }`}
                   </option>
                 ))}
               </Form.Select>
