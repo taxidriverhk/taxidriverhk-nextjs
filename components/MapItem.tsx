@@ -18,10 +18,17 @@ type PropType = {
 };
 
 export default function MapItem({ basePath, map }: PropType) {
-  const { icon, name, releaseDate, status, targetGameVersion } = map;
+  const {
+    icon,
+    name,
+    progressPercentage,
+    releaseDate,
+    status,
+    targetGameVersion,
+  } = map;
   const showStatus = status !== ReleaseStatus.Released;
   const isUnavailable = status === ReleaseStatus.Unavailable;
-  const statusText = showStatus ? `[${releaseStatusDisplayText[status]}]` : "";
+  const statusText = showStatus ? releaseStatusDisplayText[status] : null;
   return (
     <ListGroup.Item
       action={!isUnavailable}
@@ -35,12 +42,23 @@ export default function MapItem({ basePath, map }: PropType) {
             "text-danger": isUnavailable,
           })}
         >
-          {`${name} ${statusText}`}
+          {name}
           <div>
             <Badge bg="dark">{releaseDate}</Badge>{" "}
             <Badge bg={gameVersionBadgeColor[targetGameVersion]}>
               {targetGameVersion}
             </Badge>
+            {statusText != null && (
+              <>
+                {" "}
+                <Badge
+                  bg={status === ReleaseStatus.InProgress ? "info" : "danger"}
+                >
+                  {statusText}
+                  {progressPercentage != null && ` (${progressPercentage}%)`}
+                </Badge>
+              </>
+            )}
           </div>
         </Figure.Caption>
       </Figure>
