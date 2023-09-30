@@ -1,13 +1,15 @@
+import isEmpty from "lodash/isEmpty";
 import { useMemo } from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 import type { MapFilterInput } from "components/MapFilter";
 import MapItem from "components/MapItem";
 import type {
   MapCategory,
   MapItem as MapItemType,
-} from "shared/config/cs-map-config";
+} from "shared/types/cs-map-types";
 
 import styles from "components/styles/MapSection.module.css";
 
@@ -43,14 +45,15 @@ export default function MapSection({
         ),
     [maps, sort, versions]
   );
+  const mapItems = filteredMaps.map((map) => (
+    <MapItem key={map.id} basePath={basePath} map={map} />
+  ));
 
   return (
     <Card bg="light" border="dark" className={styles["section-container"]}>
       <Card.Header>{`${categoryAbbr} (${categoryName})`}</Card.Header>
       <ListGroup>
-        {filteredMaps.map((map) => (
-          <MapItem key={map.id} basePath={basePath} map={map} />
-        ))}
+        {isEmpty(filteredMaps) ? <ListGroupItem>None</ListGroupItem> : mapItems}
       </ListGroup>
     </Card>
   );

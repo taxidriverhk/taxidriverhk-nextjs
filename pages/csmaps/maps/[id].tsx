@@ -6,9 +6,10 @@ import Table from "react-bootstrap/Table";
 
 import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
-import type { MapItem } from "shared/config/cs-map-config";
-import { mapItems, ReleaseStatus } from "shared/config/cs-map-config";
+import { mapItems } from "shared/config/cs-map-config";
 import { Website } from "shared/config/website-config";
+import type { MapItem } from "shared/types/cs-map-types";
+import { ReleaseStatus } from "shared/types/cs-map-types";
 
 type PropType = {
   map: MapItem;
@@ -49,7 +50,7 @@ export default function CsMapDetails({
             <td>{version}</td>
           </tr>
           <tr>
-            <td>Release Date</td>
+            <td>Release Date/Last Updated Date</td>
             <td>{releaseDate}</td>
           </tr>
           <tr>

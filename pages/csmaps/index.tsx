@@ -6,9 +6,9 @@ import type { MapFilterInput } from "components/MapFilter";
 import MapFilter, { DEFAULT_FILTER } from "components/MapFilter";
 import MapSection from "components/MapSection";
 import Template from "components/Template";
-import type { MapCategory, MapItem } from "shared/config/cs-map-config";
 import { mapCategories, mapItems } from "shared/config/cs-map-config";
 import { Website } from "shared/config/website-config";
+import type { MapCategory, MapItem } from "shared/types/cs-map-types";
 
 type PropType = {
   categories: Array<MapCategory>;

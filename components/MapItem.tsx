@@ -3,12 +3,12 @@ import Badge from "react-bootstrap/Badge";
 import Figure from "react-bootstrap/Figure";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import type { MapItem } from "shared/config/cs-map-config";
+import type { MapItem } from "shared/types/cs-map-types";
 import {
   ReleaseStatus,
   gameVersionBadgeColor,
   releaseStatusDisplayText,
-} from "shared/config/cs-map-config";
+} from "shared/types/cs-map-types";
 
 import styles from "components/styles/MapSection.module.css";
 
