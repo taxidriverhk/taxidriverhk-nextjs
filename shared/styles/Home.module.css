@@ -1,11 +1,12 @@
 .section-container {
-  align-items: center;
   display: flex;
   height: 100vh;
 }
 
 .section-group {
   width: 100%;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .section-header {
