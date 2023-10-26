@@ -1,10 +1,15 @@
 .header-brand {
   padding-left: 0.75rem;
+  text-wrap: wrap;
 }
 
 .header-image {
-  background-image: url('/header.jpg');
+  background-image: url("/header.jpg");
   background-position: center;
   background-size: cover;
   height: 12rem;
+}
+
+.header-item-container {
+  flex-wrap: wrap;
 }

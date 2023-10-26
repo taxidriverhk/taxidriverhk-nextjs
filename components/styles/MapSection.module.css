@@ -1,11 +1,13 @@
 .item-image {
-  height: 50px;
+  max-height: 50px;
 }
 
 .section-block {
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   margin-block-end: 0px;
+  flex-wrap: wrap;
 }
 
 .section-container {

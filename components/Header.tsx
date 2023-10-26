@@ -21,7 +21,7 @@ export default function Header({ activeWebsite }: PropType) {
         <Navbar.Brand className={styles["header-brand"]} href="/">
           Hong Kong Taxi Driver Workshop
         </Navbar.Brand>
-        <Nav>
+        <Nav className={styles["header-item-container"]}>
           {websites.map(({ href, website, shortName }) => (
             <Nav.Link
               active={activeWebsite === website}
