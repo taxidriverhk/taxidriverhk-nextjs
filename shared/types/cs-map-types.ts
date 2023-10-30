@@ -43,3 +43,14 @@ export type MapItem = {
   status: ReleaseStatus;
   targetGameVersion: GameVersion;
 };
+
+export type MapTutorial = {
+  title: string;
+  hashKey: string;
+  content: string;
+  creationDate: string;
+  lastUpdateDate: string;
+  thumbnail: string;
+  targetGameVersion: GameVersion;
+  isDraft: boolean;
+};

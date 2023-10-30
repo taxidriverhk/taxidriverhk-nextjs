@@ -21,7 +21,10 @@ const PATH_TITLES = {
     {
       prefix: "/csmaps",
       title: "Counter Strike",
-      children: [{ prefix: "/maps", title: "Map Details" }],
+      children: [
+        { prefix: "/maps", title: "Map Details" },
+        { prefix: "/tutorials", title: "Tutorials" },
+      ],
     },
     {
       prefix: "/others",

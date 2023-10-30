@@ -6,7 +6,12 @@ import type { MapFilterInput } from "components/MapFilter";
 import MapFilter, { DEFAULT_FILTER } from "components/MapFilter";
 import MapSection from "components/MapSection";
 import Template from "components/Template";
-import { mapCategories, mapItems } from "shared/config/cs-map-config";
+import TutorialSection from "components/TutorialSection";
+import {
+  mapCategories,
+  mapItems,
+  mapTutorials,
+} from "shared/config/cs-map-config";
 import { Website } from "shared/config/website-config";
 import type { MapCategory, MapItem } from "shared/types/cs-map-types";
 
@@ -33,6 +38,11 @@ function MapSectionContainer({ categories, currentPath = "", maps }: PropType) {
           maps={maps[category.id]}
         />
       ))}
+      <TutorialSection
+        basePath={currentPath}
+        filter={filter}
+        tutorials={mapTutorials}
+      />
     </>
   );
 }

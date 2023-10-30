@@ -2,10 +2,14 @@ import {
   GameVersion,
   MapCategory,
   MapItem,
+  MapTutorial,
   ReleaseStatus,
 } from "shared/types/cs-map-types";
 
-import { mapItems as cs2MapItems } from "shared/config/cs2-map-config";
+import {
+  mapItems as cs2MapItems,
+  mapTutorials as cs2MapTutorials,
+} from "shared/config/cs2-map-config";
 
 export const mapCategories: Array<MapCategory> = [
   {
@@ -921,3 +925,5 @@ export const mapItems: Array<MapItem> = [
     ],
   },
 ];
+
+export const mapTutorials: Array<MapTutorial> = [...cs2MapTutorials];

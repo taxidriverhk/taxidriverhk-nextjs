@@ -1,0 +1,24 @@
+.section-container {
+  margin-bottom: 1rem;
+}
+
+.item-container {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.875rem;
+}
+
+.item-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1rem;
+}
+
+.tutorial-metadata {
+  color: gray;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
