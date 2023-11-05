@@ -34,7 +34,14 @@ export default function TutorialSection({
   );
 
   const tutorialItems = filteredTutorials.map(
-    ({ thumbnail, hashKey, title, targetGameVersion, lastUpdateDate }) => (
+    ({
+      creationDate,
+      thumbnail,
+      hashKey,
+      title,
+      targetGameVersion,
+      lastUpdateDate,
+    }) => (
       <ListGroupItem
         action
         className={styles["item-container"]}
@@ -45,7 +52,12 @@ export default function TutorialSection({
         <div className={styles["item-body"]}>
           {title}
           <div>
-            <Badge bg="dark">{lastUpdateDate}</Badge>{" "}
+            <Badge bg="dark">{creationDate}</Badge>{" "}
+            {creationDate !== lastUpdateDate && (
+              <>
+                <Badge bg="danger">[Updated] {lastUpdateDate}</Badge>{" "}
+              </>
+            )}
             <Badge bg={gameVersionBadgeColor[targetGameVersion]}>
               {targetGameVersion}
             </Badge>

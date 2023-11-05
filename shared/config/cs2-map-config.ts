@@ -33,6 +33,19 @@ export const mapTutorials: Array<MapTutorial> = [
     title: "Play your own addon map",
     hashKey: "play-your-own-addon-map",
     content: `
+### Updated on 2023-11-04
+Valve published an update to enable playing Workshop/addon maps without any hacks.
+
+Once you build the map from Hammer, simply launch the default CS2, open the console and use the command below to play the map.
+
+\`\`\`
+map_workshop <your-addon-name> <your-map-name>
+\`\`\`
+
+\`<your-addon-name>\` and \`<your-map-name>\` are usually the same, CS2 should be able to autocomplete the map name for you.
+
+**============== Ignore the section below if you have already installed the latest version of CS2 ==============**
+
 ### Introduction
 By default, the map your built from Hammer would only be available from the CS2 launched as part of the Workshop Tools.
 It will not be available in the normal/release version of CS2.
@@ -118,7 +131,7 @@ The map should now be loaded with textures, it's time to enjoy!
 
 `,
     creationDate: "2023-10-30",
-    lastUpdateDate: "2023-10-30",
+    lastUpdateDate: "2023-11-04",
     thumbnail: "/csmaps/tutorial202.jpg",
     targetGameVersion: GameVersion.COUNTER_STRIKE_2,
     isDraft: false,
