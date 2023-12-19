@@ -10,3 +10,7 @@
 .user-item-username {
   margin-left: 8px;
 }
+
+.user-item-thumbnail {
+  max-width: 60px;
+}

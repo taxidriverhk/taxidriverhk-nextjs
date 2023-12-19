@@ -19,7 +19,9 @@ type UserPropType = {
 };
 
 function UserItem({ hrefFunc, user }: UserPropType) {
-  const { username } = user;
+  const { username, thumbnail } = user;
+  const thumbnailToUse =
+    thumbnail != null ? thumbnail : "/hkadbus2/profile-image-placeholder.jpg";
 
   return (
     <Button
@@ -29,7 +31,11 @@ function UserItem({ hrefFunc, user }: UserPropType) {
     >
       <Card>
         <Card.Body>
-          <Image src="/hkadbus2/profile-image-placeholder.jpg" roundedCircle />
+          <Image
+            className={styles["user-item-thumbnail"]}
+            src={thumbnailToUse}
+            roundedCircle
+          />
           <span className={styles["user-item-username"]}>{username}</span>
         </Card.Body>
       </Card>
