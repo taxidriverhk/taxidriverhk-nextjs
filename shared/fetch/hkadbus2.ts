@@ -48,9 +48,12 @@ export async function fetchGetCategories(
 
 export async function fetchGetEntityOptions(
   entityType: string,
-  language: string
+  locale?: string
 ): Promise<GetEntityOptionsResponse> {
-  return await fetchGet(`/entities/${entityType}`, { language });
+  const convertedLocale = convertLocaleToLanguage(locale);
+  return await fetchGet(`/entities/${entityType}`, {
+    language: convertedLocale,
+  });
 }
 
 export async function fetchGetPhoto(

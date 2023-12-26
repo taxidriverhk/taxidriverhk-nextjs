@@ -119,8 +119,8 @@ export async function getServerSideProps(
   const typeaheadOptionList = await Promise.all(
     Object.values(TypeaheadOptionType)
       .map((entityType) => [
-        fetchGetEntityOptions(entityType, "en_us"),
-        fetchGetEntityOptions(entityType, "zh_hk"),
+        fetchGetEntityOptions(entityType, "en-US"),
+        fetchGetEntityOptions(entityType, "zh-HK"),
       ])
       .flat()
   );

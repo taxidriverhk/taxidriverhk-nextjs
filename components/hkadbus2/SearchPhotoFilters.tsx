@@ -1,3 +1,4 @@
+import trim from "lodash/trim";
 import { useCallback, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -5,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import styles from "components/hkadbus2/styles/SearchPhoto.module.css";
+import { TypeaheadOptionType } from "shared/types/hkadbus2-types";
+import SearchPhotoFormTypeahead from "./SearchPhotoFormTypeahead";
 
 export type SearchPhotoFilterPropType = {
   keywords?: string;
@@ -15,12 +18,17 @@ export type SearchPhotoFilterPropType = {
   uploadedBy?: string;
 };
 
+export type TypeaheadOptions = {
+  [entityType: string]: Array<string>;
+};
+
 type PropType = {
   filters: SearchPhotoFilterPropType;
   isFetching: boolean;
   onSearch: (nextFilters: SearchPhotoFilterPropType) => void;
   validationErrors: SearchPhotoFilterPropType;
   translationFunc: (key: string) => string;
+  typeaheadOptions: TypeaheadOptions;
 };
 
 export default function SearchPhotoFilters({
@@ -28,6 +36,7 @@ export default function SearchPhotoFilters({
   onSearch,
   validationErrors,
   translationFunc: t,
+  typeaheadOptions,
 }: PropType) {
   const [filters, setFilters] =
     useState<SearchPhotoFilterPropType>(initialFilters);
@@ -35,14 +44,20 @@ export default function SearchPhotoFilters({
   useEffect(() => setFilters(initialFilters), [initialFilters]);
 
   const handleOnChange = useCallback(
-    (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    (field: string) => (nextValue: string | null) => {
       setFilters({
         ...filters,
-        [field]: e.currentTarget.value,
+        [field]: nextValue != null ? trim(nextValue) : null,
       });
     },
     [filters, setFilters]
   );
+  const handleOnTextInputChange = useCallback(
+    (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
+      handleOnChange(field)(e.currentTarget.value),
+    [handleOnChange]
+  );
+
   const handleOnSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch(filters);
@@ -56,7 +71,7 @@ export default function SearchPhotoFilters({
             <Form.Label>{t("search-filter-keywords")}</Form.Label>
             <Form.Control
               isInvalid={validationErrors.keywords != null}
-              onChange={handleOnChange("keywords")}
+              onChange={handleOnTextInputChange("keywords")}
               type="text"
               value={filters.keywords || ""}
             />
@@ -66,12 +81,14 @@ export default function SearchPhotoFilters({
           </Form.Group>
           <Form.Group>
             <Form.Label>{t("search-filter-route")}</Form.Label>
-            <Form.Control
-              className={styles["search-photo-input-uppercase"]}
-              isInvalid={validationErrors.route != null}
+            <SearchPhotoFormTypeahead
+              customOnChangePreprocessor={getBusRouteNumberFromOption}
+              customValueFunc={buildBusRouteNumberWithCompanyName}
+              entityType={TypeaheadOptionType.ROUTE}
               onChange={handleOnChange("route")}
-              type="text"
-              value={filters.route || ""}
+              options={typeaheadOptions[TypeaheadOptionType.ROUTE]}
+              selectedOption={filters.route}
+              uppercase
             />
             <Form.Control.Feedback type="invalid">
               {validationErrors.route}
@@ -83,7 +100,7 @@ export default function SearchPhotoFilters({
             <Form.Control
               className={styles["search-photo-input-uppercase"]}
               isInvalid={validationErrors.fleetPrefix != null}
-              onChange={handleOnChange("fleetPrefix")}
+              onChange={handleOnTextInputChange("fleetPrefix")}
               type="text"
               value={filters.fleetPrefix || ""}
             />
@@ -92,28 +109,27 @@ export default function SearchPhotoFilters({
             </Form.Control.Feedback>
             <InputGroup.Text>{t("search-filter-fleet-number")}</InputGroup.Text>
             <Form.Control
-              onChange={handleOnChange("fleetNumber")}
+              onChange={handleOnTextInputChange("fleetNumber")}
               type="number"
               value={filters.fleetNumber || ""}
             />
           </InputGroup>
           <Form.Group>
             <Form.Label>{t("search-filter-license-plate-number")}</Form.Label>
-            <Form.Control
-              className={styles["search-photo-input-uppercase"]}
-              isInvalid={validationErrors.licensePlateNumber != null}
+            <SearchPhotoFormTypeahead
+              entityType={TypeaheadOptionType.LICENSE_PLATE_NUMBER}
               onChange={handleOnChange("licensePlateNumber")}
-              type="text"
-              value={filters.licensePlateNumber || ""}
+              options={
+                typeaheadOptions[TypeaheadOptionType.LICENSE_PLATE_NUMBER]
+              }
+              selectedOption={filters.licensePlateNumber}
+              uppercase
             />
-            <Form.Control.Feedback type="invalid">
-              {validationErrors.licensePlateNumber}
-            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group>
             <Form.Label>{t("search-filter-uploaded-by")}</Form.Label>
             <Form.Control
-              onChange={handleOnChange("uploadedBy")}
+              onChange={handleOnTextInputChange("uploadedBy")}
               type="text"
               value={filters.uploadedBy || ""}
             />
@@ -130,4 +146,24 @@ export default function SearchPhotoFilters({
       </Card.Body>
     </Card>
   );
+}
+
+function buildBusRouteNumberWithCompanyName(busRouteHashkey: string): string {
+  const busRouteTokens = busRouteHashkey.split("-");
+  const busRouteNumber =
+    busRouteTokens[busRouteTokens.length - 1].toUpperCase();
+  if (busRouteTokens.length === 1) {
+    return busRouteNumber;
+  }
+
+  const busCompanyName = busRouteTokens[0];
+  if (busCompanyName.startsWith("cross")) {
+    return `${busRouteNumber} (Cross Harbour)`;
+  }
+  return `${busRouteNumber} (${busCompanyName.toUpperCase()})`;
+}
+
+function getBusRouteNumberFromOption(busRouteOption: string): string {
+  const busRouteTokens = busRouteOption.split("-");
+  return busRouteTokens[busRouteTokens.length - 1];
 }

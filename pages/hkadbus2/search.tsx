@@ -4,11 +4,15 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 
-import type { SearchPhotoFilterPropType } from "components/hkadbus2/SearchPhotoFilters";
+import type {
+  SearchPhotoFilterPropType,
+  TypeaheadOptions,
+} from "components/hkadbus2/SearchPhotoFilters";
 import SearchPhotoFilters from "components/hkadbus2/SearchPhotoFilters";
 import SearchPhotoResults from "components/hkadbus2/SearchPhotoResults";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
 import {
+  fetchGetEntityOptions,
   fetchSearchPhotos,
   fetchSearchPhotosFromClientSide,
 } from "shared/fetch/hkadbus2";
@@ -17,7 +21,7 @@ import type {
   SearchPhotoQuery,
   SearchPhotoResult,
 } from "shared/types/hkadbus2-types";
-import { SortOrder } from "shared/types/hkadbus2-types";
+import { SortOrder, TypeaheadOptionType } from "shared/types/hkadbus2-types";
 
 const ORDER_BY = "uploadedDate";
 const SORT = SortOrder.ASC;
@@ -27,6 +31,7 @@ type PropType = {
   nextCursor: string | null;
   photos: Array<SearchPhotoResult>;
   total: number;
+  typeaheadOptions: TypeaheadOptions;
 };
 
 function HKAdbus2SearchBody({
@@ -34,6 +39,7 @@ function HKAdbus2SearchBody({
   nextCursor: initialNextCursor,
   photos: initialPhotos,
   total,
+  typeaheadOptions,
 }: PropType) {
   const router = useRouter();
   const { locale, pathname, query } = router;
@@ -141,6 +147,7 @@ function HKAdbus2SearchBody({
         onSearch={handleSearchCallback}
         validationErrors={validationErrors}
         translationFunc={t}
+        typeaheadOptions={typeaheadOptions}
       />
       <SearchPhotoResults
         isFetching={false}
@@ -155,20 +162,10 @@ function HKAdbus2SearchBody({
   );
 }
 
-export default function HKAdbus2Search({
-  filters,
-  nextCursor,
-  photos,
-  total,
-}: PropType) {
+export default function HKAdbus2Search(props: PropType) {
   return (
     <HKAdBus2TemplateContainer>
-      <HKAdbus2SearchBody
-        filters={filters}
-        nextCursor={nextCursor}
-        photos={photos}
-        total={total}
-      />
+      <HKAdbus2SearchBody {...props} />
     </HKAdBus2TemplateContainer>
   );
 }
@@ -177,6 +174,20 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PropType>> {
   const { locale, query } = context;
+
+  const typeaheadOptionList = await Promise.all(
+    Object.values(TypeaheadOptionType).map((entityType) =>
+      fetchGetEntityOptions(entityType, locale)
+    )
+  );
+  const typeaheadOptions: TypeaheadOptions = typeaheadOptionList.reduce(
+    (result, { entityType, options }) => ({
+      ...result,
+      [entityType]: Object.keys(options),
+    }),
+    {}
+  );
+
   if (Object.keys(query).length === 0) {
     return {
       props: {
@@ -184,6 +195,7 @@ export async function getServerSideProps(
         nextCursor: null,
         photos: [],
         total: 0,
+        typeaheadOptions,
       },
     };
   }
@@ -219,6 +231,7 @@ export async function getServerSideProps(
       nextCursor: nextPageCursor,
       photos: results,
       total,
+      typeaheadOptions,
     },
   };
 }
