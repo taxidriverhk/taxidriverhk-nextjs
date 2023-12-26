@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import snakeCase from "lodash/snakeCase";
 
+import { getApiEndpoint } from "shared/config/hkadbus2-config";
 import type {
   GetAdvertisementsResponse,
   GetBusModelsResponse,
@@ -16,7 +17,6 @@ import type {
   SortOrder,
 } from "shared/types/hkadbus2-types";
 
-const API_ENDPOINT = "http://127.0.0.1:8080/hkadbus2/api";
 const PAGE_SIZE = 20;
 
 export async function fetchGetAdvertisements(
@@ -193,9 +193,4 @@ async function fetchGetWithItemNotFoundHandled<T>(
       throw new Error(axiosError.message);
     }
   }
-}
-
-function getApiEndpoint(): string {
-  const endpointOverride = process.env.HKADBUS2_API_ENDPOINT;
-  return endpointOverride != null ? endpointOverride : API_ENDPOINT;
 }
