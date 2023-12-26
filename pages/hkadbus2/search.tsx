@@ -64,9 +64,19 @@ function HKAdbus2SearchBody({
         (result, value) => result || !isEmpty(value),
         false
       );
+      const isKeywordValid =
+        (!isEmpty(nextFilters.keywords) &&
+          (nextFilters.keywords?.length ?? 0) >= 3) ||
+        isEmpty(nextFilters.keywords);
+
       if (!hasAtLeastOneInput) {
         setValidationErrors({
-          keywords: t("search-filter-validation-error"),
+          keywords: t("search-filter-validation-error-1"),
+        });
+        return;
+      } else if (!isKeywordValid) {
+        setValidationErrors({
+          keywords: t("search-filter-validation-error-2"),
         });
         return;
       } else {
