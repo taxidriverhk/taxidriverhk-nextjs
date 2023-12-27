@@ -30,19 +30,28 @@ export const mapItems: Array<MapItem> = [
 
 export const mapTutorials: Array<MapTutorial> = [
   {
-    title: "Play your own addon map",
+    title: "Play your own addon/workshop map",
     hashKey: "play-your-own-addon-map",
     content: `
-### Updated on 2023-11-04
+### Updated on 2023-12-26
 Valve published an update to enable playing Workshop/addon maps without any hacks.
 
 Once you build the map from Hammer, simply launch the default CS2, open the console and use the command below to play the map.
 
 \`\`\`
-map_workshop <your-addon-name> <your-map-name>
+map_workshop <workshop-id> <map-name>
 \`\`\`
 
-\`<your-addon-name>\` and \`<your-map-name>\` are usually the same, CS2 should be able to autocomplete the map name for you.
+\`<workshop-id>\` and \`<map-name>\` are the same if you have not published the map to Steam Workshop yet, CS2 should be able to autocomplete both the ID and the name for you.
+
+By default, the map will be launched in Competitive mode. If you want to launch the map in a different mode (e.g. Casual),
+then use the following commands to set the relevant parameters before executing the \`map_workshop\` command.
+\`\`\`
+game_type <type-number>
+game_mode <mode-number>
+\`\`\`
+
+Refer to [this table](https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive/Game_Modes#Game_Type_and_Game_Mode) for a list of possible game types and mode numbers.
 
 **============== Ignore the section below if you have already installed the latest version of CS2 ==============**
 
@@ -131,7 +140,7 @@ The map should now be loaded with textures, it's time to enjoy!
 
 `,
     creationDate: "2023-10-30",
-    lastUpdateDate: "2023-11-04",
+    lastUpdateDate: "2023-12-26",
     thumbnail: "/csmaps/tutorial202.jpg",
     targetGameVersion: GameVersion.COUNTER_STRIKE_2,
     isDraft: false,
