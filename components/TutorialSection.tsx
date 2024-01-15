@@ -25,14 +25,22 @@ export default function TutorialSection({
   tutorials,
   showDraftPosts,
 }: PropType) {
+  const { sort } = filter;
+
   const filteredTutorials = useMemo(
     () =>
-      tutorials.filter(
-        (tutorial) =>
-          (!tutorial.isDraft || showDraftPosts) &&
-          filter.versions.includes(tutorial.targetGameVersion)
-      ),
-    [filter, tutorials, showDraftPosts]
+      tutorials
+        .filter(
+          (tutorial) =>
+            (!tutorial.isDraft || showDraftPosts) &&
+            filter.versions.includes(tutorial.targetGameVersion)
+        )
+        .sort((tutorialA, tutorialB) =>
+          sort === "releaseDate"
+            ? tutorialA.lastUpdateDate.localeCompare(tutorialB.lastUpdateDate)
+            : tutorialA.title.localeCompare(tutorialB.title)
+        ),
+    [filter, tutorials, showDraftPosts, sort]
   );
 
   const tutorialItems = filteredTutorials.map(
