@@ -21,9 +21,15 @@ type PropType = {
   maps: {
     [key: number]: Array<MapItem>;
   };
+  showDraftPosts: boolean;
 };
 
-function MapSectionContainer({ categories, currentPath = "", maps }: PropType) {
+function MapSectionContainer({
+  categories,
+  currentPath = "",
+  maps,
+  showDraftPosts,
+}: PropType) {
   const [filter, setFilter] = useState<MapFilterInput>(DEFAULT_FILTER);
 
   return (
@@ -42,12 +48,13 @@ function MapSectionContainer({ categories, currentPath = "", maps }: PropType) {
         basePath={currentPath}
         filter={filter}
         tutorials={mapTutorials}
+        showDraftPosts={showDraftPosts}
       />
     </>
   );
 }
 
-export default function CsMaps({ categories, maps }: PropType) {
+export default function CsMaps({ categories, maps, showDraftPosts }: PropType) {
   const router = useRouter();
   const { asPath: path, pathname: currentPath, query } = router;
 
@@ -64,6 +71,7 @@ export default function CsMaps({ categories, maps }: PropType) {
         categories={categories}
         currentPath={currentPath}
         maps={maps}
+        showDraftPosts={showDraftPosts}
       />
     </Template>
   );
@@ -79,11 +87,13 @@ export async function getStaticProps(): Promise<
       [category.id]: matches,
     };
   }, {});
+  const showDraftPosts = process.env.NODE_ENV === "development";
 
   return {
     props: {
       categories: mapCategories,
       maps: mapLookup,
+      showDraftPosts,
     },
   };
 }

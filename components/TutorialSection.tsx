@@ -16,26 +16,29 @@ type PropType = {
   basePath: string;
   tutorials: Array<MapTutorial>;
   filter: MapFilterInput;
+  showDraftPosts: boolean;
 };
 
 export default function TutorialSection({
   basePath,
   filter,
   tutorials,
+  showDraftPosts,
 }: PropType) {
   const filteredTutorials = useMemo(
     () =>
       tutorials.filter(
         (tutorial) =>
-          !tutorial.isDraft &&
+          (!tutorial.isDraft || showDraftPosts) &&
           filter.versions.includes(tutorial.targetGameVersion)
       ),
-    [filter, tutorials]
+    [filter, tutorials, showDraftPosts]
   );
 
   const tutorialItems = filteredTutorials.map(
     ({
       creationDate,
+      isDraft,
       thumbnail,
       hashKey,
       title,
@@ -50,6 +53,7 @@ export default function TutorialSection({
       >
         <Image alt={title} src={thumbnail} />
         <div className={styles["item-body"]}>
+          {isDraft ? "[DRAFT] " : ""}
           {title}
           <div>
             <Badge bg="dark">{creationDate}</Badge>{" "}
