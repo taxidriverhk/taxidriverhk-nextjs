@@ -19,12 +19,20 @@ export const mapItems: Array<MapItem> = [
     targetGameVersion: GameVersion.COUNTER_STRIKE_2,
     images: [
       {
-        url: "https://live.staticflickr.com/65535/53281318131_69bae20cbe_b.jpg",
-        caption: "Prototype",
+        url: "https://live.staticflickr.com/65535/53492856105_3036b956b5_h.jpg",
+        caption: "Shopping Mall (Lower Level) - 1",
+      },
+      {
+        url: "https://live.staticflickr.com/65535/53491543247_6548525a0a_h.jpg",
+        caption: "Shopping Mall (Lower Level) - 2",
+      },
+      {
+        url: "https://live.staticflickr.com/65535/53492587703_21b0ce0de0_h.jpg",
+        caption: "Bomb Planting Site A",
       },
     ],
     downloadLinks: [],
-    progressPercentage: 1,
+    progressPercentage: 20,
   },
 ];
 
