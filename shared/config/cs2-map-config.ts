@@ -12,27 +12,35 @@ export const mapItems: Array<MapItem> = [
     name: "de_taxi_plaza",
     fullName: "Battle at Plaza",
     version: "0.01",
-    releaseDate: "2023-10-22",
+    releaseDate: "2024-02-13",
     status: ReleaseStatus.InProgress,
     maxPlayers: 10,
     icon: "/csmaps/icon201.jpg",
     targetGameVersion: GameVersion.COUNTER_STRIKE_2,
     images: [
       {
-        url: "https://live.staticflickr.com/65535/53492856105_3036b956b5_h.jpg",
+        url: "https://live.staticflickr.com/65535/53526262316_f541a34e77_o_d.jpg",
+        caption: "Terrorist Spawn",
+      },
+      {
+        url: "https://live.staticflickr.com/65535/53526578144_3b8e431586_o_d.jpg",
         caption: "Shopping Mall (Lower Level) - 1",
       },
       {
-        url: "https://live.staticflickr.com/65535/53491543247_6548525a0a_h.jpg",
+        url: "https://live.staticflickr.com/65535/53526695935_fd11d6021c_o_d.jpg",
         caption: "Shopping Mall (Lower Level) - 2",
       },
       {
-        url: "https://live.staticflickr.com/65535/53492587703_21b0ce0de0_h.jpg",
+        url: "https://live.staticflickr.com/65535/53526439698_b4e3b68f16_o_d.jpg",
+        caption: "Shopping Mall (Lower Level) - 3",
+      },
+      {
+        url: "https://live.staticflickr.com/65535/53526439693_9fe997b8d9_o_d.jpg",
         caption: "Bomb Planting Site A",
       },
     ],
     downloadLinks: [],
-    progressPercentage: 20,
+    progressPercentage: 40,
   },
 ];
 
@@ -189,6 +197,10 @@ For example, if you want to create a material \`my_material.vmat\` that has colo
   * Used to tell the engine how to "paint" the surface.
   * Most of the materials should have this image at minimum.
   * ![Color Image](/csmaps/tutorials/tutorial203-2.jpg)
+* \`_mask\`
+  * Color tint mask. This is useful when you want to duplicate an instance with a different color.
+    * For example, if you want to put two cars of the same model but with different color, then you do not have to create a new material or a new model, you would just need to change the color tint of the instance.
+  * White = full tinting, Black = no tinting.
 * \`_normal\`
   * Normal map, or known as a bump map, which is used to define how the surface looks like (e.g. orange peel texture).
   * It is rarely drawn or created by hand, there are multiple tools available to generate a normal map easily.
@@ -212,6 +224,7 @@ For example, if you want to create a material \`my_material.vmat\` that has colo
 
 # References
 * A more exhaustive list can be found at [https://developer.valvesoftware.com/wiki/Category:Shader_parameters](https://developer.valvesoftware.com/wiki/Category:Shader_parameters).
+  * Also at [https://developer.valvesoftware.com/wiki/VR_Standard_(Source_2_Shader)](https://developer.valvesoftware.com/wiki/VR_Standard_(Source_2_Shader)).
     `,
     creationDate: "2024-01-15",
     lastUpdateDate: "2024-01-15",
