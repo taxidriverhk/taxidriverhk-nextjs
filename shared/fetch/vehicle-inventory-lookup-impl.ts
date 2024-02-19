@@ -42,6 +42,9 @@ export class HondaVehicleInventoryService extends VehicleInventoryService {
       dealers: Array<HondaVehicleDealer>;
       inventory: Array<HondaVehicleInventory>;
     }>("https://automobiles.honda.com/platform/api/v3/inventoryAndDealers", {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      },
       params: {
         productDivisionCode: "A",
         modelYear: year,
