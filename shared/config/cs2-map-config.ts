@@ -12,7 +12,7 @@ export const mapItems: Array<MapItem> = [
     name: "de_taxi_plaza",
     fullName: "Battle at Plaza",
     version: "0.01",
-    releaseDate: "2024-02-13",
+    releaseDate: "2024-02-25",
     status: ReleaseStatus.InProgress,
     maxPlayers: 10,
     icon: "/csmaps/icon201.jpg",
@@ -33,6 +33,14 @@ export const mapItems: Array<MapItem> = [
       {
         url: "https://live.staticflickr.com/65535/53526439698_b4e3b68f16_o_d.jpg",
         caption: "Shopping Mall (Lower Level) - 3",
+      },
+      {
+        url: "https://live.staticflickr.com/65535/53551145610_1d2b70e5f7_h.jpg",
+        caption: "Cinema",
+      },
+      {
+        url: "https://live.staticflickr.com/65535/53550701376_0f544ed54c_h.jpg",
+        caption: "Shopping Mall (Upper Level) - 1",
       },
       {
         url: "https://live.staticflickr.com/65535/53526439693_9fe997b8d9_o_d.jpg",
@@ -58,7 +66,7 @@ Once you build the map from Hammer, simply launch the default CS2, open the cons
 map_workshop <workshop-id> <map-name>
 \`\`\`
 
-\`<workshop-id>\` and \`<map-name>\` are the same if you have not published the map to Steam Workshop yet, CS2 should be able to autocomplete both the ID and the name for you.
+\`<workshop-id>\` is the addon name used when you created the addon from he Workshop Tools, while \`<map-name>\` is the name of the \`.vmap\` file you created. CS2 should be able to autocomplete both the ID and the name for you.
 
 By default, the map will be launched in Competitive mode. If you want to launch the map in a different mode (e.g. Casual),
 then use the following commands to set the relevant parameters before executing the \`map_workshop\` command.
@@ -308,6 +316,26 @@ Once the \`.vmdl\` file is re-compiled, then you should see the change on the **
     thumbnail: "/csmaps/tutorial204.jpg",
     targetGameVersion: GameVersion.COUNTER_STRIKE_2,
     isDraft: false,
+  },
+  {
+    title: "Create a 3D Skybox",
+    hashKey: "3d-skybox",
+    content: `
+**Test Content**
+
+This is the first paragraph
+
+This is the second paragraph
+
+![Image 1](/csmaps/tutorial201.jpg)
+
+## Header 2
+    `,
+    creationDate: "2024-02-18",
+    lastUpdateDate: "2024-02-18",
+    thumbnail: "/csmaps/tutorial205.jpg",
+    targetGameVersion: GameVersion.COUNTER_STRIKE_2,
+    isDraft: true,
   },
   {
     title: "Generate a minimap",
