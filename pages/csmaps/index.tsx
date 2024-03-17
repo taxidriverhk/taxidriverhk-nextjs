@@ -7,13 +7,13 @@ import MapFilter, { DEFAULT_FILTER } from "components/MapFilter";
 import MapSection from "components/MapSection";
 import Template from "components/Template";
 import TutorialSection from "components/TutorialSection";
-import {
-  mapCategories,
-  mapItems,
-  mapTutorials,
-} from "shared/config/cs-map-config";
 import { Website } from "shared/config/website-config";
-import type { MapCategory, MapItem } from "shared/types/cs-map-types";
+import { getMapsAsync, getTutorialsAsync } from "shared/fetch/csmaps";
+import type {
+  MapCategory,
+  MapItem,
+  MapTutorial,
+} from "shared/types/cs-map-types";
 
 type PropType = {
   categories: Array<MapCategory>;
@@ -22,6 +22,7 @@ type PropType = {
     [key: number]: Array<MapItem>;
   };
   showDraftPosts: boolean;
+  tutorials: Array<MapTutorial>;
 };
 
 function MapSectionContainer({
@@ -29,6 +30,7 @@ function MapSectionContainer({
   currentPath = "",
   maps,
   showDraftPosts,
+  tutorials,
 }: PropType) {
   const [filter, setFilter] = useState<MapFilterInput>(DEFAULT_FILTER);
 
@@ -47,14 +49,19 @@ function MapSectionContainer({
       <TutorialSection
         basePath={currentPath}
         filter={filter}
-        tutorials={mapTutorials}
+        tutorials={tutorials}
         showDraftPosts={showDraftPosts}
       />
     </>
   );
 }
 
-export default function CsMaps({ categories, maps, showDraftPosts }: PropType) {
+export default function CsMaps({
+  categories,
+  maps,
+  showDraftPosts,
+  tutorials,
+}: PropType) {
   const router = useRouter();
   const { asPath: path, pathname: currentPath, query } = router;
 
@@ -72,6 +79,7 @@ export default function CsMaps({ categories, maps, showDraftPosts }: PropType) {
         currentPath={currentPath}
         maps={maps}
         showDraftPosts={showDraftPosts}
+        tutorials={tutorials}
       />
     </Template>
   );
@@ -80,8 +88,13 @@ export default function CsMaps({ categories, maps, showDraftPosts }: PropType) {
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<PropType>
 > {
-  const mapLookup = mapCategories.reduce((result, category) => {
-    const matches = mapItems.filter((map) => map.categoryId === category.id);
+  const [{ categories, maps }, tutorials] = await Promise.all([
+    getMapsAsync(),
+    getTutorialsAsync(),
+  ]);
+
+  const mapLookup = categories.reduce((result, category) => {
+    const matches = maps.filter((map) => map.categoryId === category.id);
     return {
       ...result,
       [category.id]: matches,
@@ -91,9 +104,10 @@ export async function getStaticProps(): Promise<
 
   return {
     props: {
-      categories: mapCategories,
+      categories,
       maps: mapLookup,
       showDraftPosts,
+      tutorials,
     },
   };
 }

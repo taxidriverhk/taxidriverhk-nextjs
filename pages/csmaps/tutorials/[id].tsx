@@ -6,12 +6,12 @@ import Card from "react-bootstrap/Card";
 import Markdown from "react-markdown";
 
 import Template from "components/Template";
-import { mapTutorials } from "shared/config/cs-map-config";
 import { Website } from "shared/config/website-config";
 import type { MapTutorial } from "shared/types/cs-map-types";
 import { GameVersion, gameVersionBadgeColor } from "shared/types/cs-map-types";
 
 import styles from "components/styles/Tutorial.module.css";
+import { getTutorialAsync } from "shared/fetch/csmaps";
 
 type PropType = {
   tutorial: MapTutorial;
@@ -65,10 +65,8 @@ export async function getServerSideProps(
     };
   }
 
-  const tutorial = mapTutorials.find(
-    (tutorial) => tutorial.hashKey === id.toLowerCase()
-  );
-  if (tutorial == null || tutorial.isDraft) {
+  const tutorial = await getTutorialAsync(id);
+  if (tutorial == null) {
     return {
       notFound: true,
     };

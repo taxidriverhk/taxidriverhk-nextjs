@@ -6,8 +6,8 @@ import Table from "react-bootstrap/Table";
 
 import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
-import { mapItems } from "shared/config/cs-map-config";
 import { Website } from "shared/config/website-config";
+import { getMapAsync } from "shared/fetch/csmaps";
 import type { MapItem } from "shared/types/cs-map-types";
 import { ReleaseStatus } from "shared/types/cs-map-types";
 
@@ -98,14 +98,7 @@ export async function getServerSideProps(
     };
   }
 
-  let map = null;
-  const idNumber = parseInt(id, 10);
-  if (Number.isNaN(idNumber)) {
-    map = mapItems.find((mapItem) => mapItem.name === id.toLowerCase());
-  } else {
-    map = mapItems.find((mapItem) => mapItem.id === idNumber);
-  }
-
+  const map = await getMapAsync(id);
   if (map == null) {
     return {
       notFound: true,

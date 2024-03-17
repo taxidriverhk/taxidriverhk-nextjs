@@ -54,3 +54,8 @@ export type MapTutorial = {
   targetGameVersion: GameVersion;
   isDraft: boolean;
 };
+
+export type GetMapsResponse = {
+  categories: Array<MapCategory>;
+  maps: Array<MapItem>;
+};
