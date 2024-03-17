@@ -3,7 +3,7 @@ import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import type { HorizontalPhotoCardGroupPropType } from "components/hkadbus2/HorizontalPhotoCardGroup";
 import HorizontalPhotoCardGroup from "components/hkadbus2/HorizontalPhotoCardGroup";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
-import { fetchGetBusModels } from "shared/fetch/hkadbus2";
+import { getBusModelsAsync } from "shared/fetch/hkadbus2";
 import { buildPhotoSearchUrl } from "shared/query/hkadbus2-query-builder";
 import type { BusModel, SearchPhotoQuery } from "shared/types/hkadbus2-types";
 
@@ -29,7 +29,7 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PropType>> {
   const { locale } = context;
-  const { busModels } = await fetchGetBusModels(locale);
+  const { busModels } = await getBusModelsAsync(locale);
 
   // Order by bus brand name first, then followed by bus model name
   const sortedBusModels = busModels.sort((m1, m2) =>

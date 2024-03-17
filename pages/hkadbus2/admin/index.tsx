@@ -13,9 +13,9 @@ import {
   GetServerSidePropsResult,
 } from "next/types";
 import {
-  fetchGetEntityOptions,
-  insertPhotoFromClientSide,
-  isAuthorizedToInsertPhotos,
+  getEntityOptionsAsync,
+  insertPhotoFromClientSideAsync,
+  isAuthorizedToInsertPhotosAsync,
 } from "shared/fetch/hkadbus2";
 import {
   PutPhotoRequest,
@@ -53,7 +53,10 @@ export default function HKAdbus2AdminHome({
     // Submit the photo from the client side, so that in case of failure
     // the inputs can still be kept
     try {
-      const insertedPhotoId = await insertPhotoFromClientSide(apiKey, payload);
+      const insertedPhotoId = await insertPhotoFromClientSideAsync(
+        apiKey,
+        payload
+      );
       // Refresh the page with photo ID shown (which refreshes the typeahead options upon successful insertion)
       router.push({
         pathname,
@@ -111,7 +114,7 @@ export async function getServerSideProps(
   }
 
   const apiKey = (apiKeyFromQuery as string) ?? (apiKeyFromCookie as string);
-  const isAuthorized = await isAuthorizedToInsertPhotos(apiKey);
+  const isAuthorized = await isAuthorizedToInsertPhotosAsync(apiKey);
   if (!isAuthorized) {
     return handleUnauthorized(context);
   }
@@ -119,8 +122,8 @@ export async function getServerSideProps(
   const typeaheadOptionList = await Promise.all(
     Object.values(TypeaheadOptionType)
       .map((entityType) => [
-        fetchGetEntityOptions(entityType, "en-US"),
-        fetchGetEntityOptions(entityType, "zh-HK"),
+        getEntityOptionsAsync(entityType, "en-US"),
+        getEntityOptionsAsync(entityType, "zh-HK"),
       ])
       .flat()
   );

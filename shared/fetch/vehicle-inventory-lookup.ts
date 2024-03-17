@@ -12,7 +12,7 @@ import {
   VehicleInventorySearchQuery,
 } from "shared/types/vehicle-inventory-lookup-types";
 
-export async function fetchSearchInventory(
+export async function searchInventoryAsync(
   query: VehicleInventorySearchQuery
 ): Promise<VehicleInventorySearchResponse> {
   const { brand } = query;
@@ -29,7 +29,7 @@ export async function fetchSearchInventory(
     };
   }
 
-  return inventoryService.search(query);
+  return inventoryService.searchAsync(query);
 }
 
 const SERVICE_PROVIDER: Map<VehicleBrand, VehicleInventoryService> = new Map<

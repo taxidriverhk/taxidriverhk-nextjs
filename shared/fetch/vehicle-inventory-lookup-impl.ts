@@ -32,7 +32,7 @@ type HondaVehicleInventory = {
 };
 
 export class HondaVehicleInventoryService extends VehicleInventoryService {
-  async search({
+  async searchAsync({
     year,
     model,
     zipCode,
@@ -117,7 +117,7 @@ type ToyotaVehicleInventory = {
 };
 
 export class ToyotaVehicleInventoryService extends VehicleInventoryService {
-  async search({
+  async searchAsync({
     year,
     model,
     zipCode,
@@ -244,7 +244,7 @@ type SubaruVehicleInventoryQueryParams = {
 };
 
 export class SubaruVehicleInventoryService extends VehicleInventoryService {
-  async search({
+  async searchAsync({
     year,
     model,
     zipCode,

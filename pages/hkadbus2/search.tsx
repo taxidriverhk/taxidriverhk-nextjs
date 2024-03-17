@@ -12,9 +12,9 @@ import SearchPhotoFilters from "components/hkadbus2/SearchPhotoFilters";
 import SearchPhotoResults from "components/hkadbus2/SearchPhotoResults";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
 import {
-  fetchGetEntityOptions,
-  fetchSearchPhotos,
-  fetchSearchPhotosFromClientSide,
+  getEntityOptionsAsync,
+  searchPhotosAsync,
+  searchPhotosFromClientSideAsync,
 } from "shared/fetch/hkadbus2";
 import { removeUndefinedAndLowercaseValues } from "shared/query/hkadbus2-query-builder";
 import type {
@@ -111,7 +111,7 @@ function HKAdbus2SearchBody({
 
     setIsLoadingMore(true);
     const { nextPageCursor, results: nextPhotos } =
-      await fetchSearchPhotosFromClientSide(
+      await searchPhotosFromClientSideAsync(
         query as SearchPhotoQuery,
         ORDER_BY,
         SORT,
@@ -177,7 +177,7 @@ export async function getServerSideProps(
 
   const typeaheadOptionList = await Promise.all(
     Object.values(TypeaheadOptionType).map((entityType) =>
-      fetchGetEntityOptions(entityType, locale)
+      getEntityOptionsAsync(entityType, locale)
     )
   );
   const typeaheadOptions: TypeaheadOptions = typeaheadOptionList.reduce(
@@ -218,7 +218,7 @@ export async function getServerSideProps(
     uploadedBy: uploaderName,
   });
 
-  const { results, nextPageCursor, total } = await fetchSearchPhotos(
+  const { results, nextPageCursor, total } = await searchPhotosAsync(
     photoSearchQuery,
     ORDER_BY,
     SORT,

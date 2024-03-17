@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { fetchSearchPhotos } from "shared/fetch/hkadbus2";
+import { searchPhotosAsync } from "shared/fetch/hkadbus2";
 import {
   SearchPhotoQuery,
   SearchPhotosResponse,
@@ -29,7 +29,7 @@ export default async function handler(
   const { searchQuery, orderBy, sort, locale, cursor } =
     params as SearchPhotoWithCursorRequest;
 
-  const response = await fetchSearchPhotos(
+  const response = await searchPhotosAsync(
     searchQuery,
     orderBy,
     sort,

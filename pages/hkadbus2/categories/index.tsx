@@ -3,7 +3,7 @@ import PhotoCardList from "components/hkadbus2/PhotoCardList";
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
-import { fetchGetCategories } from "shared/fetch/hkadbus2";
+import { getCategoriesAsync } from "shared/fetch/hkadbus2";
 
 type PropType = {
   categoryPhotoCards: Array<PhotoCardPropType>;
@@ -21,7 +21,7 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PropType>> {
   const { locale } = context;
-  const { categories } = await fetchGetCategories(locale);
+  const { categories } = await getCategoriesAsync(locale);
 
   const categoryPhotoCards = categories.map(({ id, name, thumbnail }) => ({
     href: `categories/${id}`,

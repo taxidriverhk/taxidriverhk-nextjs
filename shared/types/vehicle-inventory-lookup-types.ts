@@ -31,7 +31,7 @@ export type VehicleInventorySearchResponse = {
 };
 
 export abstract class VehicleInventoryService {
-  abstract search(
+  abstract searchAsync(
     query: VehicleInventorySearchQuery
   ): Promise<VehicleInventorySearchResponse>;
 }

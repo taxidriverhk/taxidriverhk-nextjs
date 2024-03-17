@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 
 import PhotoDetails from "components/hkadbus2/PhotoDetails";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
-import { fetchGetPhoto } from "shared/fetch/hkadbus2";
+import { getPhotoAsync } from "shared/fetch/hkadbus2";
 import type { Photo } from "shared/types/hkadbus2-types";
 
 type PropType = {
@@ -34,7 +34,7 @@ export async function getServerSideProps(
     };
   }
 
-  const { photo, notFound } = await fetchGetPhoto(
+  const { photo, notFound } = await getPhotoAsync(
     Number.parseInt(photoId),
     locale
   );

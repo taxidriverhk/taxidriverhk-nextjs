@@ -3,7 +3,7 @@ import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { useTranslations } from "next-intl";
 
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
-import { fetchGetUsers } from "shared/fetch/hkadbus2";
+import { getUsersAsync } from "shared/fetch/hkadbus2";
 import { buildPhotoSearchUrl } from "shared/query/hkadbus2-query-builder";
 import { User } from "shared/types/hkadbus2-types";
 
@@ -40,7 +40,7 @@ export default function HKAdbus2Users({ users }: PropType) {
 export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PropType>> {
-  const { users } = await fetchGetUsers();
+  const { users } = await getUsersAsync();
   const sortedUsers = users.sort((u1, u2) =>
     u1.username.localeCompare(u2.username)
   );

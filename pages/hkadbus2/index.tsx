@@ -9,7 +9,7 @@ import type { PhotoCardPropType } from "components/hkadbus2/PhotoCard";
 import PhotoCardList from "components/hkadbus2/PhotoCardList";
 import QuickSearchCard from "components/hkadbus2/QuickSearchCard";
 import Template from "components/hkadbus2/Template";
-import { fetchSearchPhotos } from "shared/fetch/hkadbus2";
+import { searchPhotosAsync } from "shared/fetch/hkadbus2";
 import useLocalizedStrings from "shared/hooks/use-localized-strings";
 import { removeUndefinedAndLowercaseValues } from "shared/query/hkadbus2-query-builder";
 import type {
@@ -141,7 +141,7 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<PropType>> {
   const { locale } = context;
   const photoSearchQuery: SearchPhotoQuery = {};
-  const { results } = await fetchSearchPhotos(
+  const { results } = await searchPhotosAsync(
     photoSearchQuery,
     "uploadedDate",
     SortOrder.DESC,

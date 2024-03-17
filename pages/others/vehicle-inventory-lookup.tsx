@@ -7,7 +7,7 @@ import SearchInput from "components/vehicle-inventory-lookup/SearchInput";
 import SearchResults from "components/vehicle-inventory-lookup/SearchResults";
 import { useCallback, useEffect, useState } from "react";
 import { Website } from "shared/config/website-config";
-import { fetchSearchInventory } from "shared/fetch/vehicle-inventory-lookup";
+import { searchInventoryAsync } from "shared/fetch/vehicle-inventory-lookup";
 import {
   VehicleBrand,
   VehicleInventory,
@@ -83,7 +83,7 @@ export async function getServerSideProps(
   }
 
   const searchQuery = query as VehicleInventorySearchQuery;
-  const { hasError, vehicles } = await fetchSearchInventory(searchQuery);
+  const { hasError, vehicles } = await searchInventoryAsync(searchQuery);
   if (hasError || vehicles == null) {
     return {
       notFound: true,

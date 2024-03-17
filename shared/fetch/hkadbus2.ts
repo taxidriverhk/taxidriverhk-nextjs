@@ -19,12 +19,12 @@ import type {
 
 const PAGE_SIZE = 20;
 
-export async function fetchGetAdvertisements(
+export async function getAdvertisementsAsync(
   categoryId: string,
   locale?: string
 ): Promise<GetAdvertisementsResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await fetchGetWithItemNotFoundHandled(
+  return await getWithItemNotFoundHandledAsync(
     `/categories/${categoryId}/advertisements`,
     {
       language: convertedLocale,
@@ -32,45 +32,45 @@ export async function fetchGetAdvertisements(
   );
 }
 
-export async function fetchGetBusModels(
+export async function getBusModelsAsync(
   locale?: string
 ): Promise<GetBusModelsResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await fetchGet("/bus-models", { language: convertedLocale });
+  return await getAsync("/bus-models", { language: convertedLocale });
 }
 
-export async function fetchGetCategories(
+export async function getCategoriesAsync(
   locale?: string
 ): Promise<GetCategoriesResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await fetchGet("/categories", { language: convertedLocale });
+  return await getAsync("/categories", { language: convertedLocale });
 }
 
-export async function fetchGetEntityOptions(
+export async function getEntityOptionsAsync(
   entityType: string,
   locale?: string
 ): Promise<GetEntityOptionsResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await fetchGet(`/entities/${entityType}`, {
+  return await getAsync(`/entities/${entityType}`, {
     language: convertedLocale,
   });
 }
 
-export async function fetchGetPhoto(
+export async function getPhotoAsync(
   photoId: number,
   locale?: string
 ): Promise<GetPhotoResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await fetchGetWithItemNotFoundHandled(`/photos/${photoId}`, {
+  return await getWithItemNotFoundHandledAsync(`/photos/${photoId}`, {
     language: convertedLocale,
   });
 }
 
-export async function fetchGetUsers(): Promise<GetUsersResponse> {
-  return await fetchGet("/users", {});
+export async function getUsersAsync(): Promise<GetUsersResponse> {
+  return await getAsync("/users", {});
 }
 
-export async function fetchSearchPhotos(
+export async function searchPhotosAsync(
   query: SearchPhotoQuery,
   orderBy: string,
   sort: SortOrder,
@@ -86,7 +86,7 @@ export async function fetchSearchPhotos(
     }),
     {}
   );
-  return await fetchGet("/photos", {
+  return await getAsync("/photos", {
     ...convertedQuery,
     search_text: query.q,
     order_by: orderBy,
@@ -97,7 +97,7 @@ export async function fetchSearchPhotos(
   });
 }
 
-export async function fetchSearchPhotosFromClientSide(
+export async function searchPhotosFromClientSideAsync(
   searchQuery: SearchPhotoQuery,
   orderBy: string,
   sort: SortOrder,
@@ -119,7 +119,7 @@ export async function fetchSearchPhotosFromClientSide(
   return data;
 }
 
-export async function insertPhoto(
+export async function insertPhotoAsync(
   apiKey: string,
   payload: PutPhotoRequest
 ): Promise<PutPhotoResponse> {
@@ -135,7 +135,7 @@ export async function insertPhoto(
   return data;
 }
 
-export async function insertPhotoFromClientSide(
+export async function insertPhotoFromClientSideAsync(
   apiKey: string,
   payload: PutPhotoRequest
 ): Promise<number> {
@@ -151,7 +151,7 @@ export async function insertPhotoFromClientSide(
   return data.photoId;
 }
 
-export async function isAuthorizedToInsertPhotos(
+export async function isAuthorizedToInsertPhotosAsync(
   apiKey: string
 ): Promise<boolean> {
   try {
@@ -170,7 +170,7 @@ function convertLocaleToLanguage(locale?: string): string {
   return (locale || "en-US").replace("-", "_").toLowerCase();
 }
 
-async function fetchGet<T>(endpoint: string, params: any) {
+async function getAsync<T>(endpoint: string, params: any) {
   const response = await axios.get<T>(`${getApiEndpoint()}${endpoint}`, {
     params,
   });
@@ -178,14 +178,14 @@ async function fetchGet<T>(endpoint: string, params: any) {
   return data;
 }
 
-async function fetchGetWithItemNotFoundHandled<T>(
+async function getWithItemNotFoundHandledAsync<T>(
   endpoint: string,
   params: any
 ): Promise<
   (GetAdvertisementsResponse | GetPhotoResponse) & ItemNotFoundResponse
 > {
   try {
-    return await fetchGet(endpoint, params);
+    return await getAsync(endpoint, params);
   } catch (error) {
     const axiosError = error as AxiosError;
     if (axiosError?.response?.status === 404) {

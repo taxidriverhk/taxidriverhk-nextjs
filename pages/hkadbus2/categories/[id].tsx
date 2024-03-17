@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import type { PhotoCardPropType } from "components/hkadbus2/PhotoCard";
 import PhotoCardList from "components/hkadbus2/PhotoCardList";
 import { HKAdBus2TemplateContainer } from "pages/hkadbus2/index";
-import { fetchGetAdvertisements } from "shared/fetch/hkadbus2";
+import { getAdvertisementsAsync } from "shared/fetch/hkadbus2";
 import { buildPhotoSearchUrl } from "shared/query/hkadbus2-query-builder";
 import type { SearchPhotoQuery } from "shared/types/hkadbus2-types";
 
@@ -54,7 +54,7 @@ export async function getServerSideProps(
     };
   }
 
-  const { advertisements, notFound } = await fetchGetAdvertisements(
+  const { advertisements, notFound } = await getAdvertisementsAsync(
     categoryId,
     locale
   );
