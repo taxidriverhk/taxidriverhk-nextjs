@@ -1,4 +1,3 @@
-import type { GetStaticPropsResult } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -7,12 +6,14 @@ import MapFilter, { DEFAULT_FILTER } from "components/MapFilter";
 import MapSection from "components/MapSection";
 import Template from "components/Template";
 import TutorialSection from "components/TutorialSection";
+import { GetServerSidePropsResult } from "next";
 import { Website } from "shared/config/website-config";
 import { getMapsAsync, getTutorialsAsync } from "shared/fetch/csmaps";
-import type {
-  MapCategory,
-  MapItem,
-  MapTutorial,
+import {
+  CsMapsDataMapper,
+  type MapCategory,
+  type MapItem,
+  type MapTutorial,
 } from "shared/types/cs-map-types";
 
 type PropType = {
@@ -85,21 +86,30 @@ export default function CsMaps({
   );
 }
 
-export async function getStaticProps(): Promise<
-  GetStaticPropsResult<PropType>
+export async function getServerSideProps(): Promise<
+  GetServerSidePropsResult<PropType>
 > {
-  const [{ categories, maps }, tutorials] = await Promise.all([
-    getMapsAsync(),
-    getTutorialsAsync(),
-  ]);
+  const [
+    { categories: categoryEntities, maps },
+    { tutorials: tutorialEntities },
+  ] = await Promise.all([getMapsAsync(), getTutorialsAsync()]);
 
+  const categories = categoryEntities.map((category) =>
+    CsMapsDataMapper.toCategory(category)
+  );
   const mapLookup = categories.reduce((result, category) => {
-    const matches = maps.filter((map) => map.categoryId === category.id);
+    const matches = maps
+      .map((map) => CsMapsDataMapper.toMapItem(map))
+      .filter((map) => map.categoryId === category.id);
     return {
       ...result,
       [category.id]: matches,
     };
   }, {});
+
+  const tutorials = tutorialEntities.map((tutorial) =>
+    CsMapsDataMapper.toTutorial(tutorial)
+  );
   const showDraftPosts = process.env.NODE_ENV === "development";
 
   return {

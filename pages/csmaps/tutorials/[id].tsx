@@ -7,10 +7,18 @@ import Markdown from "react-markdown";
 
 import Template from "components/Template";
 import { Website } from "shared/config/website-config";
-import type { MapTutorial } from "shared/types/cs-map-types";
-import { GameVersion, gameVersionBadgeColor } from "shared/types/cs-map-types";
+import type {
+  Tutorial as GetTutorialResponse,
+  MapTutorial,
+} from "shared/types/cs-map-types";
+import {
+  CsMapsDataMapper,
+  GameVersion,
+  gameVersionBadgeColor,
+} from "shared/types/cs-map-types";
 
 import styles from "components/styles/Tutorial.module.css";
+import { ItemNotFoundResponse } from "shared/fetch/common";
 import { getTutorialAsync } from "shared/fetch/csmaps";
 
 type PropType = {
@@ -66,13 +74,15 @@ export async function getServerSideProps(
   }
 
   const tutorial = await getTutorialAsync(id);
-  if (tutorial == null) {
+  if ((tutorial as ItemNotFoundResponse)?.notFound === true) {
     return {
       notFound: true,
     };
   }
 
   return {
-    props: { tutorial },
+    props: {
+      tutorial: CsMapsDataMapper.toTutorial(tutorial as GetTutorialResponse),
+    },
   };
 }

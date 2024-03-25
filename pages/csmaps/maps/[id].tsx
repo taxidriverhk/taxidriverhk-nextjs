@@ -7,9 +7,10 @@ import Table from "react-bootstrap/Table";
 import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
 import { Website } from "shared/config/website-config";
+import type { ItemNotFoundResponse } from "shared/fetch/common";
 import { getMapAsync } from "shared/fetch/csmaps";
-import type { MapItem } from "shared/types/cs-map-types";
-import { ReleaseStatus } from "shared/types/cs-map-types";
+import type { Map as GetMapResponse, MapItem } from "shared/types/cs-map-types";
+import { CsMapsDataMapper, ReleaseStatus } from "shared/types/cs-map-types";
 
 type PropType = {
   map: MapItem;
@@ -99,13 +100,13 @@ export async function getServerSideProps(
   }
 
   const map = await getMapAsync(id);
-  if (map == null) {
+  if ((map as ItemNotFoundResponse)?.notFound === true) {
     return {
       notFound: true,
     };
   }
 
   return {
-    props: { map },
+    props: { map: CsMapsDataMapper.toMapItem(map as GetMapResponse) },
   };
 }
