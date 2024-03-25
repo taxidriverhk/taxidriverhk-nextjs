@@ -1,4 +1,4 @@
-const DEV_API_ENDPOINT = "http://192.168.1.5:8080/hkadbus2/api";
+const DEV_API_ENDPOINT = "http://localhost:8081/hkadbus2/api";
 const PROD_API_ENDPOINT = "http://127.0.0.1:8080/hkadbus2/api";
 
 export function getApiEndpoint(): string {

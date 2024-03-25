@@ -1,7 +1,8 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import snakeCase from "lodash/snakeCase";
 
 import { getApiEndpoint } from "shared/config/hkadbus2-config";
+import { getAsync, getWithItemNotFoundHandledAsync } from "shared/fetch/common";
 import type {
   GetAdvertisementsResponse,
   GetBusModelsResponse,
@@ -9,7 +10,6 @@ import type {
   GetEntityOptionsResponse,
   GetPhotoResponse,
   GetUsersResponse,
-  ItemNotFoundResponse,
   PutPhotoRequest,
   PutPhotoResponse,
   SearchPhotoQuery,
@@ -25,7 +25,7 @@ export async function getAdvertisementsAsync(
 ): Promise<GetAdvertisementsResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
   return await getWithItemNotFoundHandledAsync(
-    `/categories/${categoryId}/advertisements`,
+    `${getApiEndpoint()}/categories/${categoryId}/advertisements`,
     {
       language: convertedLocale,
     }
@@ -36,14 +36,18 @@ export async function getBusModelsAsync(
   locale?: string
 ): Promise<GetBusModelsResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await getAsync("/bus-models", { language: convertedLocale });
+  return await getAsync(`${getApiEndpoint()}/bus-models`, {
+    language: convertedLocale,
+  });
 }
 
 export async function getCategoriesAsync(
   locale?: string
 ): Promise<GetCategoriesResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await getAsync("/categories", { language: convertedLocale });
+  return await getAsync(`${getApiEndpoint()}/categories`, {
+    language: convertedLocale,
+  });
 }
 
 export async function getEntityOptionsAsync(
@@ -51,7 +55,7 @@ export async function getEntityOptionsAsync(
   locale?: string
 ): Promise<GetEntityOptionsResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await getAsync(`/entities/${entityType}`, {
+  return await getAsync(`${getApiEndpoint()}/entities/${entityType}`, {
     language: convertedLocale,
   });
 }
@@ -61,13 +65,16 @@ export async function getPhotoAsync(
   locale?: string
 ): Promise<GetPhotoResponse> {
   const convertedLocale = convertLocaleToLanguage(locale);
-  return await getWithItemNotFoundHandledAsync(`/photos/${photoId}`, {
-    language: convertedLocale,
-  });
+  return await getWithItemNotFoundHandledAsync(
+    `${getApiEndpoint()}/photos/${photoId}`,
+    {
+      language: convertedLocale,
+    }
+  );
 }
 
 export async function getUsersAsync(): Promise<GetUsersResponse> {
-  return await getAsync("/users", {});
+  return await getAsync(`${getApiEndpoint()}/users`, {});
 }
 
 export async function searchPhotosAsync(
@@ -86,7 +93,7 @@ export async function searchPhotosAsync(
     }),
     {}
   );
-  return await getAsync("/photos", {
+  return await getAsync(`${getApiEndpoint()}/photos`, {
     ...convertedQuery,
     search_text: query.q,
     order_by: orderBy,
@@ -168,32 +175,4 @@ export async function isAuthorizedToInsertPhotosAsync(
 
 function convertLocaleToLanguage(locale?: string): string {
   return (locale || "en-US").replace("-", "_").toLowerCase();
-}
-
-async function getAsync<T>(endpoint: string, params: any) {
-  const response = await axios.get<T>(`${getApiEndpoint()}${endpoint}`, {
-    params,
-  });
-  const { data } = response;
-  return data;
-}
-
-async function getWithItemNotFoundHandledAsync<T>(
-  endpoint: string,
-  params: any
-): Promise<
-  (GetAdvertisementsResponse | GetPhotoResponse) & ItemNotFoundResponse
-> {
-  try {
-    return await getAsync(endpoint, params);
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    if (axiosError?.response?.status === 404) {
-      return {
-        notFound: true,
-      };
-    } else {
-      throw new Error(axiosError.message);
-    }
-  }
 }

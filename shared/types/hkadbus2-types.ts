@@ -1,3 +1,5 @@
+import { ItemNotFoundResponse } from "shared/fetch/common";
+
 export enum BusCompany {
   KMB = "KMB",
   CTB = "CTB",
@@ -130,10 +132,6 @@ export type SearchPhotoResult = {
   thumbnail: string;
   uploadedDate: EpochTimeStamp;
   username: string;
-};
-
-export type ItemNotFoundResponse = {
-  notFound?: boolean;
 };
 
 export type GetAdvertisementsResponse = {
