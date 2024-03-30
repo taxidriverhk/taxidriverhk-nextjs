@@ -20,9 +20,8 @@ export default function App({ Component, pageProps }: AppProps) {
       />
       <Alert variant="danger">
         This website is deployed into a new server which is still being
-        configured, so you may find it unstable at times. Please use{" "}
-        <a href="https://taxidriverhk.com">https://taxidriverhk.com</a> if you
-        are encountering problems at here.
+        configured, so you may find it unstable at times. Apologies for any
+        inconvenience this may cause.
       </Alert>
       <Component {...pageProps} />
     </>
