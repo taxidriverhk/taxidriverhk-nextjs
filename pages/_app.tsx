@@ -5,8 +5,6 @@ import NextNProgress from "nextjs-progressbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shared/styles/globals.css";
 
-import Alert from "react-bootstrap/Alert";
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -18,11 +16,6 @@ export default function App({ Component, pageProps }: AppProps) {
           showSpinner: false,
         }}
       />
-      <Alert variant="danger">
-        This website is deployed into a new server which is still being
-        configured, so you may find it unstable at times. Apologies for any
-        inconvenience this may cause.
-      </Alert>
       <Component {...pageProps} />
     </>
   );
