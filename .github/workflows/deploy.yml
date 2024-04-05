@@ -11,6 +11,20 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+    - name: Get IP address of the GitHub action host
+      id: ip
+      uses: haythem/public-ip@v1.2
+    - name: Setup AWS environment variables
+      run: |
+        echo "AWS_DEFAULT_REGION=us-east-1" >> $GITHUB_ENV
+        echo "AWS_SG_NAME=taxidriverhk-website" >> $GITHUB_ENV
+    - name: Add GitHub IP to AWS security group
+      run: |
+        aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
     - name: Setup SSH Key
       run: |
         mkdir -p ~/.ssh/
@@ -41,3 +55,11 @@ jobs:
       env:
         DOCKER_DIR: ${{ secrets.DOCKER_DIR }}
         REPO_DIR: ${{ secrets.REPO_DIR }}
+    - name: Revoke GitHub IP to AWS security group
+      run: |
+        aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+      if: always()
