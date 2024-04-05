@@ -1,6 +1,6 @@
-name: Deploy to Production Server (which is the only server)
+name: Deploy to Production Server
 
-# Triggered 
+# Trigger 
 on:
   push:
     branches:
@@ -29,7 +29,15 @@ jobs:
         REMOTE_IP: ${{ secrets.REMOTE_IP }}
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Build and deploy
-      run: ssh production-server "cd $DEPLOY_DIR && git pull origin master && npm install && npm run build && pm2 restart taxidriverhk-nextjs"
+      run: |
+        ssh production-server <<EOF
+          cd $REPO_DIR
+          git pull origin master
+          cd $DOCKER_DIR
+          docker compose build
+          docker compose up -d
+        EOF
       shell: bash
       env:
-        DEPLOY_DIR: ${{ secrets.DEPLOY_DIR }}
+        DOCKER_DIR: ${{ secrets.DOCKER_DIR }}
+        REPO_DIR: ${{ secrets.REPO_DIR }}
