@@ -1,11 +1,11 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { useRouter } from "next/router";
-import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Table from "react-bootstrap/Table";
 
 import ImageCarousel from "components/ImageCarousel";
 import Template from "components/Template";
+import DownloadButton from "components/csmaps/DownloadButton";
 import { Website } from "shared/config/website-config";
 import type { ItemNotFoundResponse } from "shared/fetch/common";
 import { getMapAsync } from "shared/fetch/csmaps";
@@ -63,24 +63,28 @@ export default function CsMapDetails({
             <td>{targetGameVersion}</td>
           </tr>
           <tr>
-            <td>Download</td>
+            <td>
+              {status === ReleaseStatus.InProgress ? "Progress" : "Download"}
+            </td>
             <td>
               {status === ReleaseStatus.InProgress && (
                 <>
-                  Coming Soon
                   <ProgressBar
                     now={progressPercentage}
                     label={`${progressPercentage}%`}
                   />
                 </>
               )}
-              {downloadLinks?.map((downloadLink, index) => (
-                <>
-                  <Button href={downloadLink}>{`Download (Mirror ${
-                    index + 1
-                  })`}</Button>{" "}
-                </>
-              ))}
+              {(() => {
+                if (downloadLinks?.length === 1) {
+                  return <DownloadButton link={downloadLinks[0]} />;
+                }
+                return downloadLinks?.map((downloadLink, index) => (
+                  <>
+                    <DownloadButton link={downloadLink} mirrorIndex={index} />{" "}
+                  </>
+                ));
+              })()}
             </td>
           </tr>
         </tbody>
