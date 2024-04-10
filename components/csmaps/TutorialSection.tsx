@@ -6,7 +6,7 @@ import Image from "react-bootstrap/Image";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
-import type { MapFilterInput } from "components/MapFilter";
+import type { MapFilterInput } from "components/csmaps/MapFilter";
 import type { MapTutorial } from "shared/types/cs-map-types";
 import { gameVersionBadgeColor } from "shared/types/cs-map-types";
 

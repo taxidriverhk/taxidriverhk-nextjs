@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-import type { MapFilterInput } from "components/MapFilter";
-import MapFilter, { DEFAULT_FILTER } from "components/MapFilter";
-import MapSection from "components/MapSection";
 import Template from "components/Template";
-import TutorialSection from "components/TutorialSection";
+import type { MapFilterInput } from "components/csmaps/MapFilter";
+import MapFilter, { DEFAULT_FILTER } from "components/csmaps/MapFilter";
+import MapSection from "components/csmaps/MapSection";
+import TutorialSection from "components/csmaps/TutorialSection";
 import { GetServerSidePropsResult } from "next";
 import { Website } from "shared/config/website-config";
 import { getMapsAsync, getTutorialsAsync } from "shared/fetch/csmaps";

@@ -4,8 +4,8 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
-import type { MapFilterInput } from "components/MapFilter";
-import MapItem from "components/MapItem";
+import type { MapFilterInput } from "components/csmaps/MapFilter";
+import MapItem from "components/csmaps/MapItem";
 import type {
   MapCategory,
   MapItem as MapItemType,
