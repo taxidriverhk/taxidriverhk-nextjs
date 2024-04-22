@@ -55,7 +55,7 @@ export default function CsMapTutorial({
         </span>
       </div>
       <Card>
-        <Card.Body>
+        <Card.Body className={styles["tutorial-content"]}>
           <Markdown>{content}</Markdown>
         </Card.Body>
       </Card>

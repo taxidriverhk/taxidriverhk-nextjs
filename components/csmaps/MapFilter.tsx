@@ -47,7 +47,7 @@ export default function MapItem({
   return (
     <Card bg="light" border="dark" className={styles["section-container"]}>
       <Card.Body>
-        <Stack direction="horizontal" gap={3}>
+        <Stack className={styles["filter-container"]} gap={3}>
           <div>
             <InputGroup>
               <InputGroup.Text>Filter by Version(s)</InputGroup.Text>

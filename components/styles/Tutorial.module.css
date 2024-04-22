@@ -15,6 +15,10 @@
   padding-left: 1rem;
 }
 
+.tutorial-content img {
+  max-width: 100%;
+}
+
 .tutorial-metadata {
   color: gray;
   display: flex;

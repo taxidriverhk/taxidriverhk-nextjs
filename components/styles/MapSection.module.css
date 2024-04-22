@@ -1,3 +1,13 @@
+.filter-container {
+  flex-direction: column;
+}
+
+@media screen and (min-width: 800px) {
+  .filter-container {
+    flex-direction: row;
+  }
+}
+
 .item-image {
   max-height: 50px;
 }

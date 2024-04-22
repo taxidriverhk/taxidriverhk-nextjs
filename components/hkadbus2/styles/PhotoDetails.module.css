@@ -5,4 +5,5 @@
 
 .photo-details-table {
   margin-top: 16px;
+  overflow-wrap: anywhere;
 }
