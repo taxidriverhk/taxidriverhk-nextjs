@@ -189,7 +189,9 @@ export class CsMapsDataMapper {
       isDraft: is_draft,
       hashKey: hash_key,
       lastUpdateDate: this.toDateString(last_update_date) as string,
-      targetGameVersion: this.toGameVersion(target_game_version),
+      targetGameVersion: this.toGameVersion(
+        parseInt(target_game_version as unknown as string, 10)
+      ),
       thumbnail,
       title,
     };
