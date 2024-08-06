@@ -42,6 +42,7 @@ export type MapItem = {
   releaseDate: string;
   status: ReleaseStatus;
   targetGameVersion: GameVersion;
+  updateDate: string;
 };
 
 export type MapTutorial = {
@@ -138,6 +139,7 @@ export class CsMapsDataMapper {
     release_date,
     status,
     target_game_version,
+    update_date,
     version = "",
   }: Map): MapItem {
     return {
@@ -156,6 +158,7 @@ export class CsMapsDataMapper {
       targetGameVersion: this.toGameVersion(
         parseInt(target_game_version as unknown as string, 10)
       ),
+      updateDate: this.toDateString(update_date) as string,
     };
   }
 

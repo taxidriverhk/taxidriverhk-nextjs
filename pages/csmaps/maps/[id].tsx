@@ -27,6 +27,7 @@ export default function CsMapDetails({
     releaseDate,
     status,
     targetGameVersion,
+    updateDate,
     version,
   },
 }: PropType) {
@@ -50,9 +51,15 @@ export default function CsMapDetails({
             <td>Version</td>
             <td>{version}</td>
           </tr>
+          {status === ReleaseStatus.Released && (
+            <tr>
+              <td>Initial Release Date</td>
+              <td>{releaseDate}</td>
+            </tr>
+          )}
           <tr>
-            <td>Release Date/Last Updated Date</td>
-            <td>{releaseDate}</td>
+            <td>Last Update Date</td>
+            <td>{updateDate}</td>
           </tr>
           <tr>
             <td>Maximum Players Allowed</td>
