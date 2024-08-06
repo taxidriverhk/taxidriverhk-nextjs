@@ -22,9 +22,16 @@ const ICON_MAPPING = new Map([
 
 export default function DownloadButton({ link, mirrorIndex }: PropType) {
   const onSteamLinkClick = useCallback(() => {
-    customProtocolCheck(link, () =>
-      window.open("https://store.steampowered.com/about/", "_blank")
-    );
+    customProtocolCheck(link, () => {
+      const steamItemId = link.match(/.*\/([0-9]*)$/);
+      if (steamItemId == null || steamItemId.length < 2) {
+        return;
+      }
+      window.open(
+        `https://steamcommunity.com/sharedfiles/filedetails/?id=${steamItemId[1]}`,
+        "_blank"
+      );
+    });
   }, [link]);
   const nonSteamIcon = useMemo(() => {
     const iconKeys = Array.from(ICON_MAPPING.keys());
