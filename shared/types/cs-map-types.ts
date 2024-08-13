@@ -94,6 +94,13 @@ export type Map = {
   version?: string;
 };
 
+export type Statistics = {
+  num_released_maps: number;
+  num_in_progress_maps: number;
+  num_unavailable_maps: number;
+  num_tutorials: number;
+};
+
 export type Tutorial = {
   content?: string;
   creation_date: Date;
@@ -109,6 +116,15 @@ export type Tutorial = {
 export type GetMapsResponse = {
   categories: Array<Category>;
   maps: Array<Map>;
+};
+
+export type GetStatisticsResponse = {
+  statistics: {
+    num_released_maps: number;
+    num_in_progress_maps: number;
+    num_unavailable_maps: number;
+    num_tutorials: number;
+  };
 };
 
 export type GetTutorialsResponse = {
@@ -174,6 +190,22 @@ export class CsMapsDataMapper {
       return GameVersion.COUNTER_STRIKE_1_6;
     }
     return GameVersion.COUNTER_STRIKE_2;
+  }
+
+  static toStatistics({
+    statistics: {
+      num_released_maps,
+      num_in_progress_maps,
+      num_unavailable_maps,
+      num_tutorials,
+    },
+  }: GetStatisticsResponse): Statistics {
+    return {
+      num_released_maps: parseInt(num_released_maps as unknown as string),
+      num_in_progress_maps: parseInt(num_in_progress_maps as unknown as string),
+      num_unavailable_maps: parseInt(num_unavailable_maps as unknown as string),
+      num_tutorials: parseInt(num_tutorials as unknown as string),
+    };
   }
 
   static toTutorial({

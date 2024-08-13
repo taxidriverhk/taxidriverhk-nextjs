@@ -8,6 +8,7 @@ import { getApiEndpoint } from "shared/config/cs-map-config";
 import {
   Map as GetMapResponse,
   GetMapsResponse,
+  GetStatisticsResponse,
   Tutorial as GetTutorialResponse,
   GetTutorialsResponse,
 } from "shared/types/cs-map-types";
@@ -21,6 +22,13 @@ export async function getMapAsync(
 ): Promise<GetMapResponse | ItemNotFoundResponse> {
   return await getWithItemNotFoundHandledAsync<GetMapResponse>(
     `${getApiEndpoint()}/maps/${mapNameOrId}`,
+    {}
+  );
+}
+
+export async function getStatisticsAsync(): Promise<GetStatisticsResponse> {
+  return await getAsync<GetStatisticsResponse>(
+    `${getApiEndpoint()}/statistics`,
     {}
   );
 }

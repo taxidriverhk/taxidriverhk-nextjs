@@ -5,15 +5,21 @@ import Template from "components/Template";
 import type { MapFilterInput } from "components/csmaps/MapFilter";
 import MapFilter, { DEFAULT_FILTER } from "components/csmaps/MapFilter";
 import MapSection from "components/csmaps/MapSection";
+import Statistics from "components/csmaps/Statistics";
 import TutorialSection from "components/csmaps/TutorialSection";
 import { GetServerSidePropsResult } from "next";
 import { Website } from "shared/config/website-config";
-import { getMapsAsync, getTutorialsAsync } from "shared/fetch/csmaps";
+import {
+  getMapsAsync,
+  getStatisticsAsync,
+  getTutorialsAsync,
+} from "shared/fetch/csmaps";
 import {
   CsMapsDataMapper,
   type MapCategory,
   type MapItem,
   type MapTutorial,
+  type Statistics as StatisticsType,
 } from "shared/types/cs-map-types";
 
 type PropType = {
@@ -23,6 +29,7 @@ type PropType = {
     [key: number]: Array<MapItem>;
   };
   showDraftPosts: boolean;
+  statistics: StatisticsType;
   tutorials: Array<MapTutorial>;
 };
 
@@ -31,12 +38,14 @@ function MapSectionContainer({
   currentPath = "",
   maps,
   showDraftPosts,
+  statistics,
   tutorials,
 }: PropType) {
   const [filter, setFilter] = useState<MapFilterInput>(DEFAULT_FILTER);
 
   return (
     <>
+      <Statistics statistics={statistics} />
       <MapFilter filter={filter} onFilter={setFilter} />
       {categories.map((category) => (
         <MapSection
@@ -61,6 +70,7 @@ export default function CsMaps({
   categories,
   maps,
   showDraftPosts,
+  statistics,
   tutorials,
 }: PropType) {
   const router = useRouter();
@@ -80,6 +90,7 @@ export default function CsMaps({
         currentPath={currentPath}
         maps={maps}
         showDraftPosts={showDraftPosts}
+        statistics={statistics}
         tutorials={tutorials}
       />
     </Template>
@@ -91,8 +102,13 @@ export async function getServerSideProps(): Promise<
 > {
   const [
     { categories: categoryEntities, maps },
+    staticsticsEntity,
     { tutorials: tutorialEntities },
-  ] = await Promise.all([getMapsAsync(), getTutorialsAsync()]);
+  ] = await Promise.all([
+    getMapsAsync(),
+    getStatisticsAsync(),
+    getTutorialsAsync(),
+  ]);
 
   const categories = categoryEntities.map((category) =>
     CsMapsDataMapper.toCategory(category)
@@ -107,6 +123,8 @@ export async function getServerSideProps(): Promise<
     };
   }, {});
 
+  const statistics = CsMapsDataMapper.toStatistics(staticsticsEntity);
+
   const tutorials = tutorialEntities.map((tutorial) =>
     CsMapsDataMapper.toTutorial(tutorial)
   );
@@ -117,6 +135,7 @@ export async function getServerSideProps(): Promise<
       categories,
       maps: mapLookup,
       showDraftPosts,
+      statistics,
       tutorials,
     },
   };
