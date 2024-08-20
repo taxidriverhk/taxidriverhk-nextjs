@@ -112,6 +112,13 @@ export type Tutorial = {
   title: string;
 };
 
+export type HeadingHierarchy = {
+  id: string;
+  level: number;
+  title: string;
+  children: Array<HeadingHierarchy>;
+};
+
 // API models
 export type GetMapsResponse = {
   categories: Array<Category>;

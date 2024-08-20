@@ -2,6 +2,17 @@
   margin-bottom: 1rem;
 }
 
+.heading-hierarchy {
+  max-width: 60%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.heading-hierarchy-header button {
+  background-color: lightgray !important;
+  color: black !important;
+}
+
 .item-container {
   display: flex;
   flex-direction: row;

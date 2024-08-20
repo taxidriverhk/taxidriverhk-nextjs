@@ -10,6 +10,7 @@ import Template from "components/Template";
 import { Website } from "shared/config/website-config";
 import type {
   Tutorial as GetTutorialResponse,
+  HeadingHierarchy,
   MapTutorial,
 } from "shared/types/cs-map-types";
 import {
@@ -18,15 +19,19 @@ import {
   gameVersionBadgeColor,
 } from "shared/types/cs-map-types";
 
+import TutorialHeadingHierarchy from "components/csmaps/TutorialHeadingHierarchy";
 import styles from "components/styles/Tutorial.module.css";
 import { ItemNotFoundResponse } from "shared/fetch/common";
 import { getTutorialAsync } from "shared/fetch/csmaps";
+import { getHeadingHierarchy } from "shared/util/cs-map-util";
 
 type PropType = {
+  hierarchy: HeadingHierarchy;
   tutorial: MapTutorial;
 };
 
 export default function CsMapTutorial({
+  hierarchy,
   tutorial: { content, creationDate, lastUpdateDate, title, targetGameVersion },
 }: PropType) {
   const router = useRouter();
@@ -55,6 +60,7 @@ export default function CsMapTutorial({
           </Badge>
         </span>
       </div>
+      <TutorialHeadingHierarchy hierarchy={hierarchy} />
       <Card>
         <Card.Body className={styles["tutorial-content"]}>
           <Markdown rehypePlugins={[rehypeSlug]}>{content}</Markdown>
@@ -74,16 +80,23 @@ export async function getServerSideProps(
     };
   }
 
-  const tutorial = await getTutorialAsync(id);
-  if ((tutorial as ItemNotFoundResponse)?.notFound === true) {
+  const tutorialEntity = await getTutorialAsync(id);
+  if ((tutorialEntity as ItemNotFoundResponse)?.notFound === true) {
     return {
       notFound: true,
     };
   }
 
+  const tutorial = CsMapsDataMapper.toTutorial(
+    tutorialEntity as GetTutorialResponse
+  );
+  const { content } = tutorial;
+  const hierarchy = getHeadingHierarchy(content);
+
   return {
     props: {
-      tutorial: CsMapsDataMapper.toTutorial(tutorial as GetTutorialResponse),
+      hierarchy,
+      tutorial,
     },
   };
 }
