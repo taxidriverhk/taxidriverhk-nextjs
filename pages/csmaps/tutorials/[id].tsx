@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 import Markdown from "react-markdown";
+import rehypeSlug from "rehype-slug";
 
 import Template from "components/Template";
 import { Website } from "shared/config/website-config";
@@ -56,7 +57,7 @@ export default function CsMapTutorial({
       </div>
       <Card>
         <Card.Body className={styles["tutorial-content"]}>
-          <Markdown>{content}</Markdown>
+          <Markdown rehypePlugins={[rehypeSlug]}>{content}</Markdown>
         </Card.Body>
       </Card>
     </Template>
