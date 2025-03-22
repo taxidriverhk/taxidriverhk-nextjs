@@ -3,10 +3,10 @@ import Badge from "react-bootstrap/Badge";
 import Figure from "react-bootstrap/Figure";
 import ListGroup from "react-bootstrap/ListGroup";
 
+import ItemBadgeGroup from "components/csmaps/ItemBadgeGroup";
 import type { MapItem } from "shared/types/cs-map-types";
 import {
   ReleaseStatus,
-  gameVersionBadgeColor,
   releaseStatusDisplayText,
 } from "shared/types/cs-map-types";
 
@@ -24,6 +24,7 @@ export default function MapItem({ basePath, map }: PropType) {
     progressPercentage,
     releaseDate,
     status,
+    updateDate,
     targetGameVersion,
   } = map;
   const showStatus = status !== ReleaseStatus.Released;
@@ -44,10 +45,11 @@ export default function MapItem({ basePath, map }: PropType) {
         >
           {name}
           <div>
-            <Badge bg="dark">{releaseDate}</Badge>{" "}
-            <Badge bg={gameVersionBadgeColor[targetGameVersion]}>
-              {targetGameVersion}
-            </Badge>
+            <ItemBadgeGroup
+              initialDate={releaseDate}
+              lastUpdateDate={updateDate}
+              targetGameVersion={targetGameVersion}
+            />
             {statusText != null && (
               <>
                 {" "}

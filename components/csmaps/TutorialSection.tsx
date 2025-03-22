@@ -1,14 +1,13 @@
 import isEmpty from "lodash/isEmpty";
 import { useMemo } from "react";
-import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
+import ItemBadgeGroup from "components/csmaps/ItemBadgeGroup";
 import type { MapFilterInput } from "components/csmaps/MapFilter";
 import type { MapTutorial } from "shared/types/cs-map-types";
-import { gameVersionBadgeColor } from "shared/types/cs-map-types";
 
 import styles from "components/styles/Tutorial.module.css";
 
@@ -64,15 +63,11 @@ export default function TutorialSection({
           {isDraft ? "[DRAFT] " : ""}
           {title}
           <div>
-            <Badge bg="dark">{creationDate}</Badge>{" "}
-            {creationDate !== lastUpdateDate && (
-              <>
-                <Badge bg="danger">[Updated] {lastUpdateDate}</Badge>{" "}
-              </>
-            )}
-            <Badge bg={gameVersionBadgeColor[targetGameVersion]}>
-              {targetGameVersion}
-            </Badge>
+            <ItemBadgeGroup
+              initialDate={creationDate}
+              lastUpdateDate={lastUpdateDate}
+              targetGameVersion={targetGameVersion}
+            />
           </div>
         </div>
       </ListGroupItem>
