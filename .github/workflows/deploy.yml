@@ -1,65 +1,65 @@
 name: Deploy to Production Server
 
-# Trigger 
+# Trigger
 on:
   push:
     branches:
-    - master
+      - master
 
 # SSH into the production machine and then build directly
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Get IP address of the GitHub action host
-      id: ip
-      uses: haythem/public-ip@v1.2
-    - name: Setup AWS environment variables
-      run: |
-        echo "AWS_DEFAULT_REGION=us-east-1" >> $GITHUB_ENV
-        echo "AWS_SG_NAME=taxidriverhk-website" >> $GITHUB_ENV
-    - name: Add GitHub IP to AWS security group
-      run: |
-        aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
-    - name: Setup SSH Key
-      run: |
-        mkdir -p ~/.ssh/
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/production-server.key
-        chmod 600 ~/.ssh/production-server.key
-        cat >>~/.ssh/config <<END
-        Host production-server
-          HostName $REMOTE_IP
-          User $USER
-          IdentityFile ~/.ssh/production-server.key
-          StrictHostKeyChecking no
-        END
-      shell: bash
-      env:
-        USER: ${{ secrets.USER }}
-        REMOTE_IP: ${{ secrets.REMOTE_IP }}
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-    - name: Build and deploy
-      run: |
-        ssh production-server <<EOF
-          cd $REPO_DIR
-          git pull origin master
-          cd $DOCKER_DIR
-          docker compose build
-          docker compose up -d
-        EOF
-      shell: bash
-      env:
-        DOCKER_DIR: ${{ secrets.DOCKER_DIR }}
-        REPO_DIR: ${{ secrets.REPO_DIR }}
-    - name: Revoke GitHub IP to AWS security group
-      run: |
-        aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
-      if: always()
+      - name: Get IP address of the GitHub action host
+        id: ip
+        uses: haythem/public-ip@v1.2
+      - name: Setup AWS environment variables
+        run: |
+          echo "AWS_DEFAULT_REGION=us-east-1" >> $GITHUB_ENV
+          echo "AWS_SG_NAME=taxidriverhk-website" >> $GITHUB_ENV
+      - name: Add GitHub IP to AWS security group
+        run: |
+          aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/production-server.key
+          chmod 600 ~/.ssh/production-server.key
+          cat >>~/.ssh/config <<END
+          Host production-server
+            HostName $REMOTE_IP
+            User $USER
+            IdentityFile ~/.ssh/production-server.key
+            StrictHostKeyChecking no
+          END
+        shell: bash
+        env:
+          USER: ${{ secrets.USER }}
+          REMOTE_IP: ${{ secrets.REMOTE_IP }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Build and deploy
+        run: |
+          ssh production-server <<EOF
+            cd $REPO_DIR
+            git pull origin master
+            cd $DOCKER_DIR
+            docker compose build
+            docker compose up -d
+          EOF
+        shell: bash
+        env:
+          DOCKER_DIR: ${{ secrets.DOCKER_DIR }}
+          REPO_DIR: ${{ secrets.REPO_DIR }}
+      - name: Revoke GitHub IP from AWS security group
+        run: |
+          aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+        if: always()

@@ -73,7 +73,7 @@ function HKAdBus2HomeBody({ recentPhotos }: PropType) {
   const t = useTranslations("hkadbus2");
   const intl = useIntl();
   const router = useRouter();
-  const { asPath, pathname } = router;
+  const { pathname } = router;
 
   const photoCards: Array<PhotoCardPropType> = useMemo(
     () =>
@@ -87,7 +87,7 @@ function HKAdBus2HomeBody({ recentPhotos }: PropType) {
           uploadedDate,
           username,
         }) => ({
-          href: `${asPath}/photos/${photoId}`,
+          href: `./${pathname}/photos/${photoId}`,
           photo: thumbnail,
           title: `${fleetPrefix}${fleetNumber}`,
           subtitle: licensePlateNumber,
@@ -100,7 +100,7 @@ function HKAdBus2HomeBody({ recentPhotos }: PropType) {
           }),
         })
       ),
-    [asPath, intl, recentPhotos, t]
+    [intl, pathname, recentPhotos, t]
   );
 
   const handleSearchCallback = useCallback(

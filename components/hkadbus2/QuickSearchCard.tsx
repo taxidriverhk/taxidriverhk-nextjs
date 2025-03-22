@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -16,6 +16,13 @@ export default function QuickSearchCard({
   translationFunc: t,
 }: QuickSearchPropType) {
   const [keyword, setKeyword] = useState<string | null>(null);
+  const [isSearchButtonDisabled, setIsSearchButtonDisabled] =
+    useState<boolean>(true);
+
+  useEffect(() => {
+    const nonEmptyKeyword = (keyword?.length ?? 0) >= 3;
+    setIsSearchButtonDisabled(!nonEmptyKeyword);
+  }, [keyword]);
 
   const handleOnSearch = (e: React.FormEvent<HTMLFormElement>) => {
     if (keyword != null) {
@@ -37,7 +44,11 @@ export default function QuickSearchCard({
               type="text"
               value={keyword || ""}
             />
-            <Button variant="outline-primary" type="submit">
+            <Button
+              disabled={isSearchButtonDisabled}
+              variant="outline-primary"
+              type="submit"
+            >
               {t("search-small-filter-submit")}
             </Button>
           </InputGroup>
