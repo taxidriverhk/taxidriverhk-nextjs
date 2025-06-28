@@ -159,8 +159,29 @@ export default function Omsi() {
               <tr>
                 <td>Download Links and Installation Instructions</td>
                 <td>
+                  <Alert variant="primary">
+                    <p>
+                      <strong>Updated on 2025-06-27</strong>
+                    </p>
+                    <p>
+                      Since many links referenced by the installation manual
+                      linked below are already dead, I have created a
+                      spreadsheet to collect all the download links to the
+                      packages maintained by the community.
+                    </p>
+                    <p>
+                      Feel free to pick one of the links from the spreadsheet as
+                      you find fit. Each package may contain its own variations
+                      of the map (e.g. Kowloon City Ferry Pier B/T was updated
+                      to match its latest layout).
+                    </p>
+                  </Alert>
+                  <Link href="https://docs.google.com/spreadsheets/d/1KLUPRLBWknGHFoHeebCyolNIxAMyWZFl6deW3x5ZawY/edit?usp=sharing">
+                    Enter (.xlsx) - Google Drive
+                  </Link>
+                  <br />
                   <Link href={`${currentPath}/hkwk_3.00_manual_en.html`}>
-                    Enter (.html)
+                    Enter (.html) - some of the links are dead
                   </Link>
                 </td>
               </tr>
