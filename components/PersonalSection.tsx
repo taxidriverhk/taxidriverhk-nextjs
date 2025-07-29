@@ -10,6 +10,7 @@ type PersonalSectionItem = {
   href: string;
   icon: IconProp;
   title: string;
+  year?: string;
 };
 
 type PropType = {
@@ -23,15 +24,21 @@ export default function PersonalSection({ headerTitle, items }: PropType) {
       <Card.Header>{headerTitle}</Card.Header>
       <Card.Body>
         <ListGroup>
-          {items.map(({ description, href, icon, title }) => (
+          {items.map(({ description, href, icon, title, year }) => (
             <ListGroup.Item
               action
               className={styles["section-block"]}
               href={href}
               key={title}
             >
-              <FontAwesomeIcon className={styles["section-icon"]} icon={icon} />
-              {title}
+              <div className={styles["section-title"]}>
+                <FontAwesomeIcon
+                  className={styles["section-icon"]}
+                  icon={icon}
+                />
+                {title}
+              </div>
+              {year && <div className={styles["section-time"]}>{year}</div>}
               <div className={styles["section-description"]}>{description}</div>
             </ListGroup.Item>
           ))}

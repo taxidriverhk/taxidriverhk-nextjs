@@ -54,13 +54,15 @@ export default function Personal() {
             href: "hkadbus2",
             icon: faReact,
             title: "Hong Kong Advertised Bus Photo Database v2.5",
+            year: "April 2020",
           },
           {
             description:
-              "A simple React page for looking up vehicle inventory of various brands within the U.S.",
+              "A simple React page for looking up vehicle inventory of various brands within the U.S. Some of the APIs may not work properly.",
             href: `${currentPath}/vehicle-inventory-lookup`,
             icon: faReact,
             title: "Vehicle Inventory Lookup",
+            year: "May 2017",
           },
           {
             description:
@@ -68,20 +70,23 @@ export default function Personal() {
             href: "legacy/smooth-shrink",
             icon: faJs,
             title: "smooth-shrink.js",
+            year: "January 2015",
           },
           {
             description:
-              "The first dynamic web application for creating PC combo list, created in 2008 using PHP (some pages may not work properly).",
+              "The first dynamic web application for creating PC combo list, created using PHP (some pages may not work properly).",
             href: "legacy/diyer",
             icon: faPhp,
             title: "Computer DIY College",
+            year: "July 2008",
           },
           {
             description:
-              "The very first website created back in 2003 using Microsoft FrontPage.",
+              "The very first website created using Microsoft FrontPage.",
             href: "legacy/cityalan465/o5.htm",
             icon: faHtml5,
             title: "Advertised Bus Photo Station",
+            year: "August 2003",
           },
         ]}
       />
