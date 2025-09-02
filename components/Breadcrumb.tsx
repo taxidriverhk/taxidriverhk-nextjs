@@ -40,6 +40,7 @@ const PATH_TITLES = {
             },
           ],
         },
+        { prefix: "/passive-income", title: "Dividend Portfolio Tracker" },
         { prefix: "/books", title: "Books" },
         {
           prefix: "/vehicle-inventory-lookup",
