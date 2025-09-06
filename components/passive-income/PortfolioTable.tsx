@@ -65,8 +65,12 @@ const HEADERS: Array<{
     isSortable: true,
   },
   { prop: "price", title: "Price", isSortable: true },
-  { prop: "gainLoss", title: "Unrealized Gain/Loss", isSortable: true },
-  { prop: "pctGainLoss", title: "Unrealized % Gain/Loss", isSortable: true },
+  { prop: "gainLoss", title: "Unrealized Capital Gain/Loss", isSortable: true },
+  {
+    prop: "pctGainLoss",
+    title: "Unrealized % Capital Gain/Loss",
+    isSortable: true,
+  },
   {
     prop: "dividendIncomePct",
     title: "% of Income",

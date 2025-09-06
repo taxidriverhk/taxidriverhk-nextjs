@@ -50,13 +50,13 @@ export default function PortfolioSummary({ holdings }: PropType) {
             <td>HK$ {afterTaxMonthlyHKD.toFixed(2)}</td>
           </tr>
           <tr>
-            <td>Unrealized Gain/Loss</td>
+            <td>Unrealized Capital Gain/Loss</td>
             <td>
               <PortfolioGainOrLossCell gainOrLoss={totalGainLoss} prefix="$" />
             </td>
           </tr>
           <tr>
-            <td>Unrealized % Gain/Loss</td>
+            <td>Unrealized % Capital Gain/Loss</td>
             <td>
               <PortfolioGainOrLossCell
                 gainOrLoss={totalPctGainLoss}
