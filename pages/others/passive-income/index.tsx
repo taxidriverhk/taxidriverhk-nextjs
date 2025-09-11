@@ -6,6 +6,7 @@ import { Website } from "shared/config/website-config";
 import { useMemo, useReducer, useState } from "react";
 
 import AddHoldingModal from "components/passive-income/AddHoldingModal";
+import EstimatedDividendSchedule from "components/passive-income/EstimatedDividendSchedule";
 import PortfolioFooter from "components/passive-income/PortfolioFooter";
 import PortfolioHeader from "components/passive-income/PortfolioHeader";
 import PortfolioSummary from "components/passive-income/PortfolioSummary";
@@ -117,6 +118,7 @@ function PassiveIncomeBody({ initialApiKey }: PropType) {
         holdings={state.holdings}
         onRemove={handleRemoveHolding}
       />
+      <EstimatedDividendSchedule holdings={state.holdings} />
       <PortfolioSummary holdings={state.holdings} />
       <PortfolioFooter
         isExportButtonDisabled={isExportButtonDisabled}
