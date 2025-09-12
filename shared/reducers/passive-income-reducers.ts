@@ -19,11 +19,19 @@ export enum ActionTypes {
 function portfolioReducer(state: ReducerState, action: any): ReducerState {
   switch (action.type) {
     case ActionTypes.ADD_HOLDING:
-      return { ...state, holdings: [...state.holdings, action.payload] };
+      return {
+        ...state,
+        holdings: [...state.holdings, action.payload],
+        error: null,
+      };
     case ActionTypes.API_ERROR:
       return { ...state, error: action.payload };
     case ActionTypes.BATCH_ADD_HOLDINGS:
-      return { ...state, holdings: [...state.holdings, ...action.payload] };
+      return {
+        ...state,
+        holdings: [...state.holdings, ...action.payload],
+        error: null,
+      };
     case ActionTypes.REMOVE_HOLDING:
       return {
         ...state,
