@@ -1,3 +1,8 @@
+export enum SecurityDataProvider {
+  ALPHA_VANTAGE = "Alpha Vantage",
+  YAHOO_FINANCE = "Yahoo Finance",
+}
+
 export type Holding = {
   category: string;
   costBasis: number;

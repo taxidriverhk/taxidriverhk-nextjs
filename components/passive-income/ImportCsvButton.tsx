@@ -1,5 +1,5 @@
 import Papa from "papaparse";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import { AddHoldingInput } from "shared/types/passive-income-types";
 
@@ -26,6 +26,7 @@ export default function ImportCSVButton({
   >([]);
   const [showModal, setShowModal] = useState(false);
   const [fileInputName, setFileInputName] = useState("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputFile = e.target.files?.[0];
@@ -88,20 +89,21 @@ export default function ImportCSVButton({
   return (
     <>
       <Button
-        as="label"
         disabled={isDisabled}
+        onClick={() => fileInputRef.current?.click()}
         variant="outline-primary"
         className="mb-3"
       >
         Import CSV
-        <input
-          key={fileInputName}
-          type="file"
-          accept=".csv"
-          hidden
-          onChange={handleFileUpload}
-        />
       </Button>
+      <input
+        ref={fileInputRef}
+        key={fileInputName}
+        type="file"
+        accept=".csv"
+        hidden
+        onChange={handleFileUpload}
+      />
 
       <Modal
         centered

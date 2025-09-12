@@ -21,7 +21,10 @@ import portfolioReducer, {
   ActionTypes,
   initialState,
 } from "shared/reducers/passive-income-reducers";
-import { AddHoldingInput } from "shared/types/passive-income-types";
+import {
+  AddHoldingInput,
+  SecurityDataProvider,
+} from "shared/types/passive-income-types";
 
 type PropType = {
   initialApiKey: string | null;
@@ -32,6 +35,9 @@ function PassiveIncomeBody({ initialApiKey }: PropType) {
   const [state, dispatch] = useReducer(portfolioReducer, initialState);
   const [showModal, setShowModal] = useState(false);
   const [apiKey, setApiKey] = useState(initialApiKey || "");
+  const [provider, setProvider] = useState<SecurityDataProvider>(
+    SecurityDataProvider.ALPHA_VANTAGE
+  );
 
   const handleAddHolding = async (holding: AddHoldingInput) => {
     try {
@@ -109,10 +115,12 @@ function PassiveIncomeBody({ initialApiKey }: PropType) {
 
       <PortfolioHeader
         apiKey={apiKey}
+        provider={provider}
         onAddHolding={() => setShowModal(true)}
         onApiKeyChange={setApiKey}
         onImportError={handleImportError}
         onImportHoldings={handleImportHoldings}
+        onProviderChange={setProvider}
       />
       <PortfolioTable
         holdings={state.holdings}
