@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  GetStockDataResponse,
   SecurityData,
   SecurityDataProvider,
 } from "shared/types/passive-income-types";
@@ -65,21 +66,56 @@ class AlphaVantageSecurityDataFetcher extends SecurityDataFetcher {
 }
 
 class YahooFinanceSecurityDataFetcher extends SecurityDataFetcher {
+  apiKey: string;
+
+  constructor(apiKey: string) {
+    super();
+    this.apiKey = apiKey;
+  }
+
   async fetchSecurityDataAsync(symbol: string): Promise<SecurityData> {
-    throw new Error("Not implemented");
+    const { data } = await axios.get<GetStockDataResponse>(
+      `/api/stocks/${symbol}`,
+      {
+        params: {
+          apiKey: this.apiKey,
+        },
+      }
+    );
+
+    const {
+      price,
+      profile: { net_expense_ratio },
+      dividends,
+    } = data;
+    const dividendHistory = dividends.map((history) => ({
+      exDividendDate: history.ex_dividend_date,
+      amount: parseFloat(history.amount),
+    }));
+    const { dividendFrequency, dividendPerShareTTM } = calculateDividendMetrics(
+      dividendHistory ?? []
+    );
+
+    return {
+      expenseRatio: parseFloat(net_expense_ratio),
+      dividendHistory,
+      dividendFrequency,
+      dividendPerShareTTM,
+      price: parseFloat(price),
+    };
   }
 }
 
 export async function fetchSecurityDataAsync(
   symbol: string,
   provider: SecurityDataProvider,
-  apiKey: string | null
+  apiKey: string
 ) {
   let dataFetcher: SecurityDataFetcher;
   if (provider === SecurityDataProvider.ALPHA_VANTAGE) {
-    dataFetcher = new AlphaVantageSecurityDataFetcher(apiKey!);
+    dataFetcher = new AlphaVantageSecurityDataFetcher(apiKey);
   } else {
-    dataFetcher = new YahooFinanceSecurityDataFetcher();
+    dataFetcher = new YahooFinanceSecurityDataFetcher(apiKey);
   }
   return await dataFetcher.fetchSecurityDataAsync(symbol);
 }
