@@ -89,6 +89,12 @@ export default function PortfolioHeader({
                       </code>
                     </li>
                     <li>
+                      The header can be optionally follwed by the columns{" "}
+                      <code>
+                        Custom Input, Dividend Yield, Dividend Frequency
+                      </code>
+                    </li>
+                    <li>
                       You could start with{" "}
                       <a href="/passive-income/test-import-file.csv">
                         this sample file

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  AddHoldingInput,
   GetStockDataResponse,
   SecurityData,
   SecurityDataProvider,
@@ -7,7 +8,9 @@ import {
 import { calculateDividendMetrics } from "shared/util/passive-income-utils";
 
 abstract class SecurityDataFetcher {
-  abstract fetchSecurityDataAsync(symbol: string): Promise<SecurityData>;
+  abstract fetchSecurityDataAsync(
+    input: AddHoldingInput
+  ): Promise<SecurityData>;
 }
 
 class AlphaVantageSecurityDataFetcher extends SecurityDataFetcher {
@@ -18,7 +21,9 @@ class AlphaVantageSecurityDataFetcher extends SecurityDataFetcher {
     this.apiKey = apiKey;
   }
 
-  async fetchSecurityDataAsync(symbol: string): Promise<SecurityData> {
+  async fetchSecurityDataAsync({
+    symbol,
+  }: AddHoldingInput): Promise<SecurityData> {
     const [stockPrice, etfProfile, dividendHistoryData] = await Promise.all([
       this.callAsync<{
         "Global Quote": {
@@ -73,7 +78,9 @@ class YahooFinanceSecurityDataFetcher extends SecurityDataFetcher {
     this.apiKey = apiKey;
   }
 
-  async fetchSecurityDataAsync(symbol: string): Promise<SecurityData> {
+  async fetchSecurityDataAsync({
+    symbol,
+  }: AddHoldingInput): Promise<SecurityData> {
     const { data } = await axios.get<GetStockDataResponse>(
       `/api/stocks/${symbol}`,
       {
@@ -106,16 +113,86 @@ class YahooFinanceSecurityDataFetcher extends SecurityDataFetcher {
   }
 }
 
+class SelfInputSecurityDataFetcher extends SecurityDataFetcher {
+  async fetchSecurityDataAsync({
+    shares,
+    dividendFrequency,
+    dividendYield,
+  }: AddHoldingInput): Promise<SecurityData> {
+    const price = 1.0;
+    const annualDividendYield = dividendYield ?? 0.0000001; // Very small value to avoid divide by zero
+
+    const endDate = new Date();
+    endDate.setDate(1);
+
+    const startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 1);
+    startDate.setDate(1);
+
+    const dividendHistory: Array<{
+      exDividendDate: string;
+      amount: number;
+    }> = [];
+    while (endDate >= startDate) {
+      const exDividendDate = endDate.toISOString().slice(0, 10);
+      if (dividendFrequency === "Monthly") {
+        dividendHistory.push({
+          amount: (price * annualDividendYield) / 12.0,
+          exDividendDate,
+        });
+      } else if (
+        dividendFrequency === "Quarterly" &&
+        [2, 5, 8, 11].includes(endDate.getMonth())
+      ) {
+        dividendHistory.push({
+          amount: (price * annualDividendYield) / 4.0,
+          exDividendDate,
+        });
+      } else if (
+        dividendFrequency === "Semi-Annually" &&
+        [5, 11].includes(endDate.getMonth())
+      ) {
+        dividendHistory.push({
+          amount: (price * annualDividendYield) / 2.0,
+          exDividendDate,
+        });
+      } else if (
+        dividendFrequency === "Annually" &&
+        endDate.getMonth() === 11
+      ) {
+        dividendHistory.push({
+          amount: price * annualDividendYield,
+          exDividendDate,
+        });
+      }
+      endDate.setMonth(endDate.getMonth() - 1);
+    }
+    const { dividendPerShareTTM } = calculateDividendMetrics(dividendHistory);
+
+    return {
+      expenseRatio: 0.0,
+      dividendHistory,
+      dividendFrequency: dividendFrequency ?? "Monthly",
+      dividendPerShareTTM,
+      price: 1.0,
+    };
+  }
+}
+
 export async function fetchSecurityDataAsync(
-  symbol: string,
+  input: AddHoldingInput,
   provider: SecurityDataProvider,
   apiKey: string
 ) {
+  const { isDataFetchingNeeded } = input;
+
   let dataFetcher: SecurityDataFetcher;
-  if (provider === SecurityDataProvider.ALPHA_VANTAGE) {
+  if (isDataFetchingNeeded && provider === SecurityDataProvider.ALPHA_VANTAGE) {
     dataFetcher = new AlphaVantageSecurityDataFetcher(apiKey);
-  } else {
+  } else if (isDataFetchingNeeded) {
     dataFetcher = new YahooFinanceSecurityDataFetcher(apiKey);
+  } else {
+    dataFetcher = new SelfInputSecurityDataFetcher();
   }
-  return await dataFetcher.fetchSecurityDataAsync(symbol);
+  return await dataFetcher.fetchSecurityDataAsync(input);
 }

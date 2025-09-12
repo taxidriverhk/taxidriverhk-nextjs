@@ -1,7 +1,10 @@
 import Papa from "papaparse";
 import React, { useRef, useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
-import { AddHoldingInput } from "shared/types/passive-income-types";
+import {
+  AddHoldingInput,
+  DividendFrequency,
+} from "shared/types/passive-income-types";
 
 type PropType = {
   isDisabled: boolean;
@@ -14,6 +17,9 @@ type ImportRow = {
   "Number of Shares": string;
   "Cost Basis": string;
   Category: string;
+  "Custom Input"?: string;
+  "Dividend Yield"?: string;
+  "Dividend Frequency"?: string;
 };
 
 export default function ImportCSVButton({
@@ -53,20 +59,31 @@ export default function ImportCSVButton({
               "Number of Shares": sharesStr,
               "Cost Basis": costBasisStr,
               Category: category,
+              "Custom Input": customInput,
+              "Dividend Yield": dividendYieldStr,
+              "Dividend Frequency": dividendFrequencyStr,
             } = row;
 
             const shares = parseFloat(sharesStr);
             const costBasis = parseFloat(costBasisStr);
 
-            if (!Symbol || isNaN(shares) || isNaN(costBasis)) {
+            if (!symbol || isNaN(shares) || isNaN(costBasis)) {
               return null;
             }
+
+            const isCustomInputProvided = customInput?.toLowerCase() === "yes";
+            const dividendYield = parseFloat(dividendYieldStr ?? "0");
+            const dividendFrequency = (dividendFrequencyStr ??
+              "") as DividendFrequency;
 
             return {
               symbol,
               shares,
               costBasis,
               category,
+              isDataFetchingNeeded: !isCustomInputProvided,
+              dividendFrequency,
+              dividendYield,
             };
           })
           .filter((holding): holding is AddHoldingInput => holding !== null);
@@ -122,16 +139,46 @@ export default function ImportCSVButton({
                 <th>Category</th>
                 <th>Shares</th>
                 <th>Cost Basis</th>
+                {previewHoldings.find((h) => !h.isDataFetchingNeeded) !=
+                  null && (
+                  <>
+                    <th>Is Data Fetching Needed</th>
+                    <th>Dividend Yield</th>
+                    <th>Dividend Frequency</th>
+                  </>
+                )}
               </tr>
             </thead>
             <tbody>
               {previewHoldings.map(
-                ({ symbol, category, shares, costBasis }) => (
+                ({
+                  symbol,
+                  category,
+                  shares,
+                  costBasis,
+                  isDataFetchingNeeded,
+                  dividendFrequency,
+                  dividendYield,
+                }) => (
                   <tr key={symbol}>
                     <td>{symbol}</td>
                     <td>{category}</td>
                     <td>{shares}</td>
                     <td>${costBasis.toFixed(2)}</td>
+                    {previewHoldings.find((h) => !h.isDataFetchingNeeded) !=
+                      null && (
+                      <>
+                        <td>{isDataFetchingNeeded ? "Yes" : "No"}</td>
+                        <td>
+                          {!isDataFetchingNeeded
+                            ? `${(dividendYield * 100).toFixed(2)}%`
+                            : ""}
+                        </td>
+                        <td>
+                          {!isDataFetchingNeeded ? dividendFrequency : ""}
+                        </td>
+                      </>
+                    )}
                   </tr>
                 )
               )}

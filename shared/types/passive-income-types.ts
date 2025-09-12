@@ -46,9 +46,19 @@ export type Holding = {
   symbol: string;
 };
 
+export type DividendFrequency =
+  | "Monthly"
+  | "Quarterly"
+  | "Semi-Annually"
+  | "Annually"
+  | "";
+
 export type AddHoldingInput = {
+  isDataFetchingNeeded: boolean;
   category: string;
   costBasis: number;
   shares: number;
   symbol: string;
+  dividendYield: number;
+  dividendFrequency: DividendFrequency;
 };

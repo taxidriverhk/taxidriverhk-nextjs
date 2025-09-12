@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Accordion, Button, Card, ListGroup, Table } from "react-bootstrap";
 import type { AccordionEventKey } from "react-bootstrap/AccordionContext";
+import { HKD_PER_USD } from "shared/config/passive-income";
 import { Holding } from "shared/types/passive-income-types";
 
 type PropType = {
@@ -122,6 +123,9 @@ function EstimatedDividendAccordion({
                     <div className="d-flex flex-column">
                       <span>{month.label}</span>
                       <strong>${month.total.toFixed(2)}</strong>
+                      <strong>
+                        HK$ {(month.total * HKD_PER_USD).toFixed(2)}
+                      </strong>
                     </div>
                   </Accordion.Header>
                   <Accordion.Body>

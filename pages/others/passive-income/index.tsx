@@ -41,11 +41,7 @@ function PassiveIncomeBody({ initialApiKey }: PropType) {
 
   const handleAddHolding = async (holding: AddHoldingInput) => {
     try {
-      const data = await fetchSecurityDataAsync(
-        holding.symbol,
-        provider,
-        apiKey
-      );
+      const data = await fetchSecurityDataAsync(holding, provider, apiKey);
       const newHolding = {
         ...holding,
         ...data,
@@ -75,7 +71,7 @@ function PassiveIncomeBody({ initialApiKey }: PropType) {
   ) => {
     try {
       const batchDataPromises = holdingInputs.map((holdingInput) =>
-        fetchSecurityDataAsync(holdingInput.symbol, provider, apiKey)
+        fetchSecurityDataAsync(holdingInput, provider, apiKey)
       );
       const batchData = await Promise.all(batchDataPromises);
       const newHoldings = holdingInputs.map((holdingInput, index) => ({
