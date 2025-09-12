@@ -3,10 +3,25 @@ export enum SecurityDataProvider {
   YAHOO_FINANCE = "Yahoo Finance",
 }
 
+export type SecurityData = {
+  expenseRatio: number;
+  dividendHistory: Array<{
+    exDividendDate: string;
+    amount: number;
+  }>;
+  dividendFrequency: string;
+  dividendPerShareTTM: number;
+  price: number;
+};
+
 export type Holding = {
   category: string;
   costBasis: number;
   expenseRatio: number;
+  dividendHistory: Array<{
+    exDividendDate: string;
+    amount: number;
+  }>;
   dividendFrequency: string;
   dividendPerShareTTM: number;
   price: number;
