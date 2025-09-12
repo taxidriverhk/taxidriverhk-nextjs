@@ -1,7 +1,7 @@
+import ImportCSVButton from "components/passive-income/ImportCsvButton";
 import { useMemo } from "react";
 import { Accordion, Alert, Button, Form, ListGroup } from "react-bootstrap";
 import { SecurityDataProvider } from "shared/types/passive-income-types";
-import ImportCSVButton from "./ImportCsvButton";
 
 type PropType = {
   apiKey: string;

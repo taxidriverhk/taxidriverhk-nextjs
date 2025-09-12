@@ -35,13 +35,13 @@ class AlphaVantageSecurityDataFetcher extends SecurityDataFetcher {
       }>("DIVIDENDS", symbol),
     ]);
 
-    const { dividendFrequency, dividendPerShareTTM } = calculateDividendMetrics(
-      dividendHistoryData.data ?? []
-    );
     const dividendHistory = dividendHistoryData.data?.map((history) => ({
       exDividendDate: history.ex_dividend_date,
       amount: parseFloat(history.amount ?? "0"),
     }));
+    const { dividendFrequency, dividendPerShareTTM } = calculateDividendMetrics(
+      dividendHistory ?? []
+    );
 
     return {
       expenseRatio: parseFloat(etfProfile.net_expense_ratio ?? "0"),

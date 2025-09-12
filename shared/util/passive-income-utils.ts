@@ -49,19 +49,19 @@ function calculateFederalTaxOnOrdinaryIncome(
 }
 
 export function calculateDividendMetrics(
-  dividendHistory: Array<{ amount: string; ex_dividend_date: string }>
+  dividendHistory: Array<{ amount: number; exDividendDate: string }>
 ) {
   const todayDate = new Date();
   const todayOneYearAgo = new Date();
   todayOneYearAgo.setFullYear(todayDate.getFullYear() - 1);
 
   const filteredDividends = dividendHistory.filter((dividend) => {
-    const exDividendDate = new Date(dividend.ex_dividend_date);
+    const exDividendDate = new Date(dividend.exDividendDate);
     return exDividendDate >= todayOneYearAgo;
   });
 
   const dividendPerShareTTM = filteredDividends.reduce(
-    (acc, d) => acc + parseFloat(d.amount),
+    (acc, d) => acc + d.amount,
     0
   );
   const dividendPaymentCount = filteredDividends.length;
