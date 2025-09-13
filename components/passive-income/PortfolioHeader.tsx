@@ -22,10 +22,7 @@ export default function PortfolioHeader({
   onImportHoldings,
   onProviderChange,
 }: PropType) {
-  const isAddHoldingButtonDisabled = useMemo(
-    () => provider === SecurityDataProvider.ALPHA_VANTAGE && !apiKey,
-    [apiKey, provider]
-  );
+  const isAddHoldingButtonDisabled = useMemo(() => !apiKey, [apiKey]);
 
   return (
     <ListGroup>

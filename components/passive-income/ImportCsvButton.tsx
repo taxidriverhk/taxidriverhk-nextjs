@@ -1,10 +1,11 @@
 import Papa from "papaparse";
 import React, { useRef, useState } from "react";
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import {
   AddHoldingInput,
   DividendFrequency,
 } from "shared/types/passive-income-types";
+import BatchAddHoldingsModal from "./BatchAddHoldingsModal";
 
 type PropType = {
   isDisabled: boolean;
@@ -122,78 +123,12 @@ export default function ImportCSVButton({
         onChange={handleFileUpload}
       />
 
-      <Modal
-        centered
+      <BatchAddHoldingsModal
         show={showModal}
-        onHide={() => setShowModal(false)}
-        size="lg"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Preview Imported Holdings</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Symbol</th>
-                <th>Category</th>
-                <th>Shares</th>
-                <th>Cost Basis</th>
-                {previewHoldings.find((h) => !h.isDataFetchingNeeded) !=
-                  null && (
-                  <>
-                    <th>Is Data Fetching Needed</th>
-                    <th>Dividend Yield</th>
-                    <th>Dividend Frequency</th>
-                  </>
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {previewHoldings.map(
-                ({
-                  symbol,
-                  category,
-                  shares,
-                  costBasis,
-                  isDataFetchingNeeded,
-                  dividendFrequency,
-                  dividendYield,
-                }) => (
-                  <tr key={symbol}>
-                    <td>{symbol}</td>
-                    <td>{category}</td>
-                    <td>{shares}</td>
-                    <td>${costBasis.toFixed(2)}</td>
-                    {previewHoldings.find((h) => !h.isDataFetchingNeeded) !=
-                      null && (
-                      <>
-                        <td>{isDataFetchingNeeded ? "Yes" : "No"}</td>
-                        <td>
-                          {!isDataFetchingNeeded
-                            ? `${(dividendYield * 100).toFixed(2)}%`
-                            : ""}
-                        </td>
-                        <td>
-                          {!isDataFetchingNeeded ? dividendFrequency : ""}
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                )
-              )}
-            </tbody>
-          </Table>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleConfirmImport}>
-            Confirm
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        holdings={previewHoldings}
+        onConfirm={() => handleConfirmImport()}
+        onClose={() => setShowModal(false)}
+      />
     </>
   );
 }

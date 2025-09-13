@@ -38,7 +38,15 @@ export default function EstimatedDividendSchedule({ holdings }: PropType) {
   const next12Months = Array.from({ length: 12 }).map((_, idx) => {
     const future = addMonths(now, idx);
     const keyLastYear = formatKey(addMonths(future, -12));
-    const entries = monthlyData[keyLastYear] || [];
+    const entries = (monthlyData[keyLastYear] || []).map((e) => {
+      const exDividendDatePlusOneYear = formatISO(
+        addMonths(new Date(e.exDividendDate), 12)
+      );
+      return {
+        ...e,
+        exDividendDate: exDividendDatePlusOneYear,
+      };
+    });
     const total = entries.reduce((sum, e) => sum + e.amount, 0);
 
     return {

@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import Template from "components/Template";
 import { Website } from "shared/config/website-config";
 
-import { useMemo, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 import AddHoldingModal from "components/passive-income/AddHoldingModal";
+import BatchAddHoldingsModal from "components/passive-income/BatchAddHoldingsModal";
 import EstimatedDividendSchedule from "components/passive-income/EstimatedDividendSchedule";
 import PortfolioFooter from "components/passive-income/PortfolioFooter";
 import PortfolioHeader from "components/passive-income/PortfolioHeader";
@@ -23,21 +24,36 @@ import portfolioReducer, {
 } from "shared/reducers/passive-income-reducers";
 import {
   AddHoldingInput,
+  DividendFrequency,
   SecurityDataProvider,
 } from "shared/types/passive-income-types";
+import { decompressHoldings } from "shared/util/passive-income-utils";
 
 type PropType = {
   initialApiKey: string | null;
-  importFileCsvPath: string | null;
+  initialProvider: SecurityDataProvider | null;
+  initialHoldingInputs: Array<AddHoldingInput> | null;
 };
 
-function PassiveIncomeBody({ initialApiKey }: PropType) {
+function PassiveIncomeBody({
+  initialApiKey,
+  initialProvider,
+  initialHoldingInputs,
+}: PropType) {
   const [state, dispatch] = useReducer(portfolioReducer, initialState);
   const [showModal, setShowModal] = useState(false);
+  const [showInitialInputPreviewModal, setShowInitialInputPreviewModal] =
+    useState(false);
   const [apiKey, setApiKey] = useState(initialApiKey || "");
   const [provider, setProvider] = useState<SecurityDataProvider>(
-    SecurityDataProvider.ALPHA_VANTAGE
+    initialProvider || SecurityDataProvider.ALPHA_VANTAGE
   );
+
+  useEffect(() => {
+    if (initialHoldingInputs != null && initialHoldingInputs.length > 0) {
+      setShowInitialInputPreviewModal(true);
+    }
+  }, [initialHoldingInputs]);
 
   const handleAddHolding = async (holding: AddHoldingInput) => {
     try {
@@ -91,14 +107,6 @@ function PassiveIncomeBody({ initialApiKey }: PropType) {
     }
   };
 
-  const handleExportPortfolio = () => {
-    alert("Export functionality is not implemented yet.");
-  };
-  const isExportButtonDisabled = useMemo(
-    () => state.holdings.length === 0,
-    [state.holdings]
-  );
-
   return (
     <>
       {state.error && (
@@ -129,8 +137,9 @@ function PassiveIncomeBody({ initialApiKey }: PropType) {
       <EstimatedDividendSchedule holdings={state.holdings} />
       <PortfolioSummary holdings={state.holdings} />
       <PortfolioFooter
-        isExportButtonDisabled={isExportButtonDisabled}
-        onExportPortfolio={handleExportPortfolio}
+        apiKey={apiKey}
+        provider={provider}
+        holdings={state.holdings}
       />
 
       <AddHoldingModal
@@ -138,6 +147,17 @@ function PassiveIncomeBody({ initialApiKey }: PropType) {
         onHide={() => setShowModal(false)}
         onSubmit={handleAddHolding}
       />
+      {initialHoldingInputs != null && (
+        <BatchAddHoldingsModal
+          holdings={initialHoldingInputs}
+          onConfirm={() => {
+            setShowInitialInputPreviewModal(false);
+            handleImportHoldings(initialHoldingInputs);
+          }}
+          onClose={() => setShowInitialInputPreviewModal(false)}
+          show={showInitialInputPreviewModal}
+        />
+      )}
     </>
   );
 }
@@ -157,15 +177,46 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<PropType>> {
   const { query } = context;
   let initialApiKey = query.key ?? null;
-
   initialApiKey = Array.isArray(initialApiKey)
     ? initialApiKey[0]
     : initialApiKey;
 
+  let initialProvider = query.provider ?? null;
+  initialProvider = Array.isArray(initialProvider)
+    ? initialProvider[0]
+    : initialProvider;
+
+  const encodedHoldingDataQuery = query.holdings ?? null;
+  const encodedHoldingData = Array.isArray(encodedHoldingDataQuery)
+    ? encodedHoldingDataQuery[0]
+    : encodedHoldingDataQuery;
+  const initialHoldings = decompressHoldings(encodedHoldingData);
+  const initialHoldingInputs: Array<AddHoldingInput> | null =
+    initialHoldings?.map(
+      ({
+        category,
+        costBasis,
+        price,
+        shares,
+        symbol,
+        dividendPerShareTTM,
+        dividendFrequency,
+      }) => ({
+        isDataFetchingNeeded: price !== 1.0,
+        category,
+        costBasis,
+        shares,
+        symbol,
+        dividendYield: dividendPerShareTTM / costBasis,
+        dividendFrequency: dividendFrequency as DividendFrequency,
+      })
+    ) ?? null;
+
   return {
     props: {
       initialApiKey,
-      importFileCsvPath: null,
+      initialProvider: initialProvider as SecurityDataProvider,
+      initialHoldingInputs,
     },
   };
 }

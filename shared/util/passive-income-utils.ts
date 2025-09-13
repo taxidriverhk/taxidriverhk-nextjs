@@ -1,3 +1,4 @@
+import pako from "pako";
 import {
   DEFAULT_FILING_STATUS,
   HKD_PER_USD,
@@ -133,4 +134,27 @@ export function calculatePortfolioSummary(holdings: Array<Holding>) {
     overallYield,
     estimatedTax,
   };
+}
+
+export function compressHoldings(holdings: Array<Holding>) {
+  const dataStr = JSON.stringify(holdings);
+  const compressed = pako.deflate(dataStr);
+  return Buffer.from(compressed).toString("base64");
+}
+
+export function decompressHoldings(
+  encoded: string | null
+): Array<Holding> | null {
+  if (encoded == null) {
+    return null;
+  }
+
+  try {
+    const decoded = Buffer.from(encoded, "base64");
+    const binaryData = new Uint8Array(decoded);
+    const decompressed = pako.inflate(binaryData, { to: "string" });
+    return JSON.parse(decompressed);
+  } catch {
+    return null;
+  }
 }

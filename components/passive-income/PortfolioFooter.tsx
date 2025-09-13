@@ -1,13 +1,19 @@
-import { Button } from "react-bootstrap";
+import {
+  Holding,
+  SecurityDataProvider,
+} from "shared/types/passive-income-types";
+import SharePortfolioButton from "./SharePortfolioButton";
 
 type PropType = {
-  isExportButtonDisabled: boolean;
-  onExportPortfolio: () => void;
+  apiKey: string;
+  provider: SecurityDataProvider;
+  holdings: Array<Holding>;
 };
 
 export default function PortfolioFooter({
-  isExportButtonDisabled,
-  onExportPortfolio,
+  apiKey,
+  provider,
+  holdings,
 }: PropType) {
   return (
     <div
@@ -17,14 +23,11 @@ export default function PortfolioFooter({
         justifyContent: "end",
       }}
     >
-      <Button
-        variant="success"
-        className="mb-3 ms-2"
-        onClick={onExportPortfolio}
-        disabled={isExportButtonDisabled}
-      >
-        Export to Excel (under development)
-      </Button>
+      <SharePortfolioButton
+        apiKey={apiKey}
+        provider={provider}
+        holdings={holdings}
+      />
     </div>
   );
 }
