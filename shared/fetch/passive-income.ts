@@ -197,8 +197,5 @@ export async function fetchSecurityDataAsync(
   } else {
     dataFetcher = new SelfInputSecurityDataFetcher();
   }
-
-  await new Promise((resolve) => setTimeout(resolve, 4000));
-
   return await dataFetcher.fetchSecurityDataAsync(input);
 }
