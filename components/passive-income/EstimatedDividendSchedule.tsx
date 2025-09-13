@@ -1,14 +1,26 @@
+import PortfolioSpinner from "components/passive-income/PortfolioSpinner";
 import { useMemo, useState } from "react";
 import { Accordion, Button, Card, ListGroup, Table } from "react-bootstrap";
 import type { AccordionEventKey } from "react-bootstrap/AccordionContext";
 import { HKD_PER_USD } from "shared/config/passive-income";
 import { Holding } from "shared/types/passive-income-types";
+import {
+  addMonthsToDate,
+  formatDate,
+  formatDollarAmount,
+  formatMonthYear,
+  parseDate,
+} from "shared/util/passive-income-utils";
 
 type PropType = {
   holdings: Array<Holding>;
+  loading: boolean;
 };
 
-export default function EstimatedDividendSchedule({ holdings }: PropType) {
+export default function EstimatedDividendSchedule({
+  holdings,
+  loading,
+}: PropType) {
   // Group dividends by last year's month (YYYY-MM)
   const monthlyData = useMemo(() => {
     const grouped: Record<
@@ -36,11 +48,11 @@ export default function EstimatedDividendSchedule({ holdings }: PropType) {
   // Build projection for next 12 months
   const now = new Date();
   const next12Months = Array.from({ length: 12 }).map((_, idx) => {
-    const future = addMonths(now, idx);
-    const keyLastYear = formatKey(addMonths(future, -12));
+    const future = addMonthsToDate(now, idx);
+    const keyLastYear = formatKey(addMonthsToDate(future, -12));
     const entries = (monthlyData[keyLastYear] || []).map((e) => {
-      const exDividendDatePlusOneYear = formatISO(
-        addMonths(new Date(e.exDividendDate), 12)
+      const exDividendDatePlusOneYear = formatDate(
+        addMonthsToDate(new Date(e.exDividendDate), 12)
       );
       return {
         ...e,
@@ -60,20 +72,28 @@ export default function EstimatedDividendSchedule({ holdings }: PropType) {
   return (
     <div className="mt-3">
       <h4>Estimated Monthly Payment Schedule</h4>
-      {holdings.length > 0 ? (
-        <EstimatedDividendAccordion
-          activeKey={activeKey}
-          setActiveKey={setActiveKey}
-          next12Months={next12Months}
-        />
-      ) : (
-        <Card>
-          <Card.Body>
-            No data to be shown, please add at least one holding to start seeing
-            the breakdown
-          </Card.Body>
-        </Card>
-      )}
+      {(() => {
+        if (loading) {
+          return <PortfolioSpinner />;
+        }
+        if (holdings.length === 0) {
+          return (
+            <Card>
+              <Card.Body>
+                No data to be shown, please add at least one holding to start
+                seeing the breakdown
+              </Card.Body>
+            </Card>
+          );
+        }
+        return (
+          <EstimatedDividendAccordion
+            activeKey={activeKey}
+            setActiveKey={setActiveKey}
+            next12Months={next12Months}
+          />
+        );
+      })()}
     </div>
   );
 }
@@ -130,9 +150,9 @@ function EstimatedDividendAccordion({
                   <Accordion.Header>
                     <div className="d-flex flex-column">
                       <span>{month.label}</span>
-                      <strong>${month.total.toFixed(2)}</strong>
+                      <strong>{formatDollarAmount(month.total)}</strong>
                       <strong>
-                        HK$ {(month.total * HKD_PER_USD).toFixed(2)}
+                        HK{formatDollarAmount(month.total * HKD_PER_USD)}
                       </strong>
                     </div>
                   </Accordion.Header>
@@ -156,10 +176,10 @@ function EstimatedDividendAccordion({
                             .map((e, i) => (
                               <tr key={i}>
                                 <td>
-                                  {formatISO(parseDate(e.exDividendDate))}
+                                  {formatDate(parseDate(e.exDividendDate))}
                                 </td>
                                 <td>{e.symbol}</td>
-                                <td>${e.amount.toFixed(2)}</td>
+                                <td>{formatDollarAmount(e.amount)}</td>
                               </tr>
                             ))}
                         </tbody>
@@ -176,30 +196,9 @@ function EstimatedDividendAccordion({
   );
 }
 
-// --- Date utilities using native JS ---
-function parseDate(dateStr: string): Date {
-  // Format: "YYYY-MM-dd"
-  const [year, month, day] = dateStr.split("-").map((x) => parseInt(x, 10));
-  return new Date(year, month - 1, day);
-}
-
-function addMonths(date: Date, months: number): Date {
-  const d = new Date(date);
-  d.setMonth(d.getMonth() + months);
-  return d;
-}
-
-function formatMonthYear(date: Date): string {
-  return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
-}
-
 function formatKey(date: Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
     2,
     "0"
   )}`;
-}
-
-function formatISO(date: Date): string {
-  return date.toISOString().slice(0, 10); // YYYY-MM-DD
 }

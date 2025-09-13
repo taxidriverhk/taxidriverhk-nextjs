@@ -57,6 +57,7 @@ function PassiveIncomeBody({
 
   const handleAddHolding = async (holding: AddHoldingInput) => {
     try {
+      dispatch({ type: ActionTypes.FETCHING_HOLDINGS_DATA });
       const data = await fetchSecurityDataAsync(holding, provider, apiKey);
       const newHolding = {
         ...holding,
@@ -86,6 +87,7 @@ function PassiveIncomeBody({
     holdingInputs: Array<AddHoldingInput>
   ) => {
     try {
+      dispatch({ type: ActionTypes.FETCHING_HOLDINGS_DATA });
       const batchDataPromises = holdingInputs.map((holdingInput) =>
         fetchSecurityDataAsync(holdingInput, provider, apiKey)
       );
@@ -124,6 +126,7 @@ function PassiveIncomeBody({
       <PortfolioHeader
         apiKey={apiKey}
         provider={provider}
+        disabled={state.loading}
         onAddHolding={() => setShowModal(true)}
         onApiKeyChange={setApiKey}
         onImportError={handleImportError}
@@ -132,10 +135,14 @@ function PassiveIncomeBody({
       />
       <PortfolioTable
         holdings={state.holdings}
+        loading={state.loading}
         onRemove={handleRemoveHolding}
       />
-      <EstimatedDividendSchedule holdings={state.holdings} />
-      <PortfolioSummary holdings={state.holdings} />
+      <EstimatedDividendSchedule
+        holdings={state.holdings}
+        loading={state.loading}
+      />
+      <PortfolioSummary holdings={state.holdings} loading={state.loading} />
       <PortfolioFooter
         apiKey={apiKey}
         provider={provider}
@@ -207,7 +214,7 @@ export async function getServerSideProps(
         costBasis,
         shares,
         symbol,
-        dividendYield: dividendPerShareTTM / costBasis,
+        dividendYield: dividendPerShareTTM / price,
         dividendFrequency: dividendFrequency as DividendFrequency,
       })
     ) ?? null;

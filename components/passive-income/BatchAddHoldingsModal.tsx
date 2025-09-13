@@ -1,5 +1,9 @@
 import { Button, Modal, Table } from "react-bootstrap";
 import { AddHoldingInput } from "shared/types/passive-income-types";
+import {
+  formatDollarAmount,
+  formatPercentage,
+} from "shared/util/passive-income-utils";
 
 type PropType = {
   holdings: Array<AddHoldingInput>;
@@ -51,13 +55,13 @@ export default function BatchAddHoldingsModal({
                   <td>{symbol}</td>
                   <td>{category}</td>
                   <td>{shares}</td>
-                  <td>${costBasis.toFixed(2)}</td>
+                  <td>{formatDollarAmount(costBasis)}</td>
                   {holdings.find((h) => !h.isDataFetchingNeeded) != null && (
                     <>
                       <td>{isDataFetchingNeeded ? "Yes" : "No"}</td>
                       <td>
                         {!isDataFetchingNeeded
-                          ? `${(dividendYield * 100).toFixed(2)}%`
+                          ? formatPercentage(dividendYield * 100)
                           : ""}
                       </td>
                       <td>{!isDataFetchingNeeded ? dividendFrequency : ""}</td>

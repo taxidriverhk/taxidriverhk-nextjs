@@ -5,11 +5,16 @@ import type { Holding } from "shared/types/passive-income-types";
 import {
   calculateGainLoss,
   calculatePortfolioMetrics,
+  deformatNumber,
+  formatDollarAmount,
+  formatPercentage,
 } from "shared/util/passive-income-utils";
 import PortfolioGainOrLossCell from "./PortfolioGainOrLossCell";
+import PortfolioSpinner from "./PortfolioSpinner";
 
 type PropTypes = {
   holdings: Array<Holding>;
+  loading: boolean;
   onRemove: (symbol: string) => void;
 };
 
@@ -79,7 +84,11 @@ const HEADERS: Array<{
   { prop: "actions", title: "Actions" },
 ];
 
-export default function PortfolioTable({ holdings, onRemove }: PropTypes) {
+export default function PortfolioTable({
+  holdings,
+  loading,
+  onRemove,
+}: PropTypes) {
   const { totalCostBasis, totalDividendIncome } =
     calculatePortfolioMetrics(holdings);
 
@@ -99,14 +108,14 @@ export default function PortfolioTable({ holdings, onRemove }: PropTypes) {
       symbol: h.symbol,
       category: h.category || "-",
       shares: h.shares,
-      costBasis: `$${h.costBasis.toFixed(2)}`,
-      expenseRatio: (h.expenseRatio * 100).toFixed(2) + "%",
-      portfolioPct: portfolioPct.toFixed(2) + "%",
+      costBasis: formatDollarAmount(h.costBasis),
+      expenseRatio: formatPercentage(h.expenseRatio * 100),
+      portfolioPct: formatPercentage(portfolioPct),
       dividendFrequency: h.dividendFrequency,
-      dividendIncome: `$${dividendIncome.toFixed(2)}`,
-      dividendYield: dividendYield.toFixed(2) + "%",
-      dividendIncomePct: dividendIncomePct.toFixed(2) + "%",
-      price: `$${h.price.toFixed(2)}`,
+      dividendIncome: formatDollarAmount(dividendIncome),
+      dividendYield: formatPercentage(dividendYield),
+      dividendIncomePct: formatPercentage(dividendIncomePct),
+      price: formatDollarAmount(h.price),
       gainLoss: <PortfolioGainOrLossCell gainOrLoss={gainLoss} prefix="$" />,
       pctGainLoss: (
         <PortfolioGainOrLossCell gainOrLoss={pctGainLoss} suffix="%" />
@@ -119,26 +128,46 @@ export default function PortfolioTable({ holdings, onRemove }: PropTypes) {
     };
   });
 
+  const formattedNumberComparator = (value: string) => deformatNumber(value);
+  const gainOrLossComparator = (elem: JSX.Element) => elem.props.gainOrLoss;
   return (
     <>
       <h4>Portfolio</h4>
-      <DatatableWrapper
-        body={rows}
-        headers={HEADERS}
-        sortProps={{
-          sortValueObj: {
-            //@ts-ignore
-            gainLoss: (elem: JSX.Element) => elem.props.gainOrLoss,
-            //@ts-ignore
-            pctGainLoss: (elem: JSX.Element) => elem.props.pctGainLoss,
-          },
-        }}
-      >
-        <Table striped bordered hover responsive>
-          <TableHeader />
-          <TableBody />
-        </Table>
-      </DatatableWrapper>
+      {loading ? (
+        <PortfolioSpinner />
+      ) : (
+        <DatatableWrapper
+          body={rows}
+          headers={HEADERS}
+          sortProps={{
+            sortValueObj: {
+              //@ts-ignore the param is already destructured from the row object
+              costBasis: formattedNumberComparator,
+              //@ts-ignore
+              dividendIncome: formattedNumberComparator,
+              //@ts-ignore
+              expenseRatio: formattedNumberComparator,
+              //@ts-ignore
+              portfolioPct: formattedNumberComparator,
+              //@ts-ignore
+              dividendYield: formattedNumberComparator,
+              //@ts-ignore
+              dividendIncomePct: formattedNumberComparator,
+              //@ts-ignore
+              price: formattedNumberComparator,
+              //@ts-ignore
+              gainLoss: gainOrLossComparator,
+              //@ts-ignore
+              pctGainLoss: gainOrLossComparator,
+            },
+          }}
+        >
+          <Table striped bordered hover responsive>
+            <TableHeader />
+            <TableBody />
+          </Table>
+        </DatatableWrapper>
+      )}
     </>
   );
 }

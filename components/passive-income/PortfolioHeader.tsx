@@ -6,6 +6,7 @@ import { SecurityDataProvider } from "shared/types/passive-income-types";
 type PropType = {
   apiKey: string;
   provider: SecurityDataProvider;
+  disabled: boolean;
   onAddHolding: () => void;
   onApiKeyChange: (key: string) => void;
   onImportError: (error: string) => void;
@@ -16,13 +17,17 @@ type PropType = {
 export default function PortfolioHeader({
   apiKey,
   provider,
+  disabled,
   onAddHolding,
   onApiKeyChange,
   onImportError,
   onImportHoldings,
   onProviderChange,
 }: PropType) {
-  const isAddHoldingButtonDisabled = useMemo(() => !apiKey, [apiKey]);
+  const isAddHoldingButtonDisabled = useMemo(
+    () => disabled || !apiKey,
+    [apiKey, disabled]
+  );
 
   return (
     <ListGroup>

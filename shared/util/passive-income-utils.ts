@@ -52,10 +52,7 @@ function calculateFederalTaxOnOrdinaryIncome(
 export function calculateDividendMetrics(
   dividendHistory: Array<{ amount: number; exDividendDate: string }>
 ) {
-  const todayDate = new Date();
-  const todayOneYearAgo = new Date();
-  todayOneYearAgo.setFullYear(todayDate.getFullYear() - 1);
-
+  const todayOneYearAgo = addMonthsToDate(new Date(), -12);
   const filteredDividends = dividendHistory.filter((dividend) => {
     const exDividendDate = new Date(dividend.exDividendDate);
     return exDividendDate >= todayOneYearAgo;
@@ -157,4 +154,41 @@ export function decompressHoldings(
   } catch {
     return null;
   }
+}
+
+export function formatDate(date: Date): string {
+  return date.toISOString().slice(0, 10); // YYYY-MM-DD
+}
+
+export function parseDate(dateStr: string): Date {
+  // Format: "YYYY-MM-dd"
+  const [year, month, day] = dateStr.split("-").map((x) => parseInt(x, 10));
+  return new Date(year, month - 1, day);
+}
+
+export function addMonthsToDate(date: Date, months: number): Date {
+  const d = new Date(date);
+  d.setMonth(d.getMonth() + months);
+  return d;
+}
+
+export function formatMonthYear(date: Date): string {
+  return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
+export function formatDollarAmount(dollar: number) {
+  const roundedDollar = parseFloat(dollar.toFixed(2));
+  const formattedDollar = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(roundedDollar);
+  return `$${formattedDollar}`;
+}
+
+export function formatPercentage(percentage: number) {
+  return `${percentage.toFixed(2)}%`;
+}
+
+export function deformatNumber(dollarStr: string) {
+  return parseFloat(dollarStr.replace(/[^0-9.-]+/g, ""));
 }

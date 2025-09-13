@@ -5,7 +5,10 @@ import {
   SecurityData,
   SecurityDataProvider,
 } from "shared/types/passive-income-types";
-import { calculateDividendMetrics } from "shared/util/passive-income-utils";
+import {
+  calculateDividendMetrics,
+  formatDate,
+} from "shared/util/passive-income-utils";
 
 abstract class SecurityDataFetcher {
   abstract fetchSecurityDataAsync(
@@ -134,7 +137,7 @@ class SelfInputSecurityDataFetcher extends SecurityDataFetcher {
       amount: number;
     }> = [];
     while (endDate >= startDate) {
-      const exDividendDate = endDate.toISOString().slice(0, 10);
+      const exDividendDate = formatDate(endDate);
       if (dividendFrequency === "Monthly") {
         dividendHistory.push({
           amount: (price * annualDividendYield) / 12.0,
@@ -194,5 +197,8 @@ export async function fetchSecurityDataAsync(
   } else {
     dataFetcher = new SelfInputSecurityDataFetcher();
   }
+
+  await new Promise((resolve) => setTimeout(resolve, 4000));
+
   return await dataFetcher.fetchSecurityDataAsync(input);
 }
