@@ -1,4 +1,5 @@
 import {
+  faFlickr,
   faGithub,
   faHtml5,
   faJs,
@@ -8,7 +9,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faBook,
-  faCamera,
   faChartLine,
   faSolarPanel,
 } from "@fortawesome/free-solid-svg-icons";
@@ -33,15 +33,16 @@ export default function Personal() {
           },
           {
             description:
-              "Collection of personal code written during school and spare time.",
+              "Collection of personal code written during school and spare time. Opens a GitHub URL.",
             href: "https://github.com/taxidriverhk/",
             icon: faGithub,
             title: "Code Repositories",
           },
           {
-            description: "Photos taken by me for travel, life and model cars.",
+            description:
+              "Photos taken by me for travel, life and model cars. Opens a Flickr URL.",
             href: "https://www.flickr.com/photos/10588039@N08/albums/with/72177720299204839",
-            icon: faCamera,
+            icon: faFlickr,
             title: "Photography",
           },
         ]}

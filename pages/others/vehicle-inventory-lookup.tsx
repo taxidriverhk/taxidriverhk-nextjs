@@ -6,6 +6,7 @@ import Template from "components/Template";
 import SearchInput from "components/vehicle-inventory-lookup/SearchInput";
 import SearchResults from "components/vehicle-inventory-lookup/SearchResults";
 import { useCallback, useEffect, useState } from "react";
+import { Alert } from "react-bootstrap";
 import { Website } from "shared/config/website-config";
 import { searchInventoryAsync } from "shared/fetch/vehicle-inventory-lookup";
 import {
@@ -14,8 +15,9 @@ import {
   VehicleInventorySearchQuery,
 } from "shared/types/vehicle-inventory-lookup-types";
 
+const CURRENT_YEAR = new Date().getFullYear();
 const DEFAULT_QUERY: VehicleInventorySearchQuery = {
-  year: 2023,
+  year: CURRENT_YEAR + 1,
   brand: VehicleBrand.HONDA,
   model: "civic-si-sedan",
   zipCode: 91754,
@@ -23,11 +25,16 @@ const DEFAULT_QUERY: VehicleInventorySearchQuery = {
 };
 
 type PropType = {
+  hasError?: boolean;
   query: VehicleInventorySearchQuery;
   vehicles: Array<VehicleInventory>;
 };
 
-export default function VehicleInventoryLookup({ query, vehicles }: PropType) {
+export default function VehicleInventoryLookup({
+  hasError,
+  query,
+  vehicles,
+}: PropType) {
   const router = useRouter();
   const { asPath: currentPath, pathname } = router;
 
@@ -58,6 +65,12 @@ export default function VehicleInventoryLookup({ query, vehicles }: PropType) {
 
   return (
     <Template activeWebsite={Website.PERSONAL} path={currentPath}>
+      {hasError === true && (
+        <Alert variant="danger">
+          An error occurred when trying to search for vehicles, please try again
+          later.
+        </Alert>
+      )}
       <SearchInput
         hasValidationError={hasValidationError}
         isDisabled={isSearching}
@@ -86,7 +99,11 @@ export async function getServerSideProps(
   const { hasError, vehicles } = await searchInventoryAsync(searchQuery);
   if (hasError || vehicles == null) {
     return {
-      notFound: true,
+      props: {
+        hasError,
+        query: searchQuery,
+        vehicles: [],
+      },
     };
   }
 

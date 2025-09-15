@@ -1,6 +1,7 @@
 import axios from "axios";
 import logger from "logger";
 
+import { MAX_INVENTORIES } from "shared/config/vehicle-inventory-config";
 import type {
   VehicleInventory,
   VehicleInventorySearchQuery,
@@ -44,6 +45,10 @@ export class HondaVehicleInventoryService extends VehicleInventoryService {
     }>("https://automobiles.honda.com/platform/api/v3/inventoryAndDealers", {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        "sec-ch-ua-platform": "Windows",
+        "sec-ch-ua":
+          '"Chromium";v="140", "Not=A?Brand";v="24", "Microsoft Edge";v="140"',
+        "sec-ch-ua-mobile": "?0",
       },
       params: {
         productDivisionCode: "A",
@@ -68,30 +73,32 @@ export class HondaVehicleInventoryService extends VehicleInventoryService {
     }, {});
 
     return {
-      vehicles: data.inventory?.map(
-        ({
-          DealerNumber,
-          ModelYear,
-          ModelGroupName,
-          ModelTrim,
-          Transmission,
-          VINs,
-          ExteriorColor,
-          InteriorColor,
-          NumberOnSite,
-        }) => ({
-          vin: VINs[0].VIN,
-          dealer: dealerLookup[DealerNumber].Name,
-          drivingDistance: dealerLookup[DealerNumber].DrivingDistanceMiles,
-          year: Number.parseInt(ModelYear),
-          model: ModelGroupName,
-          trim: ModelTrim,
-          transmission: Transmission,
-          exteriorColor: ExteriorColor,
-          interiorColor: InteriorColor,
-          numAvailable: NumberOnSite,
-        })
-      ),
+      vehicles: data.inventory
+        ?.slice(0, MAX_INVENTORIES)
+        .map(
+          ({
+            DealerNumber,
+            ModelYear,
+            ModelGroupName,
+            ModelTrim,
+            Transmission,
+            VINs,
+            ExteriorColor,
+            InteriorColor,
+            NumberOnSite,
+          }) => ({
+            vin: VINs[0].VIN,
+            dealer: dealerLookup[DealerNumber].Name,
+            drivingDistance: dealerLookup[DealerNumber].DrivingDistanceMiles,
+            year: Number.parseInt(ModelYear),
+            model: ModelGroupName,
+            trim: ModelTrim,
+            transmission: Transmission,
+            exteriorColor: ExteriorColor,
+            interiorColor: InteriorColor,
+            numAvailable: NumberOnSite,
+          })
+        ),
     };
   }
 }

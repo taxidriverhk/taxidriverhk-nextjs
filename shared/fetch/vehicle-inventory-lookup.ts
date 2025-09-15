@@ -29,7 +29,9 @@ export async function searchInventoryAsync(
     };
   }
 
-  return inventoryService.searchAsync(query);
+  return inventoryService.searchAsync(query).catch(() => ({
+    hasError: true,
+  }));
 }
 
 const SERVICE_PROVIDER: Map<VehicleBrand, VehicleInventoryService> = new Map<

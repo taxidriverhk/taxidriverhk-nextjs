@@ -1,5 +1,7 @@
 import { VehicleBrand } from "shared/types/vehicle-inventory-lookup-types";
 
+export const MAX_INVENTORIES: number = 1000;
+
 export const brands: Map<VehicleBrand, string> = new Map<VehicleBrand, string>([
   [VehicleBrand.HONDA, "Honda"],
   [VehicleBrand.TOYOTA, "Toyota"],
