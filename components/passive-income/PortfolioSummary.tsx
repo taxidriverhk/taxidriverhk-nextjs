@@ -16,6 +16,7 @@ type PropType = {
 
 export default function PortfolioSummary({ holdings, loading }: PropType) {
   const {
+    totalCostBasis,
     totalDividendIncome,
     overallYield,
     estimatedTax,
@@ -32,8 +33,12 @@ export default function PortfolioSummary({ holdings, loading }: PropType) {
       {loading ? (
         <PortfolioSpinner />
       ) : (
-        <Table bordered striped>
+        <Table bordered hover striped>
           <tbody>
+            <tr>
+              <td>Total Principal</td>
+              <td>{formatDollarAmount(totalCostBasis)}</td>
+            </tr>
             <tr>
               <td>Estimated Annual Dividend Income</td>
               <td>{formatDollarAmount(totalDividendIncome)}</td>

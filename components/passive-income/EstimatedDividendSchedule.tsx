@@ -148,11 +148,13 @@ function EstimatedDividendAccordion({
               <Card key={month.key} className="mb-2">
                 <Accordion.Item eventKey={month.key}>
                   <Accordion.Header>
-                    <div className="d-flex flex-column">
+                    <div className="d-flex flex-row gap-2">
                       <span>{month.label}</span>
-                      <strong>{formatDollarAmount(month.total)}</strong>
-                      <strong>
-                        HK{formatDollarAmount(month.total * HKD_PER_USD)}
+                      <strong className="text-success">
+                        {formatDollarAmount(month.total)}
+                      </strong>
+                      <strong className="text-success">
+                        = HK{formatDollarAmount(month.total * HKD_PER_USD)}
                       </strong>
                     </div>
                   </Accordion.Header>

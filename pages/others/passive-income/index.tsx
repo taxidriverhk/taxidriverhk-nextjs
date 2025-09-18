@@ -8,6 +8,7 @@ import { useEffect, useReducer, useState } from "react";
 import AddHoldingModal from "components/passive-income/AddHoldingModal";
 import BatchAddHoldingsModal from "components/passive-income/BatchAddHoldingsModal";
 import EstimatedDividendSchedule from "components/passive-income/EstimatedDividendSchedule";
+import PortfolioBreakdown from "components/passive-income/PortfolioBreakdown";
 import PortfolioFooter from "components/passive-income/PortfolioFooter";
 import PortfolioHeader from "components/passive-income/PortfolioHeader";
 import PortfolioSummary from "components/passive-income/PortfolioSummary";
@@ -133,16 +134,22 @@ function PassiveIncomeBody({
         onImportHoldings={handleImportHoldings}
         onProviderChange={setProvider}
       />
+      <hr />
       <PortfolioTable
         holdings={state.holdings}
         loading={state.loading}
         onRemove={handleRemoveHolding}
       />
+      <hr />
+      <PortfolioBreakdown holdings={state.holdings} loading={state.loading} />
+      <hr />
       <EstimatedDividendSchedule
         holdings={state.holdings}
         loading={state.loading}
       />
+      <hr />
       <PortfolioSummary holdings={state.holdings} loading={state.loading} />
+      <hr />
       <PortfolioFooter
         apiKey={apiKey}
         provider={provider}
