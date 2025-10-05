@@ -98,11 +98,16 @@ export function calculateGainLoss(holding: Holding) {
 
 export function calculatePortfolioSummary(holdings: Array<Holding>) {
   const totalCostBasis = holdings.reduce((sum, h) => sum + h.costBasis, 0);
+  const totalCostBasisHKD = totalCostBasis * HKD_PER_USD;
+
   const totalDividendIncome = holdings.reduce(
     (sum, h) => sum + h.shares * h.dividendPerShareTTM,
     0
   );
-  // Gains
+  const totalDividendIncomeHKD = totalDividendIncome * HKD_PER_USD;
+  const beforeTaxMonthly = totalDividendIncome / MONTHS_PER_YEAR;
+  const beforeTaxMonthlyHKD = beforeTaxMonthly * HKD_PER_USD;
+
   const totalCurrentValue = holdings.reduce(
     (sum, h) => sum + h.price * h.shares,
     0
@@ -115,21 +120,30 @@ export function calculatePortfolioSummary(holdings: Array<Holding>) {
     totalCostBasis > 0 ? (totalDividendIncome / totalCostBasis) * 100 : 0;
 
   const estimatedTax = calculateFederalTaxOnOrdinaryIncome(totalDividendIncome);
+  const marginalTaxRate = (estimatedTax / totalDividendIncome) * 100;
+
   const afterTaxIncome = totalDividendIncome - estimatedTax;
+  const afterTaxIncomeHKD = afterTaxIncome * HKD_PER_USD;
   const afterTaxMonthly = afterTaxIncome / MONTHS_PER_YEAR;
   const afterTaxMonthlyHKD = afterTaxMonthly * HKD_PER_USD;
 
   return {
     totalCostBasis,
+    totalCostBasisHKD,
     totalDividendIncome,
+    totalDividendIncomeHKD,
     totalCurrentValue,
     totalGainLoss,
     totalPctGainLoss,
+    beforeTaxMonthly,
+    beforeTaxMonthlyHKD,
     afterTaxIncome,
+    afterTaxIncomeHKD,
     afterTaxMonthly,
     afterTaxMonthlyHKD,
     overallYield,
     estimatedTax,
+    marginalTaxRate,
   };
 }
 
