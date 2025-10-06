@@ -124,7 +124,7 @@ export default function PortfolioSummary({ holdings, loading }: PropType) {
                 </tr>
                 <tr>
                   <td>After-Tax Monthly Dividend Income (HKD)</td>
-                  <td>HK{formatDollarAmount(afterTaxMonthlyHKD)}</td>
+                  <td>{formatDollarAmount(afterTaxMonthlyHKD)}</td>
                 </tr>
               </tbody>
             </Table>
