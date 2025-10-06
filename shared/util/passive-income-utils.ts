@@ -126,6 +126,7 @@ export function calculatePortfolioSummary(holdings: Array<Holding>) {
   const afterTaxIncomeHKD = afterTaxIncome * HKD_PER_USD;
   const afterTaxMonthly = afterTaxIncome / MONTHS_PER_YEAR;
   const afterTaxMonthlyHKD = afterTaxMonthly * HKD_PER_USD;
+  const overallYieldAfterTax = (afterTaxIncome / totalCostBasis) * 100;
 
   return {
     totalCostBasis,
@@ -141,6 +142,7 @@ export function calculatePortfolioSummary(holdings: Array<Holding>) {
     afterTaxIncomeHKD,
     afterTaxMonthly,
     afterTaxMonthlyHKD,
+    overallYieldAfterTax,
     overallYield,
     estimatedTax,
     marginalTaxRate,

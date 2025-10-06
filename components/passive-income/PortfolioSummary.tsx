@@ -21,6 +21,7 @@ export default function PortfolioSummary({ holdings, loading }: PropType) {
     totalDividendIncome,
     totalDividendIncomeHKD,
     overallYield,
+    overallYieldAfterTax,
     estimatedTax,
     marginalTaxRate,
     beforeTaxMonthly,
@@ -125,6 +126,10 @@ export default function PortfolioSummary({ holdings, loading }: PropType) {
                 <tr>
                   <td>After-Tax Monthly Dividend Income (HKD)</td>
                   <td>{formatDollarAmount(afterTaxMonthlyHKD)}</td>
+                </tr>
+                <tr>
+                  <td>Overall Dividend Yield</td>
+                  <td>{formatPercentage(overallYieldAfterTax)}</td>
                 </tr>
               </tbody>
             </Table>
