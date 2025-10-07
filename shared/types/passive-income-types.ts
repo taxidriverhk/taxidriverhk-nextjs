@@ -41,6 +41,7 @@ export type Holding = {
   }>;
   dividendFrequency: string;
   dividendPerShareTTM: number;
+  nextCouponDate: string | null;
   price: number;
   shares: number;
   symbol: string;
@@ -61,4 +62,5 @@ export type AddHoldingInput = {
   symbol: string;
   dividendYield: number;
   dividendFrequency: DividendFrequency;
+  nextCouponDate: string | null;
 };

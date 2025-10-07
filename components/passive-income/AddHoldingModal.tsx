@@ -21,12 +21,14 @@ export default function AddHoldingModal({ show, onHide, onSubmit }: PropTypes) {
   const [dividendYield, setDividendYield] = useState(0.0);
   const [dividendFrequency, setDividendFrequency] =
     useState<DividendFrequency>("");
+  const [nextCouponDate, setNextCouponDate] = useState("");
 
   const resetInputs = () => {
     setSymbol("");
     setShares("");
     setCostBasis("");
     setCategory("");
+    setNextCouponDate("");
   };
   const handleSubmit = () => {
     onSubmit({
@@ -37,6 +39,7 @@ export default function AddHoldingModal({ show, onHide, onSubmit }: PropTypes) {
       isDataFetchingNeeded,
       dividendYield,
       dividendFrequency,
+      nextCouponDate,
     });
     onHide();
     resetInputs();
@@ -140,6 +143,14 @@ export default function AddHoldingModal({ show, onHide, onSubmit }: PropTypes) {
                     )
                   )}
                 </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Next Coupon Date</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={nextCouponDate}
+                  onChange={(e) => setNextCouponDate(e.target.value)}
+                />
               </Form.Group>
             </>
           )}

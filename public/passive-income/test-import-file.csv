@@ -1,4 +1,4 @@
-Symbol,Number of Shares,Cost Basis,Category,Custom Input,Dividend Yield,Dividend Frequency
+Symbol,Number of Shares,Cost Basis,Category,Custom Input,Dividend Yield,Dividend Frequency,Next Coupon Date
 QQQ,100,20000,Core Growth,,,
 JEPI,200,10000,Covered Call,,,
-61776NWR0,30000,30000,CD,Yes,0.0395,Semi-Annually
+61776NWR0,30000,30000,CD,Yes,0.0395,Semi-Annually,2025-11-15

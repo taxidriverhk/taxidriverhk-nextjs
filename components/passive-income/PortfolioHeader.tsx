@@ -52,7 +52,7 @@ export default function PortfolioHeader({
                   required to compute the dividend income.
                 </li>
                 <li>
-                  If you choose <code>Alpha Vantage</code> API, then enter your
+                  If you choose <code>Alpha Vantage</code> API, then enter your{" "}
                   <code>Alpha Vantage</code> API key below before providing your
                   input.
                   <ul>
@@ -68,8 +68,10 @@ export default function PortfolioHeader({
                       to obtain a free API key.
                     </li>
                     <li>
-                      However, they limit to 25 requests per day, so please plan
-                      your usage accordingly or get a premium access.
+                      However,{" "}
+                      <strong>they limit to 25 requests per day</strong>, so
+                      please plan your usage accordingly or get a premium
+                      access.
                     </li>
                   </ul>
                 </li>
@@ -77,8 +79,10 @@ export default function PortfolioHeader({
                   Unfortunately, <code>Yahoo! Finance</code> will not allow
                   fetching from the client due to cross-origin policy, so the
                   call has to be made through a server-side wrapper. To avoid
-                  overloading the wrapper, only those with an authorized key can
-                  use the API.
+                  overloading the wrapper,{" "}
+                  <strong>
+                    only those with an authorized key may use the API.
+                  </strong>
                 </li>
                 <li>
                   If you want to import a CSV,{" "}
@@ -93,7 +97,8 @@ export default function PortfolioHeader({
                     <li>
                       The header can be optionally follwed by the columns{" "}
                       <code>
-                        Custom Input, Dividend Yield, Dividend Frequency
+                        Custom Input, Dividend Yield, Dividend Frequency, Next
+                        Coupon Date
                       </code>
                     </li>
                     <li>
@@ -118,9 +123,12 @@ export default function PortfolioHeader({
                   </ul>
                 </li>
                 <li>
-                  If you want to keep the data for future use, please use the{" "}
-                  <code>Export (under development)</code> function before
-                  leaving the page. Otherwise, you will loss the data.
+                  If you want to keep the data for future use,{" "}
+                  <strong>
+                    please use the <code>Share</code> button at the bottom
+                  </strong>{" "}
+                  to save your portfolio as a compressed URL before leaving the
+                  page. Otherwise, you will lose the data.
                 </li>
               </ul>
             </Accordion.Body>

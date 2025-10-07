@@ -21,6 +21,7 @@ type ImportRow = {
   "Custom Input"?: string;
   "Dividend Yield"?: string;
   "Dividend Frequency"?: string;
+  "Next Coupon Date"?: string;
 };
 
 export default function ImportCSVButton({
@@ -63,6 +64,7 @@ export default function ImportCSVButton({
               "Custom Input": customInput,
               "Dividend Yield": dividendYieldStr,
               "Dividend Frequency": dividendFrequencyStr,
+              "Next Coupon Date": nextCouponDateStr,
             } = row;
 
             const shares = parseFloat(sharesStr);
@@ -71,6 +73,11 @@ export default function ImportCSVButton({
             if (!symbol || isNaN(shares) || isNaN(costBasis)) {
               return null;
             }
+
+            const nextCouponDate =
+              nextCouponDateStr != null && nextCouponDateStr.trim() !== ""
+                ? new Date(nextCouponDateStr).toISOString().split("T")[0]
+                : null;
 
             const isCustomInputProvided = customInput?.toLowerCase() === "yes";
             const dividendYield = parseFloat(dividendYieldStr ?? "0");
@@ -85,6 +92,7 @@ export default function ImportCSVButton({
               isDataFetchingNeeded: !isCustomInputProvided,
               dividendFrequency,
               dividendYield,
+              nextCouponDate,
             };
           })
           .filter((holding): holding is AddHoldingInput => holding !== null);

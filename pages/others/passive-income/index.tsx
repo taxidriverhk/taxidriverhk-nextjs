@@ -215,6 +215,7 @@ export async function getServerSideProps(
         symbol,
         dividendPerShareTTM,
         dividendFrequency,
+        nextCouponDate,
       }) => ({
         isDataFetchingNeeded: price !== 1.0,
         category,
@@ -223,6 +224,7 @@ export async function getServerSideProps(
         symbol,
         dividendYield: dividendPerShareTTM / price,
         dividendFrequency: dividendFrequency as DividendFrequency,
+        nextCouponDate,
       })
     ) ?? null;
 

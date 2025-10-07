@@ -36,6 +36,7 @@ export default function BatchAddHoldingsModal({
                   <th>Is Data Fetching Needed</th>
                   <th>Dividend Yield</th>
                   <th>Dividend Frequency</th>
+                  <th>Next Coupon Date</th>
                 </>
               )}
             </tr>
@@ -50,6 +51,7 @@ export default function BatchAddHoldingsModal({
                 isDataFetchingNeeded,
                 dividendFrequency,
                 dividendYield,
+                nextCouponDate,
               }) => (
                 <tr key={symbol}>
                   <td>{symbol}</td>
@@ -65,6 +67,17 @@ export default function BatchAddHoldingsModal({
                           : ""}
                       </td>
                       <td>{!isDataFetchingNeeded ? dividendFrequency : ""}</td>
+                      <td>
+                        {(() => {
+                          if (!isDataFetchingNeeded) {
+                            return (
+                              nextCouponDate ??
+                              new Date().toISOString().split("T")[0]
+                            );
+                          }
+                          return "";
+                        })()}
+                      </td>
                     </>
                   )}
                 </tr>

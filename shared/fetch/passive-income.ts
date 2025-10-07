@@ -118,9 +118,9 @@ class YahooFinanceSecurityDataFetcher extends SecurityDataFetcher {
 
 class SelfInputSecurityDataFetcher extends SecurityDataFetcher {
   async fetchSecurityDataAsync({
-    shares,
     dividendFrequency,
     dividendYield,
+    nextCouponDate,
   }: AddHoldingInput): Promise<SecurityData> {
     const price = 1.0;
     const annualDividendYield = dividendYield ?? 0.0000001; // Very small value to avoid divide by zero
@@ -128,47 +128,44 @@ class SelfInputSecurityDataFetcher extends SecurityDataFetcher {
     const endDate = new Date();
     endDate.setDate(1);
 
-    const startDate = new Date();
-    startDate.setFullYear(startDate.getFullYear() - 1);
-    startDate.setDate(1);
+    const couponDate =
+      nextCouponDate != null ? new Date(nextCouponDate) : new Date();
+    couponDate.setFullYear(couponDate.getFullYear() - 1);
+    if (nextCouponDate == null) {
+      couponDate.setDate(1);
+    }
 
     const dividendHistory: Array<{
       exDividendDate: string;
       amount: number;
     }> = [];
-    while (endDate >= startDate) {
-      const exDividendDate = formatDate(endDate);
+    while (couponDate <= endDate) {
+      const exDividendDate = formatDate(couponDate);
       if (dividendFrequency === "Monthly") {
         dividendHistory.push({
           amount: (price * annualDividendYield) / 12.0,
           exDividendDate,
         });
-      } else if (
-        dividendFrequency === "Quarterly" &&
-        [2, 5, 8, 11].includes(endDate.getMonth())
-      ) {
+        couponDate.setMonth(couponDate.getMonth() + 1);
+      } else if (dividendFrequency === "Quarterly") {
         dividendHistory.push({
           amount: (price * annualDividendYield) / 4.0,
           exDividendDate,
         });
-      } else if (
-        dividendFrequency === "Semi-Annually" &&
-        [5, 11].includes(endDate.getMonth())
-      ) {
+        couponDate.setMonth(couponDate.getMonth() + 3);
+      } else if (dividendFrequency === "Semi-Annually") {
         dividendHistory.push({
           amount: (price * annualDividendYield) / 2.0,
           exDividendDate,
         });
-      } else if (
-        dividendFrequency === "Annually" &&
-        endDate.getMonth() === 11
-      ) {
+        couponDate.setMonth(couponDate.getMonth() + 6);
+      } else if (dividendFrequency === "Annually") {
         dividendHistory.push({
           amount: price * annualDividendYield,
           exDividendDate,
         });
+        couponDate.setMonth(couponDate.getMonth() + 12);
       }
-      endDate.setMonth(endDate.getMonth() - 1);
     }
     const { dividendPerShareTTM } = calculateDividendMetrics(dividendHistory);
 
