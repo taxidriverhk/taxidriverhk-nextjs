@@ -1,4 +1,5 @@
 import PortfolioSpinner from "components/passive-income/PortfolioSpinner";
+import { mean, std } from "mathjs";
 import { useMemo, useState } from "react";
 import { Accordion, Button, Card, ListGroup, Table } from "react-bootstrap";
 import type { AccordionEventKey } from "react-bootstrap/AccordionContext";
@@ -194,7 +195,77 @@ function EstimatedDividendAccordion({
           </Accordion>
         </Card>
       </ListGroup.Item>
+      <ListGroup.Item>
+        <EstimatedDividendStatistics
+          monthlyPayments={next12Months.map((m) => m.total)}
+        />
+      </ListGroup.Item>
     </ListGroup>
+  );
+}
+
+function EstimatedDividendStatistics({
+  monthlyPayments,
+}: {
+  monthlyPayments: Array<number>;
+}) {
+  const sampleMean = mean(monthlyPayments);
+  const sampleStd = std(monthlyPayments, "uncorrected") as number;
+
+  const standardError = sampleStd / Math.sqrt(monthlyPayments.length);
+  const marginOfError = 1.96 * standardError; // 95% CI
+  const ciLowerBound = sampleMean - marginOfError;
+  const ciUpperBound = sampleMean + marginOfError;
+
+  return (
+    <Table bordered hover striped size="sm">
+      <tbody>
+        <tr>
+          <td>Mean (USD)</td>
+          <td>
+            <strong>{formatDollarAmount(sampleMean)}</strong>
+          </td>
+        </tr>
+        <tr>
+          <td>Standard Deviation (USD)</td>
+          <td>
+            <strong>{formatDollarAmount(sampleStd)}</strong>
+          </td>
+        </tr>
+        <tr>
+          <td>95% Confidence Interval (USD)</td>
+          <td>
+            <strong>
+              [{formatDollarAmount(ciLowerBound)},{" "}
+              {formatDollarAmount(ciUpperBound)}]
+            </strong>
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td>Mean (HKD)</td>
+          <td>
+            <strong>{formatDollarAmount(sampleMean * HKD_PER_USD)}</strong>
+          </td>
+        </tr>
+        <tr>
+          <td>Standard Deviation (HKD)</td>
+          <td>
+            <strong>{formatDollarAmount(sampleStd * HKD_PER_USD)}</strong>
+          </td>
+        </tr>
+        <tr>
+          <td>95% Confidence Interval (HKD)</td>
+          <td>
+            <strong>
+              [{formatDollarAmount(ciLowerBound * HKD_PER_USD)},{" "}
+              {formatDollarAmount(ciUpperBound * HKD_PER_USD)}]
+            </strong>
+          </td>
+        </tr>
+      </tbody>
+    </Table>
   );
 }
 
