@@ -1,6 +1,7 @@
-import { Button, Table } from "react-bootstrap";
+import { Button, Form, InputGroup, Table } from "react-bootstrap";
 import { DatatableWrapper, TableBody, TableHeader } from "react-bs-datatable";
 
+import { useState } from "react";
 import type { Holding } from "shared/types/passive-income-types";
 import {
   calculateGainLoss,
@@ -15,14 +16,15 @@ import PortfolioSpinner from "./PortfolioSpinner";
 type PropTypes = {
   holdings: Array<Holding>;
   loading: boolean;
+  onHoldingEdit: (symbol: string, shares: number, costBasis: number) => void;
   onRemove: (symbol: string) => void;
 };
 
 type HoldingRow = {
   symbol: string;
   category: string;
-  shares: number;
-  costBasis: string;
+  shares: number | JSX.Element;
+  costBasis: string | JSX.Element;
   expenseRatio: string;
   portfolioPct: string;
   price: string;
@@ -87,8 +89,13 @@ const HEADERS: Array<{
 export default function PortfolioTable({
   holdings,
   loading,
+  onHoldingEdit,
   onRemove,
 }: PropTypes) {
+  const [editingSymbol, setEditingSymbol] = useState<string | null>(null);
+  const [editingShares, setEditingShares] = useState<number>(0);
+  const [editingCostBasis, setEditingCostBasis] = useState<number>(0);
+
   const { totalCostBasis, totalDividendIncome } =
     calculatePortfolioMetrics(holdings);
 
@@ -104,11 +111,34 @@ export default function PortfolioTable({
       : 0;
     const { gainLoss, pctGainLoss } = calculateGainLoss(h);
 
+    const isEditing = editingSymbol === h.symbol;
+    const isOtherEditingInProgress = editingSymbol !== null && !isEditing;
+
     return {
       symbol: h.symbol,
       category: h.category || "-",
-      shares: h.shares,
-      costBasis: formatDollarAmount(h.costBasis),
+      shares: isEditing ? (
+        <Form.Control
+          size="sm"
+          type="number"
+          value={editingShares}
+          onChange={(e) => setEditingShares(Number(e.target.value))}
+        />
+      ) : (
+        h.shares
+      ),
+      costBasis: isEditing ? (
+        <InputGroup size="sm">
+          <InputGroup.Text>$</InputGroup.Text>
+          <Form.Control
+            type="number"
+            value={editingCostBasis}
+            onChange={(e) => setEditingCostBasis(Number(e.target.value))}
+          />
+        </InputGroup>
+      ) : (
+        formatDollarAmount(h.costBasis)
+      ),
       expenseRatio: formatPercentage(h.expenseRatio * 100),
       portfolioPct: formatPercentage(portfolioPct),
       dividendFrequency: h.dividendFrequency,
@@ -120,10 +150,51 @@ export default function PortfolioTable({
       pctGainLoss: (
         <PortfolioGainOrLossCell gainOrLoss={pctGainLoss} suffix="%" />
       ),
-      actions: (
-        <Button size="sm" variant="danger" onClick={() => onRemove(h.symbol)}>
-          Remove
-        </Button>
+      actions: isEditing ? (
+        <>
+          <Button
+            size="sm"
+            variant="outline-secondary"
+            onClick={() => setEditingSymbol(null)}
+          >
+            Discard
+          </Button>
+          <Button
+            size="sm"
+            variant="outline-primary"
+            onClick={() => {
+              onHoldingEdit(h.symbol, editingShares, editingCostBasis);
+              setEditingCostBasis(0);
+              setEditingShares(0);
+              setEditingSymbol(null);
+            }}
+          >
+            Finish
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button
+            disabled={isOtherEditingInProgress}
+            size="sm"
+            variant="primary"
+            onClick={() => {
+              setEditingShares(h.shares);
+              setEditingCostBasis(h.costBasis);
+              setEditingSymbol(h.symbol);
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            disabled={isOtherEditingInProgress}
+            size="sm"
+            variant="danger"
+            onClick={() => onRemove(h.symbol)}
+          >
+            Remove
+          </Button>
+        </>
       ),
     };
   });
@@ -162,7 +233,7 @@ export default function PortfolioTable({
             },
           }}
         >
-          <Table striped bordered hover responsive>
+          <Table striped bordered hover responsive size="sm">
             <TableHeader />
             <TableBody />
           </Table>

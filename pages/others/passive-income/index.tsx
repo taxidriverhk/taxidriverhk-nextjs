@@ -110,6 +110,17 @@ function PassiveIncomeBody({
     }
   };
 
+  const handleEditHolding = (
+    symbol: string,
+    shares: number,
+    costBasis: number
+  ) => {
+    dispatch({
+      type: ActionTypes.EDIT_HOLDING,
+      payload: { symbol, shares, costBasis },
+    });
+  };
+
   return (
     <>
       {state.error && (
@@ -138,6 +149,7 @@ function PassiveIncomeBody({
       <PortfolioTable
         holdings={state.holdings}
         loading={state.loading}
+        onHoldingEdit={handleEditHolding}
         onRemove={handleRemoveHolding}
       />
       <hr />

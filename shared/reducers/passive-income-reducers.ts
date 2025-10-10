@@ -16,6 +16,7 @@ export enum ActionTypes {
   ADD_HOLDING,
   API_ERROR,
   BATCH_ADD_HOLDINGS,
+  EDIT_HOLDING,
   FETCHING_HOLDINGS_DATA,
   REMOVE_HOLDING,
 }
@@ -35,6 +36,20 @@ function portfolioReducer(state: ReducerState, action: any): ReducerState {
         ...state,
         loading: false,
         holdings: [...state.holdings, ...action.payload],
+      };
+    case ActionTypes.EDIT_HOLDING:
+      return {
+        ...state,
+        loading: false,
+        holdings: state.holdings.map((holding) =>
+          holding.symbol === action.payload.symbol
+            ? {
+                ...holding,
+                shares: action.payload.shares,
+                costBasis: action.payload.costBasis,
+              }
+            : holding
+        ),
       };
     case ActionTypes.FETCHING_HOLDINGS_DATA:
       return {
