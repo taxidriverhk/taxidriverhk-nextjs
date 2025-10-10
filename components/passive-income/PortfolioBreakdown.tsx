@@ -21,6 +21,7 @@ type CategoryIncome = Record<
     principalPct: number;
     income: number;
     incomePct: number;
+    yieldPct: number;
   }
 >;
 
@@ -30,6 +31,7 @@ type CategoryRow = {
   principalPct: string;
   income: string;
   incomePct: string;
+  yieldPct: string;
 };
 
 const HEADERS: Array<{
@@ -42,6 +44,7 @@ const HEADERS: Array<{
   { prop: "principalPct", title: "% of Principal", isSortable: true },
   { prop: "income", title: "Income", isSortable: true },
   { prop: "incomePct", title: "% of Income", isSortable: true },
+  { prop: "yieldPct", title: "% Yield", isSortable: true },
 ];
 
 export default function PortfolioBreakdown({ holdings, loading }: PropTypes) {
@@ -64,18 +67,20 @@ export default function PortfolioBreakdown({ holdings, loading }: PropTypes) {
           principalPct: updatedPrincipalPct,
           income: updatedIncome,
           incomePct: updatedIncomePct,
+          yieldPct: (updatedIncome / updatedPrincipal) * 100,
         },
       };
     },
     {} as CategoryIncome
   );
   const rows: Array<CategoryRow> = Object.entries(holdingsByCategory).map(
-    ([category, { principal, principalPct, income, incomePct }]) => ({
+    ([category, { principal, principalPct, income, incomePct, yieldPct }]) => ({
       category,
       principal: formatDollarAmount(principal),
       principalPct: formatPercentage(principalPct),
       income: formatDollarAmount(income),
       incomePct: formatPercentage(incomePct),
+      yieldPct: formatPercentage(yieldPct),
     })
   );
 
@@ -111,6 +116,8 @@ export default function PortfolioBreakdown({ holdings, loading }: PropTypes) {
                 income: formattedNumberComparator,
                 //@ts-ignore
                 incomePct: formattedNumberComparator,
+                //@ts-ignore
+                yieldPct: formattedNumberComparator,
               },
             }}
           >
