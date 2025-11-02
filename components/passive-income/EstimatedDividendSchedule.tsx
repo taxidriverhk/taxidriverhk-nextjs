@@ -48,6 +48,7 @@ export default function EstimatedDividendSchedule({
 
   // Build projection for next 12 months
   const now = new Date();
+  now.setDate(1); // Set to first day of the current month to allow projection of the first month in full
   const next12Months = Array.from({ length: 12 }).map((_, idx) => {
     const future = addMonthsToDate(now, idx);
     const keyLastYear = formatKey(addMonthsToDate(future, -12));
