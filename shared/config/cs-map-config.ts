@@ -1,4 +1,4 @@
-const DEV_API_ENDPOINT = "http://localhost:8091";
+const DEV_API_ENDPOINT = "http://localhost:8090";
 
 export function getApiEndpoint(): string {
   const isDev = process.env.NODE_ENV === "development";

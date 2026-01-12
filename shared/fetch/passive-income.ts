@@ -123,7 +123,7 @@ class SelfInputSecurityDataFetcher extends SecurityDataFetcher {
     nextCouponDate,
   }: AddHoldingInput): Promise<SecurityData> {
     const price = 1.0;
-    const annualDividendYield = dividendYield ?? 0.0000001; // Very small value to avoid divide by zero
+    const annualDividendYield = dividendYield ?? 0.0000001; // Very small value to avoid division by zero
 
     const endDate = new Date();
     endDate.setDate(1);
