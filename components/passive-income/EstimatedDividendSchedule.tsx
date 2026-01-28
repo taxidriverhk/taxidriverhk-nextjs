@@ -1,3 +1,4 @@
+import DividendTimeSeriesChart from "components/passive-income/DividendTimeSeriesChart";
 import PortfolioSpinner from "components/passive-income/PortfolioSpinner";
 import { mean, std } from "mathjs";
 import { useMemo, useState } from "react";
@@ -89,11 +90,14 @@ export default function EstimatedDividendSchedule({
           );
         }
         return (
-          <EstimatedDividendAccordion
-            activeKey={activeKey}
-            setActiveKey={setActiveKey}
-            next12Months={next12Months}
-          />
+          <>
+            <DividendTimeSeriesChart next12Months={next12Months} />
+            <EstimatedDividendAccordion
+              activeKey={activeKey}
+              setActiveKey={setActiveKey}
+              next12Months={next12Months}
+            />
+          </>
         );
       })()}
     </div>
