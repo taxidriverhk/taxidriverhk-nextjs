@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getApiEndpoint as getCachedApiEndpoint } from "shared/config/cs-map-config";
+import { getApiEndpoint as getCachedApiEndpoint } from "shared/config/fastify-config";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>
+  res: NextApiResponse<any>,
 ) {
   if (req.method !== "GET") {
     res.status(404).send({});
@@ -28,13 +28,11 @@ export default async function handler(
         params: {
           apiKey,
         },
-      }
+      },
     );
     res.status(200).json(data);
   } catch (error) {
     const axiosError = error as AxiosError;
-    res
-      .status(axiosError?.response?.status ?? 500)
-      .send({});
+    res.status(axiosError?.response?.status ?? 500).send({});
   }
 }

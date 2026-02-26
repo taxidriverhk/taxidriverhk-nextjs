@@ -4,7 +4,7 @@ import {
   getWithItemNotFoundHandledAsync,
 } from "shared/fetch/common";
 
-import { getApiEndpoint } from "shared/config/cs-map-config";
+import { getApiEndpoint } from "shared/config/fastify-config";
 import {
   Map as GetMapResponse,
   GetMapsResponse,
@@ -18,33 +18,33 @@ export async function getMapsAsync(): Promise<GetMapsResponse> {
 }
 
 export async function getMapAsync(
-  mapNameOrId: string
+  mapNameOrId: string,
 ): Promise<GetMapResponse | ItemNotFoundResponse> {
   return await getWithItemNotFoundHandledAsync<GetMapResponse>(
     `${getApiEndpoint()}/maps/${mapNameOrId}`,
-    {}
+    {},
   );
 }
 
 export async function getStatisticsAsync(): Promise<GetStatisticsResponse> {
   return await getAsync<GetStatisticsResponse>(
     `${getApiEndpoint()}/statistics`,
-    {}
+    {},
   );
 }
 
 export async function getTutorialsAsync(): Promise<GetTutorialsResponse> {
   return await getAsync<GetTutorialsResponse>(
     `${getApiEndpoint()}/tutorials`,
-    {}
+    {},
   );
 }
 
 export async function getTutorialAsync(
-  id: string
+  id: string,
 ): Promise<GetTutorialResponse | ItemNotFoundResponse> {
   return await getWithItemNotFoundHandledAsync<GetTutorialResponse>(
     `${getApiEndpoint()}/tutorials/${id}`,
-    {}
+    {},
   );
 }

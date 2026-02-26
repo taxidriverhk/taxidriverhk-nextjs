@@ -1,11 +1,11 @@
 import axios, { AxiosError } from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getApiEndpoint as getCachedApiEndpoint } from "shared/config/cs-map-config";
+import { getApiEndpoint as getCachedApiEndpoint } from "shared/config/fastify-config";
 import { GetStockDataResponse } from "shared/types/passive-income-types";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<GetStockDataResponse>
+  res: NextApiResponse<GetStockDataResponse>,
 ) {
   if (req.method !== "GET") {
     res.status(404).send({} as GetStockDataResponse);
@@ -29,7 +29,7 @@ export default async function handler(
         params: {
           apiKey,
         },
-      }
+      },
     );
     res.status(200).json(data);
   } catch (error) {
