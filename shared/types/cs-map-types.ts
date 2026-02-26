@@ -177,10 +177,8 @@ export class CsMapsDataMapper {
       progressPercentage: progress_percentage,
       version,
       releaseDate: this.toDateString(release_date) as string,
-      status: parseInt(status as unknown as string, 10) as ReleaseStatus,
-      targetGameVersion: this.toGameVersion(
-        parseInt(target_game_version as unknown as string, 10)
-      ),
+      status: status as unknown as ReleaseStatus,
+      targetGameVersion: this.toGameVersion(target_game_version),
       updateDate: this.toDateString(update_date) as string,
     };
   }
@@ -208,10 +206,10 @@ export class CsMapsDataMapper {
     },
   }: GetStatisticsResponse): Statistics {
     return {
-      num_released_maps: parseInt(num_released_maps as unknown as string),
-      num_in_progress_maps: parseInt(num_in_progress_maps as unknown as string),
-      num_unavailable_maps: parseInt(num_unavailable_maps as unknown as string),
-      num_tutorials: parseInt(num_tutorials as unknown as string),
+      num_released_maps,
+      num_in_progress_maps,
+      num_unavailable_maps,
+      num_tutorials,
     };
   }
 
@@ -231,9 +229,7 @@ export class CsMapsDataMapper {
       isDraft: is_draft,
       hashKey: hash_key,
       lastUpdateDate: this.toDateString(last_update_date) as string,
-      targetGameVersion: this.toGameVersion(
-        parseInt(target_game_version as unknown as string, 10)
-      ),
+      targetGameVersion: this.toGameVersion(target_game_version),
       thumbnail,
       title,
     };
