@@ -25,7 +25,7 @@ export default function Template({
         {showBreadcrumb && <Breadcrumb path={path} />}
         <Container className={styles["template-content"]}>{children}</Container>
         <div className={styles["template-footer"]}>
-          Created by Alex Leung &copy; 2023
+          Created by Alex Leung &copy; 2026
         </div>
       </div>
     </Container>

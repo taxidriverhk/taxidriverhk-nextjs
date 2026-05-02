@@ -1,15 +1,54 @@
 .header-brand {
   padding-left: 0.75rem;
   text-wrap: wrap;
+  font-weight: 700;
+  color: #fff !important;
+  font-size: 1.3rem;
+  letter-spacing: 0.3px;
 }
 
 .header-image {
   background-image: url("/header.jpg");
   background-position: center;
   background-size: cover;
-  height: 12rem;
+  height: 14rem;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  pointer-events: none;
 }
 
 .header-item-container {
   flex-wrap: wrap;
+}
+
+.header-item-container > * {
+  color: #e0e7ff !important;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.header-item-container > *:hover {
+  color: #93c5fd !important;
+}
+
+@media (max-width: 768px) {
+  .header-brand {
+    font-size: 1.1rem;
+  }
+
+  .header-image {
+    height: 10rem;
+  }
 }

@@ -1,6 +1,17 @@
 .breadcrumb-container {
-  background-color: #eeeeee;
-  border: 1px solid #555555;
-  padding: 10px;
-  padding-bottom: 0px;
+  background: linear-gradient(135deg, rgba(20, 25, 50, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  padding-bottom: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.breadcrumb-container > * {
+  color: #93c5fd;
+}
+
+.breadcrumb-container > * + *::before {
+  color: #60a5fa;
 }
