@@ -28,12 +28,12 @@ export default function Home() {
               href={href}
               key={website}
             >
-              {name}
+              <span>{name}</span>
             </ListGroup.Item>
           ))}
           {/* Footer */}
           <ListGroup.Item className={styles["section-footer"]} disabled>
-            Created by Alex Leung &copy; 2023
+            Created by Alex Leung &copy; 2026 • Personal Projects Hub
           </ListGroup.Item>
         </ListGroup>
       </div>

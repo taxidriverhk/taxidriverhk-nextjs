@@ -1,40 +1,106 @@
 .section-container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(10, 14, 39, 1) 0%, rgba(20, 25, 50, 0.8) 100%);
 }
 
 .section-group {
   width: 100%;
+  max-width: 900px;
   flex-direction: column;
   justify-content: center;
+  gap: 1rem;
 }
 
 .section-header {
   background-image: url("/header.jpg");
   background-size: cover;
-  background-position-y: 80%;
-  font-size: 1.2rem;
-  font-weight: 500;
-  height: 10rem;
+  background-position: center;
+  background-attachment: fixed;
+  font-size: 2.5rem;
+  font-weight: 700;
+  height: 14rem;
   text-align: right;
-  text-shadow: 1px 1px 1px #ffffff;
+  padding: 2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  position: relative;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.section-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  pointer-events: none;
+}
+
+.section-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
 }
 
 .section-button {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  color: darkslategray;
-  font-size: 1.2rem;
-  font-weight: 400;
-  height: 10rem;
-  justify-content: left;
-  opacity: 0.55;
-  text-shadow: 1px 1px 5px #eeeeee;
+  background-attachment: fixed;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  height: 12rem;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 2rem;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  opacity: 1;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.section-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+  pointer-events: none;
+  transition: background 0.3s ease;
 }
 
 .section-button:hover {
-  opacity: 0.8;
+  transform: translateY(-4px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.section-button:hover::before {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
 .section-button-urban-taxi {
@@ -54,5 +120,35 @@
 }
 
 .section-footer {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #94a3b8;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    padding: 1rem 0.5rem;
+    min-height: auto;
+  }
+
+  .section-header {
+    font-size: 1.8rem;
+    height: 10rem;
+    padding: 1.5rem;
+  }
+
+  .section-button {
+    font-size: 1.1rem;
+    height: 10rem;
+    padding: 1.5rem;
+  }
+
+  .section-footer {
+    font-size: 0.85rem;
+    padding: 1.5rem 0.5rem;
+  }
 }
