@@ -17,7 +17,7 @@ export default function Header({ activeWebsite }: PropType) {
     Math.floor(Math.random() * NUM_HEADER_IMAGES) + 1;
   return (
     <>
-      <Navbar bg="light" variant="light">
+      <Navbar bg="dark" variant="dark" className={styles["header-navbar"]}>
         <Navbar.Brand className={styles["header-brand"]} href="/">
           Hong Kong Taxi Driver Workshop
         </Navbar.Brand>
