@@ -1,0 +1,112 @@
+/* Animations and Transitions */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 15px 60px rgba(96, 165, 250, 0.1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+button,
+a,
+input,
+select,
+textarea {
+  transition: all 0.3s ease;
+}
+
+/* Page transitions */
+.list-group-item {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.list-group-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.list-group-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.list-group-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.list-group-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.list-group-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.list-group-item:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.list-group-item:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+.list-group-item:nth-child(8) {
+  animation-delay: 0.8s;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Accessibility - Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

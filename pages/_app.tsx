@@ -3,6 +3,8 @@ import Head from "next/head";
 import NextNProgress from "nextjs-progressbar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "shared/styles/bootstrap-overrides.css";
+import "shared/styles/animations.css";
 import "shared/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
