@@ -1,17 +1,56 @@
 .template-body {
-  background-color: #ffffff;
-  padding: 15px;
+  background: linear-gradient(135deg, rgba(20, 25, 50, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  color: #e0e7ff;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  margin: 1.5rem 0;
 }
 
 .template-footer {
-  background-color: #eeeeee;
-  font-size: 12px;
-  padding: 10px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
+  color: #94a3b8;
+  font-size: 0.9rem;
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 0.3px;
 }
 
 .template-header-image {
-  background-color: black;
+  background-color: rgba(10, 14, 39, 0.5);
   background-repeat: no-repeat;
   background-size: 100% auto;
-  min-height: 160px;
+  min-height: 180px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.template-header-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .template-body {
+    padding: 1.5rem;
+  }
+
+  .template-footer {
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+
+  .template-header-image {
+    min-height: 140px;
+  }
 }

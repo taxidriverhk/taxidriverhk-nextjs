@@ -73,7 +73,7 @@ export default function Template({
       </Navbar>
       <div className={styles["template-body"]}>{children}</div>
       <div className={styles["template-footer"]}>
-        Created by Alex Leung &copy; 2023
+        Created by Alex Leung &copy; 2026
       </div>
     </Container>
   );
