@@ -33,7 +33,7 @@ export default function Template({
           backgroundImage: `url(/hkadbus2/header-${backgroundImageNumber}.jpg)`,
         }}
       />
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="dark" variant="dark" expand="lg" className={styles["template-navbar"]}>
         <Container>
           <Navbar.Brand as={LinkComponent} href="/hkadbus2">
             {t("title")}

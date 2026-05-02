@@ -1,8 +1,14 @@
+.header-navbar {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 14, 39, 1) 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 0;
+}
+
 .header-brand {
   padding-left: 0.75rem;
   text-wrap: wrap;
   font-weight: 700;
-  color: #fff !important;
+  color: #fff;
   font-size: 1.3rem;
   letter-spacing: 0.3px;
 }

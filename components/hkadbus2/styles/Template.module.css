@@ -1,3 +1,8 @@
+.template-navbar {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 14, 39, 1) 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .template-body {
   background: linear-gradient(135deg, rgba(20, 25, 50, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
   color: #e0e7ff;
@@ -5,7 +10,11 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-  margin: 1.5rem 0;
+  margin: 1.5rem auto;
+  max-width: 900px;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .template-footer {
@@ -17,6 +26,9 @@
   text-align: center;
   font-weight: 400;
   letter-spacing: 0.3px;
+  margin: 0 auto;
+  max-width: 900px;
+  width: 100%;
 }
 
 .template-header-image {
@@ -43,6 +55,7 @@
 @media (max-width: 768px) {
   .template-body {
     padding: 1.5rem;
+    margin: 1rem auto;
   }
 
   .template-footer {
