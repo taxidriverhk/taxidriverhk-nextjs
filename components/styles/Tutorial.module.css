@@ -4,8 +4,8 @@
     135deg,
     rgba(20, 25, 50, 0.9) 0%,
     rgba(15, 23, 42, 0.95) 100%
-  ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #e0e7ff;
 }
 
@@ -34,9 +34,9 @@
 }
 
 .heading-hierarchy-header button {
-  background-color: transparent !important;
-  color: #e0e7ff !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: transparent;
+  color: #e0e7ff;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .heading-hierarchy-body {

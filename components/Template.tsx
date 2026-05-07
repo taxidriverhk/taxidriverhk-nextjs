@@ -19,7 +19,7 @@ export default function Template({
   showBreadcrumb = true,
 }: PropType) {
   return (
-    <Container>
+    <Container className="dark-theme">
       <div className={styles["template-container"]}>
         <Header activeWebsite={activeWebsite} />
         {showBreadcrumb && <Breadcrumb path={path} />}

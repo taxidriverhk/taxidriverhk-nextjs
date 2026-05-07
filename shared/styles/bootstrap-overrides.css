@@ -1,31 +1,33 @@
 /* Bootstrap Component Overrides - Dark Theme */
 
-/* ListGroup */
-.list-group {
-  border: none;
-  background: transparent;
-}
+.dark-theme {
+  /* ListGroup */
+  .list-group {
+    border: none;
+    background: transparent;
+  }
 
-.list-group-item {
-  border: none;
-  background-color: transparent;
-  color: #e0e7ff;
-  padding: 0;
-  margin-bottom: 0;
-}
+  .list-group-item {
+    border: none;
+    background-color: transparent;
+    color: #e0e7ff;
+    padding: 0;
+    margin-bottom: 0;
+  }
 
-.list-group-item:disabled {
-  background-color: transparent;
-  color: #e0e7ff;
-  cursor: default;
-}
+  .list-group-item:disabled {
+    background-color: transparent;
+    color: #e0e7ff;
+    cursor: default;
+  }
 
-/* Container */
-.container,
-.container-fluid {
-  max-width: 100%;
-  padding-left: 0;
-  padding-right: 0;
+  /* Container */
+  .container,
+  .container-fluid {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 /* Scrollbar styling */

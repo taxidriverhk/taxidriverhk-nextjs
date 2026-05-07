@@ -3,7 +3,7 @@
     135deg,
     rgba(15, 23, 42, 0.95) 0%,
     rgba(10, 14, 39, 1) 100%
-  ) !important;
+  );
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.75rem 0;
 }
@@ -47,14 +47,14 @@
 }
 
 .header-item-container > * {
-  color: #e0e7ff !important;
+  color: #e0e7ff;
   font-weight: 500;
   margin-left: 0.5rem;
   transition: all 0.3s ease;
 }
 
 .header-item-container > *:hover {
-  color: #93c5fd !important;
+  color: #93c5fd;
 }
 
 @media (max-width: 768px) {
