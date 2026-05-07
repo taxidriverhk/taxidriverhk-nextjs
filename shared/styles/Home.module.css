@@ -40,7 +40,7 @@
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-  color: #fff !important;
+  color: #fff;
   letter-spacing: 0.5px;
 }
 
@@ -142,7 +142,7 @@
     135deg,
     rgba(15, 23, 42, 0.8) 0%,
     rgba(10, 14, 39, 0.9) 100%
-  ) !important;
+  );
   color: #94a3b8;
   font-size: 0.9rem;
   padding: 1.5rem;
