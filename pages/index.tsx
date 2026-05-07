@@ -23,7 +23,7 @@ export default function Home() {
               as={Link}
               className={classNames(
                 styles["section-button"],
-                styles[buttonClassName]
+                styles[buttonClassName],
               )}
               href={href}
               key={website}
@@ -33,7 +33,7 @@ export default function Home() {
           ))}
           {/* Footer */}
           <ListGroup.Item className={styles["section-footer"]} disabled>
-            Created by Alex Leung &copy; 2026 • Personal Projects Hub
+            Created by Alex Leung &copy; 2026
           </ListGroup.Item>
         </ListGroup>
       </div>

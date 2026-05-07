@@ -1,10 +1,18 @@
 .template-navbar {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 14, 39, 1) 100%) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(10, 14, 39, 1) 100%
+  ) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .template-body {
-  background: linear-gradient(135deg, rgba(20, 25, 50, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(20, 25, 50, 0.9) 0%,
+    rgba(15, 23, 42, 0.95) 100%
+  );
   color: #e0e7ff;
   padding: 2rem;
   border-radius: 12px;
@@ -18,12 +26,16 @@
 }
 
 .template-footer {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(10, 14, 39, 0.9) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.8) 0%,
+    rgba(10, 14, 39, 0.9) 100%
+  );
   color: #94a3b8;
   font-size: 0.9rem;
   padding: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: center;
+  text-align: left;
   font-weight: 400;
   letter-spacing: 0.3px;
   margin: 0 auto;
@@ -42,13 +54,17 @@
 }
 
 .template-header-image::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
   pointer-events: none;
 }
 

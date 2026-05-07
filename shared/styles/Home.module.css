@@ -4,7 +4,11 @@
   padding: 2rem 1rem;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(10, 14, 39, 1) 0%, rgba(20, 25, 50, 0.8) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(10, 14, 39, 1) 0%,
+    rgba(20, 25, 50, 0.8) 100%
+  );
 }
 
 .section-group {
@@ -33,19 +37,25 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   position: relative;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #fff;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  color: #fff !important;
   letter-spacing: 0.5px;
 }
 
 .section-header::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
   pointer-events: none;
 }
 
@@ -82,13 +92,17 @@
 }
 
 .section-button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
   pointer-events: none;
   transition: background 0.3s ease;
 }
@@ -100,7 +114,11 @@
 }
 
 .section-button:hover::before {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
 }
 
 .section-button-urban-taxi {
@@ -120,13 +138,21 @@
 }
 
 .section-footer {
-  font-size: 0.95rem;
-  text-align: center;
-  padding: 2rem 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.8) 0%,
+    rgba(10, 14, 39, 0.9) 100%
+  ) !important;
   color: #94a3b8;
+  font-size: 0.9rem;
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
   font-weight: 400;
   letter-spacing: 0.3px;
-  margin-top: 1rem;
+  margin: 0 auto;
+  max-width: 900px;
+  width: 100%;
 }
 
 @media (max-width: 768px) {

@@ -18,12 +18,56 @@
   justify-content: flex-start;
   margin-block-end: 0px;
   flex-wrap: wrap;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.section-block:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.section-block-container:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
 .section-container {
   margin-bottom: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(20, 25, 50, 0.9) 0%,
+    rgba(15, 23, 42, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #e0e7ff;
+}
+
+.section-container :where(.card-header, .card-body, .list-group-item) {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e0e7ff;
 }
 
 .section-text {
   margin-left: 1rem;
+}
+
+.statistics-container {
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.statistics-item {
+  padding: 0.25rem;
+}
+
+.statistics-item:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.statistics-item:last-child {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
