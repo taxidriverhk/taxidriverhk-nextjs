@@ -23,7 +23,8 @@
 }
 
 @keyframes glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   }
   50% {
@@ -88,7 +89,8 @@ textarea {
 
 /* Loading animation */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {

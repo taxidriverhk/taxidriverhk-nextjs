@@ -32,6 +32,7 @@ export default function MapItem({ basePath, map }: PropType) {
   const statusText = showStatus ? releaseStatusDisplayText[status] : null;
   return (
     <ListGroup.Item
+      className={styles["section-block-container"]}
       action={!isUnavailable}
       href={isUnavailable ? "" : `${basePath}/maps/${name}`}
     >

@@ -9,12 +9,15 @@ type PropType = {
 
 export default function TutorialHeadingHierarchy({ hierarchy }: PropType) {
   return (
-    <Accordion defaultActiveKey="0" className={styles["heading-hierarchy"]}>
-      <Accordion.Item eventKey="0">
+    <Accordion
+      defaultActiveKey="0"
+      className={styles["heading-hierarchy-container"]}
+    >
+      <Accordion.Item eventKey="0" className={styles["heading-hierarchy"]}>
         <Accordion.Header className={styles["heading-hierarchy-header"]}>
           Contents
         </Accordion.Header>
-        <Accordion.Body>
+        <Accordion.Body className={styles["heading-hierarchy-body"]}>
           <HierarchyItems hierarchyNodes={hierarchy.children} />
         </Accordion.Body>
       </Accordion.Item>

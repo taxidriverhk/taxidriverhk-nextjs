@@ -1,22 +1,64 @@
 .section-container {
   margin-bottom: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(20, 25, 50, 0.9) 0%,
+    rgba(15, 23, 42, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #e0e7ff;
 }
 
-.heading-hierarchy {
+.section-container :where(.card-header, .card-body, .list-group-item) {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e0e7ff;
+}
+
+.heading-hierarchy-container {
   max-width: 60%;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
+.heading-hierarchy {
+  border-color: rgba(20, 25, 50, 0.7);
+}
+
+.heading-hierarchy-header {
+  background: linear-gradient(
+    135deg,
+    rgba(20, 25, 50, 0.9) 0%,
+    rgba(15, 23, 42, 0.95) 100%
+  );
+}
+
 .heading-hierarchy-header button {
-  background-color: lightgray !important;
-  color: black !important;
+  background-color: transparent !important;
+  color: #e0e7ff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.heading-hierarchy-body {
+  background: linear-gradient(
+    135deg,
+    rgba(20, 25, 50, 0.9) 0%,
+    rgba(15, 23, 42, 0.95) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e0e7ff;
 }
 
 .item-container {
   display: flex;
   flex-direction: row;
   font-size: 0.875rem;
+  padding: 1rem;
+}
+
+.item-container:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
 .item-body {
@@ -24,6 +66,7 @@
   flex-direction: column;
   justify-content: center;
   padding-left: 1rem;
+  color: #e0e7ff;
 }
 
 .tutorial-content img {
@@ -31,7 +74,7 @@
 }
 
 .tutorial-metadata {
-  color: gray;
+  color: #94a3b8;
   display: flex;
   flex-direction: column;
   font-size: 0.875rem;
