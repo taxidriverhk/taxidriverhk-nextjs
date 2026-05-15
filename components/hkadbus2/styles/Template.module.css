@@ -18,11 +18,8 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-  margin: 1.5rem auto;
-  max-width: 900px;
+  margin: 1.5rem 0;
   width: 100%;
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
 .template-footer {
@@ -38,8 +35,6 @@
   text-align: left;
   font-weight: 400;
   letter-spacing: 0.3px;
-  margin: 0 auto;
-  max-width: 900px;
   width: 100%;
 }
 

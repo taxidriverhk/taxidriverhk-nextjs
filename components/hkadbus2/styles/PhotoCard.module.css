@@ -13,6 +13,7 @@
 }
 
 .photo-card-image {
-  max-height: 180px;
+  height: 180px;
   width: 100%;
+  object-fit: cover;
 }
