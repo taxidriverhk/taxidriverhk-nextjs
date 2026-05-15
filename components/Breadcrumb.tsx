@@ -27,6 +27,23 @@ const PATH_TITLES = {
       ],
     },
     {
+      prefix: "/hkadbus2",
+      title: "HKAdBus2",
+      children: [
+        { prefix: "/search", title: "Search" },
+        { prefix: "/bus-models", title: "Bus Models" },
+        { prefix: "/users", title: "Photographers" },
+        {
+          prefix: "/categories",
+          title: "Categories",
+        },
+        {
+          prefix: "/photos",
+          title: "Photos",
+        },
+      ],
+    },
+    {
       prefix: "/others",
       title: "Personal Website",
       children: [

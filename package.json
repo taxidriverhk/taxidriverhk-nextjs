@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "wrap-bootstrap": "node scripts/wrap-bootstrap.js",
+    "predev": "node scripts/wrap-bootstrap.js",
+    "prebuild": "node scripts/wrap-bootstrap.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

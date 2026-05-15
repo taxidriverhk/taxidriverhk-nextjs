@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+import Breadcrumb from "components/Breadcrumb";
 import styles from "components/hkadbus2/styles/Template.module.css";
 
 type PropType = {
@@ -24,6 +26,7 @@ export default function Template({
   const backgroundImageNumber: number =
     Math.floor(Math.random() * NUM_HEADER_IMAGES) + 1;
   const LinkComponent = linkAs || "a";
+  const { asPath } = useRouter();
 
   return (
     <Container>
@@ -76,6 +79,7 @@ export default function Template({
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Breadcrumb path={asPath} />
       <div className={styles["template-body"]}>{children}</div>
       <div className={styles["template-footer"]}>
         Created by Alex Leung &copy; 2026

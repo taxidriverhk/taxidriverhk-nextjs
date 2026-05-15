@@ -1,0 +1,2 @@
+/* Layer order: reset < bootstrap < theme — no !important needed for overrides */
+@layer reset, bootstrap, theme;

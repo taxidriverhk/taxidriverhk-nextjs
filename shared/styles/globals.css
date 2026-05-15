@@ -1,114 +1,118 @@
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+@layer reset {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+@layer theme {
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 
-body {
-  background-color: #0a0e27;
-  background-image: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.9) 0%,
-    rgba(10, 14, 39, 1) 100%
-  );
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", sans-serif;
-  color: #e0e7ff;
-}
+  body {
+    background-color: #0a0e27;
+    background-image: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.9) 0%,
+      rgba(10, 14, 39, 1) 100%
+    );
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+      "Cantarell", sans-serif;
+    color: #e0e7ff;
+  }
 
-a {
-  color: #60a5fa;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
+  a {
+    color: #60a5fa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
 
-a:hover {
-  color: #93c5fd;
-}
+  a:hover {
+    color: #93c5fd;
+  }
 
-.card {
-  background: linear-gradient(
-    135deg,
-    rgba(20, 25, 50, 0.9) 0%,
-    rgba(15, 23, 42, 0.95) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
-}
+  .card {
+    background: linear-gradient(
+      135deg,
+      rgba(20, 25, 50, 0.9) 0%,
+      rgba(15, 23, 42, 0.95) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e7ff;
+  }
 
-.card-header {
-  background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
-}
+  .card-header {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e7ff;
+  }
 
-.card-body {
-  color: #e0e7ff;
-}
+  .card-body {
+    color: #e0e7ff;
+  }
 
-.card-title {
-  color: #e0e7ff;
-}
+  .card-title {
+    color: #e0e7ff;
+  }
 
-.card-subtitle {
-  color: #94a3b8;
-}
+  .card-subtitle {
+    color: #94a3b8;
+  }
 
-.list-group-item {
-  background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
-}
+  .list-group-item {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e7ff;
+  }
 
-.list-group-item.active {
-  background-color: rgba(59, 130, 246, 0.2);
-  border-color: rgba(59, 130, 246, 0.3);
-  color: #e0e7ff;
-}
+  .list-group-item.active {
+    background-color: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: #e0e7ff;
+  }
 
-.form-label {
-  color: #e0e7ff;
-}
+  .form-label {
+    color: #e0e7ff;
+  }
 
-.form-control,
-.form-select {
-  background-color: rgba(30, 40, 70, 0.6);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
-}
+  .form-control,
+  .form-select {
+    background-color: rgba(30, 40, 70, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e7ff;
+  }
 
-.form-control:focus,
-.form-select:focus {
-  background-color: rgba(30, 40, 70, 0.8);
-  border-color: rgba(59, 130, 246, 0.5);
-  color: #e0e7ff;
-  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.15);
-}
+  .form-control:focus,
+  .form-select:focus {
+    background-color: rgba(30, 40, 70, 0.8);
+    border-color: rgba(59, 130, 246, 0.5);
+    color: #e0e7ff;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.15);
+  }
 
-.table {
-  color: #e0e7ff;
-  border-color: rgba(255, 255, 255, 0.1);
-}
+  .table {
+    color: #e0e7ff;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
 
-.table > :not(caption) > * > * {
-  background-color: transparent;
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
-}
+  .table > :not(caption) > * > * {
+    background-color: transparent;
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    color: #e0e7ff;
+  }
 
-.table-light {
-  color: #e0e7ff;
-}
+  .table-light {
+    color: #e0e7ff;
+  }
 
-.table-light > :not(caption) > * > * {
-  background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
+  .table-light > :not(caption) > * > * {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e7ff;
+  }
 }
