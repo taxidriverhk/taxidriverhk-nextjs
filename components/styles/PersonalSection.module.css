@@ -7,42 +7,38 @@
 }
 
 .section-block:hover {
-  background-color: rgba(59, 130, 246, 0.1);
-  border-color: rgba(59, 130, 246, 0.3);
+  background-color: var(--color-accent-subtle);
+  border-color: var(--color-accent-border);
 }
 
 .section-container {
   margin-bottom: 1.75rem;
-  background: linear-gradient(
-    135deg,
-    rgba(20, 25, 50, 0.9) 0%,
-    rgba(15, 23, 42, 0.95) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
+  background: var(--gradient-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .section-container :where(.card-header, .card-body, .list-group-item) {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 
 .section-description {
-  color: #94a3b8;
+  color: var(--color-text-muted);
   font-size: 12px;
   line-height: 1.5rem;
 }
 
 .section-icon {
-  color: #94a3b8;
+  color: var(--color-text-muted);
   height: 1.5rem;
   margin-right: 0.5rem;
   width: 1rem;
 }
 
 .section-time {
-  color: #94a3b8;
+  color: var(--color-text-muted);
   font-size: 12px;
   line-height: 1.5rem;
 }
@@ -51,5 +47,5 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  color: #e0e7ff;
+  color: var(--color-text);
 }

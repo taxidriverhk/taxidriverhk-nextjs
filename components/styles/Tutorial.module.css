@@ -1,18 +1,14 @@
 .section-container {
   margin-bottom: 1rem;
-  background: linear-gradient(
-    135deg,
-    rgba(20, 25, 50, 0.9) 0%,
-    rgba(15, 23, 42, 0.95) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
+  background: var(--gradient-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .section-container :where(.card-header, .card-body, .list-group-item) {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 
 .heading-hierarchy-container {
@@ -26,27 +22,19 @@
 }
 
 .heading-hierarchy-header {
-  background: linear-gradient(
-    135deg,
-    rgba(20, 25, 50, 0.9) 0%,
-    rgba(15, 23, 42, 0.95) 100%
-  );
+  background: var(--gradient-surface);
 }
 
 .heading-hierarchy-header button {
   background-color: transparent;
-  color: #e0e7ff;
-  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+  border-color: var(--color-border);
 }
 
 .heading-hierarchy-body {
-  background: linear-gradient(
-    135deg,
-    rgba(20, 25, 50, 0.9) 0%,
-    rgba(15, 23, 42, 0.95) 100%
-  );
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e0e7ff;
+  background: var(--gradient-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 
 .item-container {
@@ -57,8 +45,8 @@
 }
 
 .item-container:hover {
-  background-color: rgba(59, 130, 246, 0.1);
-  border-color: rgba(59, 130, 246, 0.3);
+  background-color: var(--color-accent-subtle);
+  border-color: var(--color-accent-border);
 }
 
 .item-body {
@@ -66,7 +54,7 @@
   flex-direction: column;
   justify-content: center;
   padding-left: 1rem;
-  color: #e0e7ff;
+  color: var(--color-text);
 }
 
 .tutorial-content img {
@@ -74,7 +62,7 @@
 }
 
 .tutorial-metadata {
-  color: #94a3b8;
+  color: var(--color-text-muted);
   display: flex;
   flex-direction: column;
   font-size: 0.875rem;

@@ -1,10 +1,6 @@
 .header-navbar {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.95) 0%,
-    rgba(10, 14, 39, 1) 100%
-  );
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--gradient-navbar);
+  border-bottom: 1px solid var(--color-border);
   padding: 0.75rem 0;
 }
 
@@ -24,7 +20,7 @@
   height: 14rem;
   position: relative;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .header-image::after {
@@ -47,14 +43,14 @@
 }
 
 .header-item-container > * {
-  color: #e0e7ff;
+  color: var(--color-text);
   font-weight: 500;
   margin-left: 0.5rem;
   transition: all 0.3s ease;
 }
 
 .header-item-container > *:hover {
-  color: #93c5fd;
+  color: var(--color-accent-hover);
 }
 
 @media (max-width: 768px) {
