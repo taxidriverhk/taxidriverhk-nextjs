@@ -19,19 +19,30 @@ export default function Omsi() {
     >
       <Alert variant="warning">
         <Alert.Heading>Notice 通知</Alert.Heading>
-        <p>
-          <strong>Updated on 2023-04-28</strong>
+        <p className="mb-1">
+          <strong>2025-06-27</strong>
         </p>
         <p>
-          Permissoins are <strong>no longer required</strong> when using both
-          the sceneray objects and splines into your own map. You are also free
-          to fork the map for your own development as long as a credit is given
-          to me as the original author.
+          Many links in the installation manual are dead. Use the{" "}
+          <Alert.Link href="https://docs.google.com/spreadsheets/d/1KLUPRLBWknGHFoHeebCyolNIxAMyWZFl6deW3x5ZawY/edit?usp=sharing">
+            Google Spreadsheet
+          </Alert.Link>{" "}
+          below for community-maintained download links instead.
+          安裝手冊內不少連結已失效，請改用下方{" "}
+          <Alert.Link href="https://docs.google.com/spreadsheets/d/1KLUPRLBWknGHFoHeebCyolNIxAMyWZFl6deW3x5ZawY/edit?usp=sharing">
+            Google 試算表
+          </Alert.Link>
+          ，內有社群整理的下載連結。
+        </p>
+        <hr />
+        <p className="mb-1">
+          <strong>2023-04-28</strong>
         </p>
         <p>
-          各位再<strong>毋須</strong>
-          得到本人同意下使用本地圖的任何物件作其他地圖開發用。
-          亦歡迎各位在註明本人為原作者下繼續開發或修改本地圖。
+          You may freely use the scenery objects and splines in your own maps,
+          or fork this map for your own development, as long as a credit is
+          given to the original author.
+          各位毋須得到本人同意即可使用本地圖物件或繼續開發，惟請註明原作者。
         </p>
       </Alert>
       <h3>About</h3>
@@ -39,38 +50,28 @@ export default function Omsi() {
         <Link href="https://store.steampowered.com/app/252530/OMSI_2_Steam_Edition/">
           OMSI
         </Link>{" "}
-        is a very popular bus driving simulator developed by MR-Software. Since
-        its initial release in 2011, it has become popular in the Hong Kong bus
-        driving simulation groups due to its extensibility and flexibility which
-        allows content creators for developing various vehicle and map add-ons.
+        is a bus driving simulator by MR-Software that has been popular in Hong
+        Kong bus enthusiast communities since its 2011 release, thanks to its
+        flexibility for creating custom vehicles and maps.
       </p>
       <p>
-        This workshop, with me as the only amateur maker, aims to create
-        real-life OMSI maps in Hong Kong where players can simulate the bus
-        driving experience.
+        This is a personal hobby workshop focused on recreating real Hong Kong
+        routes in OMSI. The only project to date is{" "}
+        <strong>Hong Kong West Kowloon</strong>, a map covering key streets such
+        as Nathan Road and Cheung Sha Wan Road. Development began in 2012 and
+        the latest expansion, covering East Tsim Sha Tsui, was released in
+        August 2018.
       </p>
       <p>
-        Hong Kong West Kowloon was so far the only planned and ongoing project.
-        This map covers the main streets in West Kowloon including Nathan Road,
-        Cheung Sha Wan Road, etc. The development started since 2012, and
-        expansions are divided into different phases. The latest expansion for
-        East Tsim Sha Tsui was completed in August 2018.
-      </p>
-      <p>
-        Further expansion has been paused since 2018, as{" "}
+        Further development has been on hold since 2018, pending whether{" "}
         <Link href="https://www.lotus-simulator.de/index.php?landingpage-en/">
           LOTUS
         </Link>{" "}
-        could become the next generation of bus driving simulation within the
-        next few years (just like what happend when OMSI was out back in 2011
-        that almost dominated MM2). In which case, this map could be migrated to
-        LOTUS and continue its expansion, or a different map might be created.
-      </p>
-      <p>
-        If you are still interested in seeing the original roadmap of Hong Kong
-        West Kowloon, please visit this{" "}
+        establishes itself as the next-generation simulator. The map may be
+        migrated to LOTUS or a new map started if that happens. The original
+        planned roadmap is available on{" "}
         <Link href="https://www.google.com/maps/d/u/0/edit?mid=1x5E60mp7bYjpAcWFcfsbIpHLdII&ll=22.31762025302199%2C114.1652401&z=14">
-          Google My Maps page
+          Google My Maps
         </Link>
         .
       </p>
@@ -159,23 +160,6 @@ export default function Omsi() {
               <tr>
                 <td>Download Links and Installation Instructions</td>
                 <td>
-                  <Alert variant="primary">
-                    <p>
-                      <strong>Updated on 2025-06-27</strong>
-                    </p>
-                    <p>
-                      Since many links referenced by the installation manual
-                      linked below are already dead, I have created a
-                      spreadsheet to collect all the download links to the
-                      packages maintained by the community.
-                    </p>
-                    <p>
-                      Feel free to pick one of the links from the spreadsheet as
-                      you find fit. Each package may contain its own variations
-                      of the map (e.g. Kowloon City Ferry Pier B/T was updated
-                      to match its latest layout).
-                    </p>
-                  </Alert>
                   <Link href="https://docs.google.com/spreadsheets/d/1KLUPRLBWknGHFoHeebCyolNIxAMyWZFl6deW3x5ZawY/edit?usp=sharing">
                     Enter (.xlsx) - Google Drive
                   </Link>

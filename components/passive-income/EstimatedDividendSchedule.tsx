@@ -52,21 +52,25 @@ export default function EstimatedDividendSchedule({
   now.setDate(1); // Set to first day of the current month to allow projection of the first month in full
   const next12Months = Array.from({ length: 12 }).map((_, idx) => {
     const future = addMonthsToDate(now, idx);
+    const keyFuture = formatKey(future);
     const keyLastYear = formatKey(addMonthsToDate(future, -12));
-    const entries = (monthlyData[keyLastYear] || []).map((e) => {
-      const exDividendDatePlusOneYear = formatDate(
-        addMonthsToDate(new Date(e.exDividendDate), 12)
-      );
-      return {
-        ...e,
-        exDividendDate: exDividendDatePlusOneYear,
-      };
-    });
+
+    // Use actual future payments if already available in history; otherwise project from last year
+    const entries =
+      monthlyData[keyFuture]?.length > 0
+        ? monthlyData[keyFuture]
+        : (monthlyData[keyLastYear] || []).map((e) => ({
+            ...e,
+            exDividendDate: formatDate(
+              addMonthsToDate(new Date(e.exDividendDate), 12)
+            ),
+          }));
+
     const total = entries.reduce((sum, e) => sum + e.amount, 0);
 
     return {
       label: formatMonthYear(future), // e.g. September 2026
-      key: formatKey(future),
+      key: keyFuture,
       entries,
       total,
     };
