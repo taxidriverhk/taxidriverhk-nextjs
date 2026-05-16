@@ -31,9 +31,8 @@ export default function BatchAddHoldingsModal({
               <th>Category</th>
               <th>Shares</th>
               <th>Cost Basis</th>
-              {holdings.find((h) => !h.isDataFetchingNeeded) != null && (
+              {holdings.some((h) => !h.isDataFetchingNeeded) && (
                 <>
-                  <th>Is Data Fetching Needed</th>
                   <th>Dividend Yield</th>
                   <th>Dividend Frequency</th>
                   <th>Next Coupon Date</th>
@@ -58,9 +57,8 @@ export default function BatchAddHoldingsModal({
                   <td>{category}</td>
                   <td>{shares}</td>
                   <td>{formatDollarAmount(costBasis)}</td>
-                  {holdings.find((h) => !h.isDataFetchingNeeded) != null && (
+                  {holdings.some((h) => !h.isDataFetchingNeeded) && (
                     <>
-                      <td>{isDataFetchingNeeded ? "Yes" : "No"}</td>
                       <td>
                         {!isDataFetchingNeeded
                           ? formatPercentage(dividendYield * 100)
@@ -68,15 +66,10 @@ export default function BatchAddHoldingsModal({
                       </td>
                       <td>{!isDataFetchingNeeded ? dividendFrequency : ""}</td>
                       <td>
-                        {(() => {
-                          if (!isDataFetchingNeeded) {
-                            return (
-                              nextCouponDate ??
-                              new Date().toISOString().split("T")[0]
-                            );
-                          }
-                          return "";
-                        })()}
+                        {!isDataFetchingNeeded
+                          ? (nextCouponDate ??
+                            new Date().toISOString().split("T")[0])
+                          : ""}
                       </td>
                     </>
                   )}

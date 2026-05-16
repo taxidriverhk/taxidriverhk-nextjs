@@ -55,16 +55,25 @@ export default function EstimatedDividendSchedule({
     const keyFuture = formatKey(future);
     const keyLastYear = formatKey(addMonthsToDate(future, -12));
 
-    // Use actual future payments if already available in history; otherwise project from last year
+    // Use actual future payments if available; for entries with zero/undefined amount, fall back to last year
+    const futureEntries = monthlyData[keyFuture] || [];
+    const lastYearEntries = monthlyData[keyLastYear] || [];
+    const lastYearBySymbol = new Map(lastYearEntries.map((e) => [e.symbol, e]));
+    const projectFromLastYear = (e: (typeof lastYearEntries)[number]) => ({
+      ...e,
+      exDividendDate: formatDate(addMonthsToDate(new Date(e.exDividendDate), 12)),
+    });
+
     const entries =
-      monthlyData[keyFuture]?.length > 0
-        ? monthlyData[keyFuture]
-        : (monthlyData[keyLastYear] || []).map((e) => ({
-            ...e,
-            exDividendDate: formatDate(
-              addMonthsToDate(new Date(e.exDividendDate), 12)
-            ),
-          }));
+      futureEntries.length > 0
+        ? futureEntries.map((e) => {
+            if (!e.amount) {
+              const lastYear = lastYearBySymbol.get(e.symbol);
+              if (lastYear) return projectFromLastYear(lastYear);
+            }
+            return e;
+          })
+        : lastYearEntries.map(projectFromLastYear);
 
     const total = entries.reduce((sum, e) => sum + e.amount, 0);
 
@@ -148,7 +157,6 @@ function EstimatedDividendAccordion({
       </ListGroup.Item>
       <ListGroup.Item>
         <Card
-          bg="light"
           style={{
             padding: "8px",
           }}
