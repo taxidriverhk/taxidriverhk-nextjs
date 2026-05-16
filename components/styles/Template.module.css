@@ -9,15 +9,11 @@
 }
 
 .template-content {
-  background: linear-gradient(
-    135deg,
-    rgba(20, 25, 50, 0.9) 0%,
-    rgba(15, 23, 42, 0.95) 100%
-  );
-  color: #e0e7ff;
+  background: var(--gradient-surface);
+  color: var(--color-text);
   padding: 2rem;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   min-height: 400px;
   transition: all 0.3s ease;
@@ -34,17 +30,13 @@
 }
 
 .template-footer {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.8) 0%,
-    rgba(10, 14, 39, 0.9) 100%
-  );
-  color: #94a3b8;
+  background: var(--gradient-footer);
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   margin-top: 2rem;
   padding: 1.5rem;
   border-radius: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border);
   text-align: left;
   font-weight: 400;
   letter-spacing: 0.3px;

@@ -1,37 +1,25 @@
 .template-navbar {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.95) 0%,
-    rgba(10, 14, 39, 1) 100%
-  );
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--gradient-navbar);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .template-body {
-  background: linear-gradient(
-    135deg,
-    rgba(20, 25, 50, 0.9) 0%,
-    rgba(15, 23, 42, 0.95) 100%
-  );
-  color: #e0e7ff;
+  background: var(--gradient-surface);
+  color: var(--color-text);
   padding: 2rem;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   margin: 1.5rem 0;
   width: 100%;
 }
 
 .template-footer {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.8) 0%,
-    rgba(10, 14, 39, 0.9) 100%
-  );
-  color: #94a3b8;
+  background: var(--gradient-footer);
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   padding: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border);
   text-align: left;
   font-weight: 400;
   letter-spacing: 0.3px;
@@ -44,7 +32,7 @@
   background-size: 100% auto;
   min-height: 180px;
   position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--color-border);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
