@@ -66,13 +66,19 @@ export default function EstimatedDividendSchedule({
 
     const entries =
       futureEntries.length > 0
-        ? futureEntries.map((e) => {
-            if (!e.amount) {
-              const lastYear = lastYearBySymbol.get(e.symbol);
-              if (lastYear) return projectFromLastYear(lastYear);
-            }
-            return e;
-          })
+        ? [
+            ...futureEntries.map((e) => {
+              if (!e.amount) {
+                const lastYear = lastYearBySymbol.get(e.symbol);
+                if (lastYear) return projectFromLastYear(lastYear);
+              }
+              return e;
+            }),
+            // Include last-year entries for symbols not yet recorded in the future month
+            ...lastYearEntries
+              .filter((e) => !futureEntries.some((f) => f.symbol === e.symbol))
+              .map(projectFromLastYear),
+          ]
         : lastYearEntries.map(projectFromLastYear);
 
     const total = entries.reduce((sum, e) => sum + e.amount, 0);
