@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# taxidriverhk-nextjs
 
-## Getting Started
+Personal hobby project portal built with Next.js, hosting several mini-projects:
 
-First, run the development server:
+- **Counter Strike Maps** — map database and browser
+- **OMSI / Bus Simulator** — simulation game content
+- **HKAdBus2** — Hong Kong advertised bus photo database
+- **Personal** — books, passive income info, vehicle inventory lookup
+
+Supports English and Traditional Chinese (via `next-intl`).
+
+## Tech stack
+
+Next.js 13 · React 18 · TypeScript · Bootstrap 5 · React Bootstrap
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install
+npm run dev        # starts dev server at http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`predev` automatically runs `scripts/wrap-bootstrap.js` before the dev server starts. The same script runs before `npm run build`.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Other scripts:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npm run build      # production build
+npm run start      # start production server
+npm run lint       # run ESLint
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Pushes to `master` trigger the GitHub Actions workflow (`.github/workflows/deploy.yml`), which:
 
-## Learn More
+1. Adds the runner's IP to the AWS EC2 security group to allow SSH access.
+2. SSHes into the production server and pulls the latest code.
+3. Rebuilds and restarts the app via `docker compose build && docker compose up -d`.
+4. Revokes the runner's IP from the security group.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Required GitHub secrets: `SSH_PRIVATE_KEY`, `USER`, `REMOTE_IP`, `REPO_DIR`, `DOCKER_DIR`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`.
