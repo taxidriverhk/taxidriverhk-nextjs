@@ -11,6 +11,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-brands-svg-icons": "^6.2.1",

@@ -1,4 +1,4 @@
-FROM node:16 AS base
+FROM node:20 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -14,11 +14,13 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+RUN npx playwright install --with-deps chromium
+
 # If using npm comment out above and use below instead
 RUN npm run build
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT=3000
 
 CMD ["npm", "start"]
