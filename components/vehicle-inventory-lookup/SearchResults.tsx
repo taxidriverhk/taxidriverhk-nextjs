@@ -59,10 +59,12 @@ export default function SearchResults({ vehicles }: PropType) {
           }}
         >
           <Filter placeholder="Filter by" />
-          <Table>
-            <TableHeader />
-            <TableBody />
-          </Table>
+          <div style={{ overflowX: "auto" }}>
+            <Table>
+              <TableHeader />
+              <TableBody />
+            </Table>
+          </div>
           <div className="d-flex justify-content-end">
             <Pagination />
           </div>

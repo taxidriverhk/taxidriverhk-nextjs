@@ -9,6 +9,72 @@ import type {
 } from "shared/types/vehicle-inventory-lookup-types";
 import { VehicleInventoryService } from "shared/types/vehicle-inventory-lookup-types";
 
+const TOYOTA_WAF_TOKEN_TTL_MS = 90 * 60 * 1000;
+let cachedToyotaWafToken: string | null = null;
+let toyotaWafTokenExpiresAt = 0;
+
+async function getToyotaWafToken(): Promise<string | null> {
+  if (cachedToyotaWafToken && Date.now() < toyotaWafTokenExpiresAt) {
+    return cachedToyotaWafToken;
+  }
+  try {
+    logger.info("Refreshing Toyota WAF token via headless browser");
+    cachedToyotaWafToken = await fetchToyotaWafTokenViaPlaywright();
+    toyotaWafTokenExpiresAt = Date.now() + TOYOTA_WAF_TOKEN_TTL_MS;
+    logger.info("Toyota WAF token refreshed successfully");
+    return cachedToyotaWafToken;
+  } catch (error) {
+    logger.error(`Failed to obtain Toyota WAF token: ${(error as Error).message}`);
+    return null;
+  }
+}
+
+async function fetchToyotaWafTokenViaPlaywright(): Promise<string> {
+  const { chromium } = await import("playwright");
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const context = await browser.newContext({
+      userAgent:
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0",
+    });
+    const page = await context.newPage();
+
+    // toyota.com/search-inventory auto-fires a GraphQL query on load.
+    // Intercept it to read the x-aws-waf-token header the page JS injects,
+    // then abort — we only need the token, not the response.
+    let capturedToken: string | null = null;
+    await page.route("**/api.search-inventory.toyota.com/graphql**", async (route) => {
+      if (!capturedToken) {
+        capturedToken = route.request().headers()["x-aws-waf-token"] ?? null;
+      }
+      await route.abort();
+    });
+
+    await page.goto("https://www.toyota.com/search-inventory", {
+      waitUntil: "networkidle",
+      timeout: 30_000,
+    });
+
+    if (capturedToken) {
+      return capturedToken;
+    }
+
+    // Fallback: the WAF JS challenge stores its proof in an aws-waf-token cookie on
+    // api.search-inventory.toyota.com; the page JS copies it into the request header.
+    const cookies = await context.cookies("https://api.search-inventory.toyota.com");
+    const wafCookie = cookies.find((c) => c.name === "aws-waf-token");
+    if (wafCookie?.value) {
+      return wafCookie.value;
+    }
+
+    throw new Error(
+      "WAF token not found in intercepted requests or cookies — toyota.com may have changed its load behaviour"
+    );
+  } finally {
+    await browser.close();
+  }
+}
+
 type HondaVehicleDealer = {
   DealerNumber: string;
   Name: string;
@@ -129,6 +195,8 @@ export class ToyotaVehicleInventoryService extends VehicleInventoryService {
     model,
     zipCode,
   }: VehicleInventorySearchQuery): Promise<VehicleInventorySearchResponse> {
+    const wafToken = await getToyotaWafToken();
+
     const { data } = await axios.post<{
       data: {
         locateVehiclesByZip: {
@@ -175,12 +243,30 @@ export class ToyotaVehicleInventoryService extends VehicleInventoryService {
         },
       },
       {
-        // This has to be added to avoid the 403 error due to the call being made on the server side
         headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+          accept: "*/*",
+          "content-type": "application/json",
+          origin: "https://www.toyota.com",
+          referer: "https://www.toyota.com/",
+          "sec-fetch-dest": "empty",
+          "sec-fetch-mode": "cors",
+          "sec-fetch-site": "same-site",
+          "sec-ch-ua": '"Chromium";v="148", "Microsoft Edge";v="148", "Not/A)Brand";v="99"',
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": '"Windows"',
+          "user-agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0",
+          "x-api-key": "undefined",
+          ...(wafToken ? { "x-aws-waf-token": wafToken } : {}),
         },
       }
     );
+
+    if (!data?.data?.locateVehiclesByZip) {
+      throw new Error(
+        "Toyota inventory API blocked by WAF — refresh TOYOTA_WAF_TOKEN env variable from browser DevTools on toyota.com"
+      );
+    }
 
     logger.info(
       `${

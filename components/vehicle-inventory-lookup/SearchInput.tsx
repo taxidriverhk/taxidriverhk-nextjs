@@ -12,7 +12,7 @@ import { VehicleBrand } from "shared/types/vehicle-inventory-lookup-types";
 const CURRENT_YEAR = new Date().getFullYear();
 const YEAR_OPTONS = [CURRENT_YEAR + 1, CURRENT_YEAR, CURRENT_YEAR - 1];
 const DEFAULT_BRAND = VehicleBrand.HONDA;
-const DISABLED_BRANDS = new Set<VehicleBrand>([VehicleBrand.TOYOTA]);
+const DISABLED_BRANDS = new Set<VehicleBrand>([]);
 
 type PropType = {
   hasValidationError: boolean;
@@ -37,7 +37,7 @@ export default function SearchInput({
         [field]: e.currentTarget.value,
       });
     },
-    [query, setQuery]
+    [query, setQuery],
   );
   const handleSelectionChange = useCallback(
     (field: string) => (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -46,14 +46,14 @@ export default function SearchInput({
         [field]: e.currentTarget.value,
       });
     },
-    [query, setQuery]
+    [query, setQuery],
   );
   const handleOnSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       onSubmit(query);
     },
-    [onSubmit, query]
+    [onSubmit, query],
   );
 
   const brandOptions = useMemo(() => Array.from(brands.entries()), []);
@@ -61,9 +61,9 @@ export default function SearchInput({
     () =>
       Array.from(
         models.get((query.brand as VehicleBrand) || DEFAULT_BRAND)?.values() ||
-          []
+          [],
       ),
-    [query.brand]
+    [query.brand],
   );
 
   useEffect(() => {
