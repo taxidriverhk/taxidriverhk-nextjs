@@ -1,4 +1,4 @@
-import { Button, Form, InputGroup, Table } from "react-bootstrap";
+import { Button, Dropdown, Form, InputGroup, Table } from "react-bootstrap";
 import { DatatableWrapper, TableBody, TableHeader } from "react-bs-datatable";
 
 import { useState } from "react";
@@ -95,6 +95,18 @@ export default function PortfolioTable({
   const [editingSymbol, setEditingSymbol] = useState<string | null>(null);
   const [editingShares, setEditingShares] = useState<number>(0);
   const [editingCostBasis, setEditingCostBasis] = useState<number>(0);
+  const [hiddenColumns, setHiddenColumns] = useState<Set<keyof HoldingRow>>(new Set());
+
+  const toggleColumn = (prop: keyof HoldingRow) => {
+    setHiddenColumns((prev) => {
+      const next = new Set(prev);
+      if (next.has(prop)) next.delete(prop);
+      else next.add(prop);
+      return next;
+    });
+  };
+
+  const visibleHeaders = HEADERS.filter((h) => !hiddenColumns.has(h.prop));
 
   const { totalCostBasis, totalDividendIncome } =
     calculatePortfolioMetrics(holdings);
@@ -204,12 +216,29 @@ export default function PortfolioTable({
   return (
     <>
       <h4>Portfolio</h4>
+      <Dropdown autoClose="outside" className="mb-2 d-flex justify-content-end">
+        <Dropdown.Toggle variant="outline-secondary" size="sm">
+          Columns
+        </Dropdown.Toggle>
+        <Dropdown.Menu align="end">
+          {HEADERS.filter((h) => h.prop !== "actions").map((h) => (
+            <Dropdown.Item key={h.prop} as="div">
+              <Form.Check
+                type="checkbox"
+                label={h.title}
+                checked={!hiddenColumns.has(h.prop)}
+                onChange={() => toggleColumn(h.prop)}
+              />
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
       {loading ? (
         <PortfolioSpinner />
       ) : (
         <DatatableWrapper
           body={rows}
-          headers={HEADERS}
+          headers={visibleHeaders}
           sortProps={{
             sortValueObj: {
               //@ts-ignore the param is already destructured from the row object
