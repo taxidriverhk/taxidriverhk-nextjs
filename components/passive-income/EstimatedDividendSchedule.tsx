@@ -19,16 +19,20 @@ type PropType = {
   loading: boolean;
 };
 
+type DividendPayment = {
+  symbol: string;
+  amount: number;
+  exDividendDate: string;
+  isActualDate?: boolean;
+};
+
 export default function EstimatedDividendSchedule({
   holdings,
   loading,
 }: PropType) {
   // Group dividends by last year's month (YYYY-MM)
   const monthlyData = useMemo(() => {
-    const grouped: Record<
-      string,
-      { symbol: string; amount: number; exDividendDate: string }[]
-    > = {};
+    const grouped: Record<string, Array<DividendPayment>> = {};
 
     holdings.forEach((stock) => {
       stock.dividendHistory.forEach((div) => {
@@ -61,7 +65,9 @@ export default function EstimatedDividendSchedule({
     const lastYearBySymbol = new Map(lastYearEntries.map((e) => [e.symbol, e]));
     const projectFromLastYear = (e: (typeof lastYearEntries)[number]) => ({
       ...e,
-      exDividendDate: formatDate(addMonthsToDate(new Date(e.exDividendDate), 12)),
+      exDividendDate: formatDate(
+        addMonthsToDate(new Date(e.exDividendDate), 12),
+      ),
     });
 
     const entries =
@@ -72,7 +78,10 @@ export default function EstimatedDividendSchedule({
                 const lastYear = lastYearBySymbol.get(e.symbol);
                 if (lastYear) return projectFromLastYear(lastYear);
               }
-              return e;
+              return {
+                ...e,
+                isActualDate: true, // Mark as actual date to distinguish from projected dates
+              };
             }),
             // Include last-year entries for symbols not yet recorded in the future month
             ...lastYearEntries
@@ -133,11 +142,7 @@ function EstimatedDividendAccordion({
   next12Months: {
     label: string;
     key: string;
-    entries: {
-      symbol: string;
-      amount: number;
-      exDividendDate: string;
-    }[];
+    entries: Array<DividendPayment>;
     total: number;
   }[];
 }) {
@@ -197,12 +202,19 @@ function EstimatedDividendAccordion({
                         <tbody>
                           {month.entries
                             .sort((e1, e2) =>
-                              e1.exDividendDate.localeCompare(e2.exDividendDate)
+                              e1.exDividendDate.localeCompare(
+                                e2.exDividendDate,
+                              ),
                             )
                             .map((e, i) => (
                               <tr key={i}>
                                 <td>
-                                  {formatDate(parseDate(e.exDividendDate))}
+                                  {formatDate(parseDate(e.exDividendDate))}{" "}
+                                  {e.isActualDate && (
+                                    <span className="text-success">
+                                      (actual)
+                                    </span>
+                                  )}
                                 </td>
                                 <td>{e.symbol}</td>
                                 <td>{formatDollarAmount(e.amount)}</td>
@@ -295,6 +307,6 @@ function EstimatedDividendStatistics({
 function formatKey(date: Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
     2,
-    "0"
+    "0",
   )}`;
 }
